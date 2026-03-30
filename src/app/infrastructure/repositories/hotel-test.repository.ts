@@ -7,7 +7,7 @@ import { HotelRepository } from '../../domain/interfaces/hotel.repository';
 export class HotelTestRepository implements HotelRepository {
   getHotel(): Observable<Hotel> {
     const hotel: Hotel = {
-      nombre: 'Marea Azullll',
+      nombre: 'Marea Azul',
       direccion: 'En algún lugar de CR',
       telefono: '(12) 345 67890',
       codigoPostal: '12345',
