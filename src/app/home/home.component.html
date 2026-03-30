@@ -1,0 +1,417 @@
+<header class="header-section">
+
+  <div class="menu-item">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="logo">
+            <a routerLink="/">
+              <img src="/assets/img/logo.png" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="nav-menu">
+                <nav class="mainmenu">
+                    <ul>
+                        <li><a [routerLink]="[]" fragment="home">Home</a></li>
+                        <li><a [routerLink]="[]" fragment="aboutUs">Sobre Nosotros</a></li>
+                        <li><a [routerLink]="[]" fragment="services">Facilidades</a></li>
+                        <li><a [routerLink]="[]" fragment="prices">Tarifas</a></li>
+                        <li><a [routerLink]="[]" fragment="location">Cómo Llegar</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-right">
+                    <a href="#" class="bk-btn">Reservar</a>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Floating Container -->
+<div class="promo-container">
+
+  <!-- Publicidad -->
+  <div class="promo-card">
+    <button class="promo-close">×</button>
+    <span class="promo-tag">Publicidad</span>
+    <h4>Descubre nuestras instalaciones</h4>
+    <p>Vive una experiencia única frente al mar.</p>
+    <a href="#" class="promo-btn">Ver más</a>
+  </div>
+
+  <!-- Oferta -->
+  <div class="promo-card">
+    <button class="promo-close">×</button>
+    <span class="promo-tag">Oferta</span>
+    <h4>Escapada de Fin de Semana</h4>
+    <p>Obtén un 20% de descuento en tu reserva.</p>
+    <a href="#" class="promo-btn">Reservar ahora</a>
+  </div>
+
+</div>
+
+<section
+  id="home"
+  class="hero-section"
+  [style.background-image]="'url(' + hotel?.hotelImgUrl + ')'"
+  style="background-size: cover; background-position: center;"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="hero-text" *ngIf="hotel; else loading">
+          <h1>
+            Hotel <br>
+            {{ hotel.nombre }}
+          </h1>
+          <p>
+            {{ hotel.homeDescription }}
+          </p>
+        </div>
+
+        <ng-template #loading>
+          <div class="hero-text">
+            <h1>Cargando...</h1>
+            <p>Cargando información del hotel...</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+        <div class="booking-form">
+          <h3>Booking Your Hotel</h3>
+          <form action="#">
+            <div class="check-date">
+              <label for="date-in">Check In:</label>
+              <input type="text" class="date-input" id="date-in">
+              <i class="icon_calendar"></i>
+            </div>
+
+            <div class="check-date">
+              <label for="date-out">Check Out:</label>
+              <input type="text" class="date-input" id="date-out">
+              <i class="icon_calendar"></i>
+            </div>
+
+            <div class="select-option">
+              <label for="guest">Guests:</label>
+              <select id="guest">
+                <option value="">2 Adults</option>
+                <option value="">3 Adults</option>
+              </select>
+            </div>
+
+            <div class="select-option">
+              <label for="room">Room:</label>
+              <select id="room">
+                <option value="">1 Room</option>
+                <option value="">2 Room</option>
+              </select>
+            </div>
+
+            <button type="submit">Check Availability</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Hero Section End -->
+
+
+<!-- About Us Section Begin -->
+<section id="aboutUs" class="aboutus-section spad">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+
+      <!-- TEXTO -->
+      <div class="col-lg-6">
+        <div class="about-text">
+          <div class="section-title">
+            <span>Sobre Nosotros</span>
+            <h2>{{ hotel?.nombre }}</h2>
+          </div>
+
+          <p class="f-para">
+            {{ hotel?.sobreNosotros }}
+          </p>
+
+        </div>
+      </div>
+
+      <!-- IMÁGENES -->
+      <div class="col-lg-6">
+        <div class="about-gallery">
+
+          <!-- IMAGEN GRANDE -->
+          <div class="main-img">
+            <img src="/assets/img/about/hero-2.jpg" alt="">
+          </div>
+
+          <!-- IMÁGENES PEQUEÑAS -->
+          <div class="small-imgs">
+            <img src="/assets/img/about/about-1.jpg" alt="">
+            <img src="/assets/img/about/about-2.jpg" alt="">
+            <img src="/assets/img/about/about-p3.jpg" alt="">
+            
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- About Us Section End -->
+
+<!-- Services Section Begin -->
+<section id="services" class="services-section spad">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <span>¿Qué hacemos?</span>
+          <h2>Descubre Nuestras Facilidades</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-sm-6" *ngFor="let facilidad of facilidades">
+        <div class="service-item">
+          <img
+            [src]="facilidad.imgUrl"
+            [alt]="facilidad.nombre"
+            class="facilidad-img"
+          >
+          <h4>{{ facilidad.nombre }}</h4>
+          <p>{{ facilidad.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Home Room Section Begin -->
+<section id="prices" class="hp-room-section spad">
+  <div class="container-fluid">
+
+    <!-- TITULO -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <span>Tarifas</span>
+          <h2>Nuestros Precios Disponibles</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="room-carousel">
+
+  <!-- BOTON IZQUIERDA -->
+  <button
+    class="carousel-btn left"
+    (click)="previousRoomPage()"
+    [disabled]="currentRoomPage === 0"
+  >
+    ←
+  </button>
+
+  <!-- CONTENIDO -->
+  <div class="hp-room-items">
+    <div class="row">
+      <div class="col-lg-3 col-md-6" *ngFor="let tipo of visibleTiposHabitacion">
+        <div
+          class="hp-room-item set-bg"
+          [style.background-image]="'url(' + tipo.imgUrl + ')'"
+        >
+          <div class="hr-text">
+            <h3>{{ tipo.nombre }}</h3>
+
+            <h2>
+              {{ tipo.tarifa }}$
+              <span>/Pernight</span>
+            </h2>
+
+            <table>
+              <tbody>
+                <tr>
+                  <td class="r-o">Capacidad:</td>
+                  <td>Max {{ tipo.capacidad }}</td>
+                </tr>
+                <tr>
+                  <td class="r-o">Descripción:</td>
+                  <td>{{ tipo.descripcion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTON DERECHA -->
+  <button
+    class="carousel-btn right"
+    (click)="nextRoomPage()"
+    [disabled]="currentRoomPage >= totalRoomPages - 1"
+  >
+    →
+  </button>
+
+</div>
+
+  </div>
+</section>
+<!-- Home Room Section End -->
+
+<!-- Contact Section Begin -->
+<section id="location" class="contact-section spad">
+
+  <div class="container">
+
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <span>¿Cómo Llegar</span>
+          <h2>Nuestra dirección</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+
+      <!-- IZQUIERDA -->
+      <div class="col-lg-4">
+        <div class="contact-text">
+          <p>
+            {{ hotel?.direccion }}
+          </p>
+
+          <table>
+            <tbody>
+              <tr>
+                <td class="c-o">Address:</td>
+                <td>856 Cordia Extension, Lake, US</td>
+              </tr>
+              <tr>
+                <td class="c-o">Phone:</td>
+                <td>(12) 345 67890</td>
+              </tr>
+              <tr>
+                <td class="c-o">Email:</td>
+                <td>info.colorlib&#64;gmail.com</td>
+              </tr>
+              <tr>
+                <td class="c-o">Fax:</td>
+                <td>+(12) 345 67890</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DERECHA -->
+      <div class="col-lg-8">
+        <div class="map">
+          <iframe *ngIf="safeMapUrl" [src]="safeMapUrl" width="100%" height="100%" style="border:0; min-height: 400px;"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Contact Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer-section">
+  <div class="container">
+    <div class="footer-text">
+      <div class="row">
+
+        <div class="col-lg-4">
+          <div class="ft-about">
+            <div class="logo">
+              <a href="#">
+                <img src="assets/img/footer-logo.png" alt="">
+              </a>
+            </div>
+            <p>We inspire and reach millions of travelers<br> across 90 local websites</p>
+            <div class="fa-social">
+              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-tripadvisor"></i></a>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-youtube-play"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 offset-lg-1">
+          <div class="ft-contact">
+            <h6>Contactenos</h6>
+            <ul>
+              <li> {{hotel?.telefono}} </li>
+              <li> {{hotel?.email}} </li>
+              <li> {{hotel?.direccion}} </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-3 offset-lg-1">
+          <div class="ft-newslatter">
+            <h6>New latest</h6>
+            <p>Get the latest updates and offers.</p>
+            <form class="fn-form">
+              <input type="text" placeholder="Email">
+              <button type="submit">
+                <i class="fa fa-send"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright-option">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-7">
+          <ul>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Terms of use</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Environmental Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="co-text">
+            <p>
+              Copyright &copy; {{ currentYear }}
+              All rights reserved | This template is made with
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer Section End -->
