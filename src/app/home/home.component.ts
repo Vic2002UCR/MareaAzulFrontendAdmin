@@ -84,4 +84,16 @@ export class HomeComponent implements OnInit {
       this.currentRoomPage--;
     }
   }
+
+  guests: number = 2;
+
+  increaseGuests() {
+    this.guests++;
+  }
+
+  decreaseGuests() {
+    if (this.guests > 1) {
+      this.guests--;
+    }
+  }
 }
