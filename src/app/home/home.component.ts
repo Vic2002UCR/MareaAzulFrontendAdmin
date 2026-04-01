@@ -1,5 +1,6 @@
 import { RouterLink } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { GetHotelUseCase } from '../application/get-hotel.use-case';
 import { Hotel } from '../domain/entities/hotel.entity';
 import { NgIf, NgFor } from '@angular/common';
@@ -11,7 +12,7 @@ import { TipoHabitacion } from '../domain/entities/tipo-habitacion.entity';
 
 @Component({
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor],
+  imports: [RouterLink, NgIf, NgFor,FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -29,6 +30,9 @@ export class HomeComponent implements OnInit {
   hotel?: Hotel;
   facilidades: Facilidad[] = [];
   tiposHabitacion: TipoHabitacion[] = [];
+  dateIn: string = '';
+  dateOut: string = '';
+  tarifa: number = 0;
 
   ngOnInit(): void {
     this.getHotelUseCase.execute().subscribe({
@@ -58,6 +62,21 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+
+    const today = new Date().toISOString().split('T')[0];
+
+    const checkIn = document.getElementById("date-in") as HTMLInputElement;
+    const checkOut = document.getElementById("date-out") as HTMLInputElement;
+
+    checkIn.min = today;
+    checkOut.min = today;
+
+    checkIn.addEventListener("change", () => {
+      checkOut.min = checkIn.value;
+      if (checkOut.value && checkOut.value <= checkIn.value) {
+        checkOut.value = "";
+      }
+    });
   }
 
   currentRoomPage = 0;
@@ -85,15 +104,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  guests: number = 2;
-
-  increaseGuests() {
-    this.guests++;
-  }
-
-  decreaseGuests() {
-    if (this.guests > 1) {
-      this.guests--;
-    }
+  onSubmit() {
+    console.log('Check In:', this.dateIn);
+    console.log('Check Out:', this.dateOut);
+    console.log('Tarifa:', this.tarifa);
   }
 }
