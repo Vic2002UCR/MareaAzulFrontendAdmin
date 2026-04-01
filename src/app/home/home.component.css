@@ -288,6 +288,23 @@ html {
   border-color: #dfa974;
 }
 
+.booking-form .bk-btn {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+}
+
 
 @media (max-width: 768px) {
   .promo-container {

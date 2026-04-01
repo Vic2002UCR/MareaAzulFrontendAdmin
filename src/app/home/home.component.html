@@ -85,28 +85,26 @@
       <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
         <div class="booking-form">
           <h3>Reserva</h3>
-          <form action="#">
+          <form (ngSubmit)="onSubmit()">
             <div class="check-date">
               <label for="date-in">Check In:</label>
-              <input type="date" class="date-input" id="date-in">
+              <input type="date" class="date-input" id="date-in"  name="dateIn"
+           [(ngModel)]="dateIn">
             </div>
 
             <div class="check-date">
               <label for="date-out">Check Out:</label>
-              <input type="date" class="date-input" id="date-out">
+              <input type="date" class="date-input" id="date-out"  name="dateOut"
+           [(ngModel)]="dateOut">
             </div>
 
-            <div class="select-option guest-counter">
-              <label for="guest">Huéspedes:</label>
-              <div class="counter-box">
-                <button type="button" (click)="decreaseGuests()">-</button>
-                <span>{{ guests }}</span>
-                <button type="button" (click)="increaseGuests()">+</button>
-              </div>
-              
-            </div>
+            <div class="check-date">
+              <label for="tarifa">Tarifa:</label>
+              <input type="number" class="date-input" id="tarifa" name="tarifa"
+           [(ngModel)]="tarifa">
 
-            <button type="submit">Check Availability</button>
+            </div>
+              <button type="submit" class="bk-btn">Consultar Disponibilidad</button>
           </form>
         </div>
       </div>
