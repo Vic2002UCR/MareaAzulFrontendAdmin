@@ -1,0 +1,228 @@
+<header class="header-section">
+  <div class="menu-item">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="logo">
+            <a routerLink="/">
+              <img src="/assets/img/logo.png" alt="" />
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-center">
+          <!-- BLOQUE DE RESERVA -->
+          <div><h2>Reserva</h2></div>
+          <!-- arreglar eso despues -->
+
+          <div class="reserva-bar" *ngIf="reserva">
+            <!-- CHECK IN -->
+            <div class="reserva-item">
+              <div class="info">
+                <span class="label">Check in</span>
+                <input
+                  type="date"
+                  class="date-input"
+                  [(ngModel)]="fechaLlegadaStr"
+                  [min]="today"
+                  (change)="onCheckInChange()"
+                />
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- CHECK OUT -->
+            <div class="reserva-item">
+              <div class="info">
+                <span class="label">Check out</span>
+                <input
+                  type="date"
+                  class="date-input"
+                  [(ngModel)]="fechaSalidaStr"
+                  [min]="fechaLlegadaStr || today"
+                />
+              </div>
+            </div>
+            <!-- Tarifa -->
+            <div class="reserva-item">
+              <div class="info">
+                <span class="label">Tarifa</span>
+
+                <select
+                  class="date-input"
+                  [(ngModel)]="tipoSeleccionado"
+                  (change)="filtrarHabitaciones()"
+                >
+                  <option value="">Todos</option>
+
+                  <option *ngFor="let t of tiposHabitacion" [value]="t.id">
+                    {{ t.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="divider"></div>
+
+            <button class="search-btn">
+              <span>search</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-4 justify-content-end">
+          <div class="nav-menu">
+            <nav class="mainmenu">
+              <ul>
+                <li><a routerLink="/home">Home</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- habitaciones -->
+<section class="habitaciones">
+  <!-- habitaciones -->
+  <section class="habitaciones">
+    <div class="habitaciones-container">
+      <!-- Cards de habitaciones (una columna) -->
+      <div class="grid">
+        <div class="card" *ngFor="let h of habitacionesFiltradas">
+          <img [src]="h.tipo.imgUrl" alt="" />
+          <div class="card-content">
+            <h3>{{ h.tipo.nombre }}</h3>
+            <p>{{ h.tipo.descripcion }}</p>
+            <p>Capacidad: {{ h.tipo.capacidad }}</p>
+            <p>Habitación #{{ h.numeroHabitacion }}</p>
+            <p>Precio: {{ h.tipo.tarifa }}</p>
+            <span *ngIf="h.estado" class="disponible">Disponible</span>
+            <span *ngIf="!h.estado" class="ocupado">Ocupada</span>
+          </div>
+          <button class="reservar-btn" (click)="agregarReserva(h)">
+            <span>Reservar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Div de reserva -->
+      <div class="reserva">
+        <h2>Resumen de Reserva</h2>
+
+        <!-- Lista de habitaciones -->
+        <div class="lista-reservas">
+          <div *ngFor="let hab of getHabitacionesReservadas()">
+            Habitación #{{ hab.numeroHabitacion }} - ₡{{ hab.tipo?.tarifa }}
+          </div>
+        </div>
+
+        <!-- Fechas -->
+        <p>Entrada: {{ reserva?.fechaLlegada | date: "shortDate" }}</p>
+        <p>Salida: {{ reserva?.fechaSalida | date: "shortDate" }}</p>
+
+        <!-- Precios -->
+        <div class="resumen-precios">
+          <p>Subtotal: ₡{{ getSubtotal() }}</p>
+          <p>Ofertas: ₡0</p>
+          <p>
+            <strong>Total: ₡{{ reserva?.totalPagar }}</strong>
+          </p>
+        </div>
+
+        <button class="search-btn" (click)="abrirModal()">
+          <span>Pagar</span>
+        </button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="custom-modal" (click)="$event.stopPropagation()">
+    <div class="row2">
+      <!-- Fechas -->
+      <p>Entrada: {{ reserva?.fechaLlegada | date: "shortDate" }}</p>
+      <p>Salida: {{ reserva?.fechaSalida | date: "shortDate" }}</p>
+    </div>
+
+    <!-- Lista de habitaciones -->
+    <div class="form-group">
+      <h2>Habitaciones</h2>
+      <div *ngFor="let hab of getHabitacionesReservadas()">
+        Habitación #{{ hab.numeroHabitacion }} - ₡{{ hab.tipo?.tarifa }}
+      </div>
+    </div>
+
+    <h2>Pago</h2>
+    <!-- Cedula -->
+    <div class="form-group">
+      <label>Cedula</label>
+      <input type="text" placeholder="Cedula" [(ngModel)]="cedula" />
+    </div>
+    <!-- Nombre -->
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" placeholder="Nombre" [(ngModel)]="nombre" />
+    </div>
+
+    <!-- Apellidos -->
+    <div class="form-group">
+      <label>Apellidos</label>
+      <input type="text" placeholder="Apellidos" [(ngModel)]="apellidos" />
+    </div>
+
+    <!-- Email-->
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" placeholder="Email" [(ngModel)]="email" />
+    </div>
+
+    <!-- Número de tarjeta -->
+    <div class="form-group">
+      <label>Número de tarjeta</label>
+      <input
+        type="text"
+        placeholder="1234 5678 9012 3456"
+        [(ngModel)]="tarjeta"
+      />
+    </div>
+
+    <!-- Fecha y CVV -->
+    <div class="row">
+      <div class="form-group">
+        <label>Expiración</label>
+        <input type="text" placeholder="MM/AA" [(ngModel)]="expiracion" />
+      </div>
+
+      <div class="form-group">
+        <label>CVV</label>
+        <input type="password" placeholder="123" [(ngModel)]="cvv" />
+      </div>
+    </div>
+    <!-- Precios -->
+    <div class="form-group">
+      <p>Subtotal: ₡{{ getSubtotal() }}</p>
+      <p>Ofertas: ₡0</p>
+    </div>
+    <!-- Total -->
+    <div class="total">
+      <p>Total a pagar:</p>
+      <strong>₡{{ reserva?.totalPagar || 0 }}</strong>
+    </div>
+
+    <!-- Botones -->
+    <div class="modal-actions">
+      <button class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-pagar" (click)="validarPago()">Confirmar Pago</button>
+    </div>
+  </div>
+</div>
+
+<div class="alerta-exito" *ngIf="mostrarAlerta">
+  <div class="alerta-box">
+    <h3>¡Reserva Confirmada!</h3>
+    <p>{{ mensajeAlerta }}</p>
+    <button (click)="cerrarAlerta()">OK</button>
+  </div>
+</div>
