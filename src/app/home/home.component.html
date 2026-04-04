@@ -98,13 +98,17 @@
            [(ngModel)]="dateOut">
             </div>
 
-            <div class="check-date">
-              <label for="tarifa">Tarifa:</label>
-              <input type="number" class="date-input" id="tarifa" name="tarifa"
-           [(ngModel)]="tarifa">
+           <div class="check-date">
+              <label for="tarifa">Tipo de habitación:</label>
+              <select [(ngModel)]="tipoSeleccionado"    name="tipoHabitacion">
+                <option value="0">Seleccione un tipo de habitación</option>
+                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+                  {{ tipo.nombre }}
+                </option>
+              </select>
+          </div>
 
-            </div>
-              <button type="submit" class="bk-btn">Consultar Disponibilidad</button>
+            <button type="button" class="bk-btn" [disabled]="!formValido()" (click)="onSubmit()">Consultar Disponibilidad</button>
           </form>
         </div>
       </div>

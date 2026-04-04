@@ -6,7 +6,7 @@ import { TipoHabitacionRepository } from '../../domain/interfaces/tipo-habitacio
 @Injectable()
 export class TipoHabitacionTestRepository implements TipoHabitacionRepository {
   getTiposHabitacion(): Observable<TipoHabitacion[]> {
-    return of([
+    return of([ 
       {
         id: 1,
         nombre: 'Habitación Doble',
