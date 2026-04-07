@@ -124,16 +124,63 @@ export class ReservaComponent implements OnInit {
     this.filtrarHabitaciones();
   }
 
-  filtrarHabitaciones() {
-    if (!this.tipoSeleccionado) {
-      this.habitacionesFiltradas = this.habitaciones;
-      return;
-    }
+  // filtrarHabitaciones() {
+  //   if (!this.tipoSeleccionado) {
+  //     this.habitacionesFiltradas = this.habitaciones;
+  //     return;
+  //   }
 
-    this.habitacionesFiltradas = this.habitaciones.filter(
-      (h) => h.tipo?.id === Number(this.tipoSeleccionado),
-    );
+  //   this.habitacionesFiltradas = this.habitaciones.filter(
+  //     (h) => h.tipo?.id === Number(this.tipoSeleccionado),
+  //   );
+  // }
+  filtrarHabitaciones() {
+  if (!this.tipoSeleccionado) {
+    this.habitacionesFiltradas = this.habitaciones;
+    return;
   }
+
+  const tipoId = Number(this.tipoSeleccionado);
+
+  this.habitacionesFiltradas = this.habitaciones.filter(
+    (h) => h.tipo?.id === tipoId
+  );
+
+  //  Si no hay habitaciones disponibles
+  if (this.habitacionesFiltradas.length === 0) {
+
+    // Tipo seleccionado
+    const tipoSeleccionadoObj = this.tiposHabitacion.find(t => t.id === tipoId);
+
+    if (!tipoSeleccionadoObj) return;
+
+    // Buscar tipo más cercano por precio
+    const tipoSugerido = this.tiposHabitacion
+      .filter(t => t.id !== tipoId)
+      .reduce((prev, curr) => {
+        const diffPrev = Math.abs(prev.tarifa - tipoSeleccionadoObj.tarifa);
+        const diffCurr = Math.abs(curr.tarifa - tipoSeleccionadoObj.tarifa);
+        return diffCurr < diffPrev ? curr : prev;
+      });
+
+    // Mostrar alerta
+    alert(
+      `No hay habitaciones disponibles para "${tipoSeleccionadoObj.nombre}".\n\n` +
+      `Te recomendamos la "${tipoSugerido.nombre}" con tarifa de ₡${tipoSugerido.tarifa}.`
+    );
+
+    // (Opcional) aplicar automáticamente el sugerido
+    // primero actualizás las habitaciones
+this.habitacionesFiltradas = this.habitaciones.filter(
+  (h) => h.tipo?.id === tipoSugerido.id
+);
+
+// luego forzás el cambio del select
+setTimeout(() => {
+  this.tipoSeleccionado = tipoSugerido.id.toString();
+});
+  }
+}
 
   // Agrega habitación a la reserva y recalcula totales
   agregarReserva(habitacion: any) {
@@ -166,7 +213,24 @@ export class ReservaComponent implements OnInit {
     0,
   );
 }
+eliminarReserva(habitacion: any) {
+  if (!this.reserva) return;
 
+  // Quitar el id de la habitación
+  this.reserva.idHabitacion = this.reserva.idHabitacion.filter(
+    (id: number) => id !== habitacion.idHabitacion
+  );
+
+  // Restar el precio del total
+  this.reserva.totalPagar -= habitacion.precio;
+
+  // Evitar negativos por seguridad
+  if (this.reserva.totalPagar < 0) {
+    this.reserva.totalPagar = 0;
+  }
+
+  console.log(this.reserva);
+}
   abrirModal() {
     this.mostrarModal = true;
     console.log("CLICK FUNCIONA");
