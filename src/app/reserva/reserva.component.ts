@@ -102,20 +102,25 @@ export class ReservaComponent implements OnInit {
   }
 
   cargarHabitaciones() {
+    const fechaEntrada = new Date(this.fechaLlegadaStr);
+    const fechaSalida = new Date(this.fechaSalidaStr);
+
     forkJoin({
-      habs: this.getHabitacion.execute(),
+      habs: this.getHabitacion.execute(fechaEntrada, fechaSalida),
       tipos: this.getTiposHabitacion.execute(),
     }).subscribe(({ habs, tipos }) => {
       this.tiposHabitacion = tipos;
 
       this.habitaciones = habs
-        .filter((h) => h.estado === true) //filtro
+        .filter((h) => h.estado === true)
         .map((h) => ({
           ...h,
           tipo: tipos.find((t) => t.id === h.tipo),
         }));
+
       this.habitacionesFiltradas = this.habitaciones;
     });
+
     this.filtrarHabitaciones();
   }
 
@@ -139,7 +144,7 @@ export class ReservaComponent implements OnInit {
       this.reserva.idHabitacion.push(habitacion.idHabitacion);
 
       // Agregar tarifa de la habitación a totalPagar
-      this.reserva.totalPagar += habitacion.tipo.tarifa;
+      this.reserva.totalPagar += habitacion.precio;
 
       // Actualizar subtotal y cargos adicionales
       // this.calcularTotales();
@@ -156,11 +161,11 @@ export class ReservaComponent implements OnInit {
   }
 
   getSubtotal(): number {
-    return this.getHabitacionesReservadas().reduce(
-      (acc, h) => acc + (h.tipo?.tarifa || 0),
-      0,
-    );
-  }
+  return this.getHabitacionesReservadas().reduce(
+    (acc, h) => acc + (h.precio || 0),
+    0,
+  );
+}
 
   abrirModal() {
     this.mostrarModal = true;
@@ -261,4 +266,11 @@ export class ReservaComponent implements OnInit {
   cerrarAlerta() {
     this.mostrarAlerta = false;
   }
+
+  onFechasChange() {
+    if (this.fechaLlegadaStr && this.fechaSalidaStr) {
+      this.cargarHabitaciones();
+    }
+  }
+
 }
