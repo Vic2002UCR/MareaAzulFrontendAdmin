@@ -13,7 +13,7 @@ export class HabitacionTestRepository implements HabitacionRepository {
         idHabitacion: 1,
         numeroHabitacion: 101,
         tipo: 1,
-        estado: true
+        estado: false
       },
       {
         idHabitacion: 2,
@@ -31,7 +31,7 @@ export class HabitacionTestRepository implements HabitacionRepository {
         idHabitacion: 4,
         numeroHabitacion: 202,
         tipo: 1,
-        estado: true
+        estado: false
       },
       {
         idHabitacion: 5,

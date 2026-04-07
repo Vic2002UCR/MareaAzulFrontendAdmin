@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <header class="header-section">
   <div class="menu-item">
     <div class="container">
@@ -64,9 +65,7 @@
             </div>
             <div class="divider"></div>
 
-            <button class="search-btn">
-              <span>search</span>
-            </button>
+            
           </div>
         </div>
         <div class="col-lg-4 justify-content-end">
@@ -115,6 +114,9 @@
         <div class="lista-reservas">
           <div *ngFor="let hab of getHabitacionesReservadas()">
             Habitación #{{ hab.numeroHabitacion }} - ₡{{ hab.precio }}
+            <button class="btn-eliminar" (click)="eliminarReserva(hab)">
+    <span class="material-icons">delete</span>
+  </button>
           </div>
         </div>
 
@@ -141,6 +143,10 @@
 
 <div class="modal-overlay" *ngIf="mostrarModal">
   <div class="custom-modal" (click)="$event.stopPropagation()">
+     <!-- BOTÓN CERRAR -->
+    <button class="btn-close" (click)="cerrarModal()">
+      &times;
+    </button>
     <div class="row2">
       <!-- Fechas -->
       <p>Entrada: {{ reserva?.fechaLlegada | date: "shortDate" }}</p>
