@@ -15,6 +15,8 @@ import { ReservaRepository } from './domain/interfaces/reserva.repository';
 import { ReservaLocalRepository } from './infrastructure/repositories/reserva-local.repository';
 import { HabitacionRepository } from './domain/interfaces/habitacion.repository';
 import { HabitacionTestRepository } from './infrastructure/repositories/habitacion-test.repository';
+import { TemporadaRepository } from './domain/interfaces/temporada.repository';
+import { TemporadaRemoteRepository } from './infrastructure/repositories/temporada-remote.repository';
 
 
 export const appConfig: ApplicationConfig = {
@@ -47,9 +49,12 @@ export const appConfig: ApplicationConfig = {
       useClass: ReservaLocalRepository
     },
     {
-    provide: HabitacionRepository,
-    useClass: HabitacionTestRepository
+      provide: HabitacionRepository,
+      useClass: HabitacionTestRepository
+    },
+    {
+      provide: TemporadaRepository,
+      useClass: TemporadaRemoteRepository
     }
-
   ]
 };

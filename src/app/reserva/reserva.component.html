@@ -24,7 +24,7 @@
                   class="date-input"
                   [(ngModel)]="fechaLlegadaStr"
                   [min]="today"
-                  (change)="onCheckInChange()"
+                  (change)="onCheckInChange(); onFechasChange()"
                 />
               </div>
             </div>
@@ -40,6 +40,7 @@
                   class="date-input"
                   [(ngModel)]="fechaSalidaStr"
                   [min]="fechaLlegadaStr || today"
+                  (change)="onFechasChange()"
                 />
               </div>
             </div>
@@ -96,7 +97,7 @@
             <p>{{ h.tipo.descripcion }}</p>
             <p>Capacidad: {{ h.tipo.capacidad }}</p>
             <p>Habitación #{{ h.numeroHabitacion }}</p>
-            <p>Precio: {{ h.tipo.tarifa }}</p>
+            <p>Precio: {{ h.precio }}</p>
             <span *ngIf="h.estado" class="disponible">Disponible</span>
             <span *ngIf="!h.estado" class="ocupado">Ocupada</span>
           </div>
@@ -113,7 +114,7 @@
         <!-- Lista de habitaciones -->
         <div class="lista-reservas">
           <div *ngFor="let hab of getHabitacionesReservadas()">
-            Habitación #{{ hab.numeroHabitacion }} - ₡{{ hab.tipo?.tarifa }}
+            Habitación #{{ hab.numeroHabitacion }} - ₡{{ hab.precio }}
           </div>
         </div>
 
