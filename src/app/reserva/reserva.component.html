@@ -143,6 +143,10 @@
 
 <div class="modal-overlay" *ngIf="mostrarModal">
   <div class="custom-modal" (click)="$event.stopPropagation()">
+     <!-- BOTÓN CERRAR -->
+    <button class="btn-close" (click)="cerrarModal()">
+      &times;
+    </button>
     <div class="row2">
       <!-- Fechas -->
       <p>Entrada: {{ reserva?.fechaLlegada | date: "shortDate" }}</p>

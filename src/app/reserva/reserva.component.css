@@ -387,6 +387,36 @@ html {
 }
 
 
+.custom-modal {
+  position: relative; /* IMPORTANTE */
+}
+
+.btn-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+}
+
+.btn-close:hover {
+  color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .card {

@@ -232,8 +232,13 @@ eliminarReserva(habitacion: any) {
   console.log(this.reserva);
 }
   abrirModal() {
-    this.mostrarModal = true;
-    console.log("CLICK FUNCIONA");
+    if (!this.reserva || this.reserva.totalPagar === 0) {
+    alert("Primero debes seleccionar al menos una habitación");
+    return;
+  }
+
+  this.mostrarModal = true;
+  
   }
 
   cerrarModal() {
