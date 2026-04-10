@@ -1,0 +1,121 @@
+{
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+  "hash": "eaaf5ffe",
+  "configHash": "b6514be2",
+  "lockfileHash": "8b7ecaca",
+  "browserHash": "155678ce",
+=======
+  "hash": "ce8dbb9e",
+  "configHash": "990d7270",
+  "lockfileHash": "cc4e28bd",
+  "browserHash": "e011c638",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+      "fileHash": "ab70ff1c",
+=======
+      "fileHash": "a2d798a6",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+      "fileHash": "45baa52a",
+=======
+      "fileHash": "97ee0541",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+      "fileHash": "8b78b898",
+=======
+      "fileHash": "b89f3bc3",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "e31733bd",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+      "fileHash": "97d2d360",
+=======
+      "fileHash": "68ffe331",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+      "fileHash": "d96e4ca3",
+=======
+      "fileHash": "bcb2f982",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+      "fileHash": "92ef4dc2",
+=======
+      "fileHash": "eddfd13f",
+      "needsInterop": false
+    },
+    "rxjs/operators": {
+      "src": "../../../../../../node_modules/rxjs/dist/esm5/operators/index.js",
+      "file": "rxjs_operators.js",
+      "fileHash": "fef4e797",
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/_metadata.json
+    "chunk-DTNU2NRH": {
+      "file": "chunk-DTNU2NRH.js"
+    },
+    "chunk-IR5VD5KW": {
+      "file": "chunk-IR5VD5KW.js"
+    },
+    "chunk-5QPILUZQ": {
+      "file": "chunk-5QPILUZQ.js"
+    },
+    "chunk-2DTHCC72": {
+      "file": "chunk-2DTHCC72.js"
+=======
+    "chunk-U2IKLELY": {
+      "file": "chunk-U2IKLELY.js"
+    },
+    "chunk-6KJ4GGLO": {
+      "file": "chunk-6KJ4GGLO.js"
+    },
+    "chunk-G5PNO5CW": {
+      "file": "chunk-G5PNO5CW.js"
+    },
+    "chunk-2UTZ6EIC": {
+      "file": "chunk-2UTZ6EIC.js"
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/_metadata.json
+    },
+    "chunk-SRNMBPXD": {
+      "file": "chunk-SRNMBPXD.js"
+    },
+    "chunk-S35MAB2V": {
+      "file": "chunk-S35MAB2V.js"
+    }
+  }
+}

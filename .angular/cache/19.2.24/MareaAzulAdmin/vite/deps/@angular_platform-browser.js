@@ -34,6 +34,7 @@ import {
   withI18nSupport,
   withIncrementalHydration,
   withNoHttpTransferCache
+<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/@angular_platform-browser.js
 } from "./chunk-DTNU2NRH.js";
 import {
   getDOM
@@ -42,6 +43,18 @@ import "./chunk-5QPILUZQ.js";
 import "./chunk-2DTHCC72.js";
 import "./chunk-SRNMBPXD.js";
 import "./chunk-S35MAB2V.js";
+=======
+} from "./chunk-U2IKLELY.js";
+import "./chunk-6KJ4GGLO.js";
+import {
+  getDOM
+} from "./chunk-G5PNO5CW.js";
+import "./chunk-2UTZ6EIC.js";
+import "./chunk-3GACGZJ4.js";
+import "./chunk-FFZIAYYX.js";
+import "./chunk-6Q4RANH6.js";
+import "./chunk-CXCX2JKZ.js";
+>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/@angular_platform-browser.js
 export {
   BrowserModule,
   By,

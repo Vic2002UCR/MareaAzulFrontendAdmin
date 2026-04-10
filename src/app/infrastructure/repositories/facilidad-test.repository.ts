@@ -8,41 +8,42 @@ export class FacilidadTestRepository implements FacilidadRepository {
   getFacilidades(): Observable<Facilidad[]> {
     const facilidades: Facilidad[] = [
       {
-        idFacilidad: 1,
-        nombre: 'Piscina',
-        descripcion: 'Disfruta de nuestra piscina con vista relajante.',
+        idFacilidad: 4,
+        nombre: 'Catering Service',
+        descripcion: 'Servicio de catering para eventos y ocasiones especiales.',
         imgUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 2,
-        nombre: 'Restaurante',
-        descripcion: 'Comida de calidad con un ambiente acogedor.',
+        idFacilidad: 5,
+        nombre: 'Spa',
+        descripcion: 'Relájate con nuestros tratamientos de spa y bienestar.',
         imgUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 3,
-        nombre: 'Parqueo',
-        descripcion: 'Espacio amplio y seguro para tu vehículo.',
-        imgUrl: '/assets/img/services/restaurant.png'
-      },
-            {
-        idFacilidad: 1,
-        nombre: 'Piscina',
-        descripcion: 'Disfruta de nuestra piscina con vista relajante.',
+        idFacilidad: 6,
+        nombre: 'Gimnasio',
+        descripcion: 'Mantente en forma con nuestro gimnasio totalmente equipado.',
         imgUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 2,
-        nombre: 'Restaurante',
-        descripcion: 'Comida de calidad con un ambiente acogedor.',
+        idFacilidad: 7,
+        nombre: 'Wi-Fi',
+        descripcion: 'Conexión a internet rápida y gratuita en todo el hotel.',
         imgUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 3,
-        nombre: 'Parqueo',
-        descripcion: 'Espacio amplio y seguro para tu vehículo.',
+        idFacilidad: 8,
+        nombre: 'Bar',
+        descripcion: 'Disfruta de bebidas y cócteles frente al mar.',
         imgUrl: '/assets/img/services/restaurant.png'
-      }
+      },
+      {
+        idFacilidad: 9,
+        nombre: 'Room Service',
+        descripcion: 'Servicio a la habitación disponible para tu comodidad.',
+        imgUrl: '/assets/img/services/restaurant.png'
+      },
+
     ];
 
     return of(facilidades);

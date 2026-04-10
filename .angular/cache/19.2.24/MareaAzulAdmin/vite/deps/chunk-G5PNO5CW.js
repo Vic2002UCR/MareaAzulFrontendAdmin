@@ -1,7 +1,11 @@
 import {
   DOCUMENT,
   isPlatformBrowser
+<<<<<<<< Updated upstream:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-IR5VD5KW.js
 } from "./chunk-2DTHCC72.js";
+========
+} from "./chunk-2UTZ6EIC.js";
+>>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-G5PNO5CW.js
 import {
   ApplicationRef,
   Attribute,
@@ -5120,4 +5124,8 @@ export {
    * License: MIT
    *)
 */
+<<<<<<<< Updated upstream:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-IR5VD5KW.js
 //# sourceMappingURL=chunk-IR5VD5KW.js.map
+========
+//# sourceMappingURL=chunk-G5PNO5CW.js.map
+>>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-G5PNO5CW.js

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MareaAzul": {
+    "MareaAzulAdmin": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/marea-azul",
+            "outputPath": "dist/marea-azul-admin",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -28,7 +28,8 @@
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/elegant-icons.css",
               "src/assets/css/flaticon.css",
-              "src/assets/css/style.css"
+              "src/assets/css/style.css",
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -60,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "MareaAzul:build:production"
+              "buildTarget": "MareaAzulAdmin:build:production"
             },
             "development": {
-              "buildTarget": "MareaAzul:build:development"
+              "buildTarget": "MareaAzulAdmin:build:development"
             }
           },
           "defaultConfiguration": "development"

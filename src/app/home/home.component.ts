@@ -11,7 +11,11 @@ import { TipoHabitacion } from '../domain/entities/tipo-habitacion.entity';
 
 @Component({
   standalone: true,
+<<<<<<< Updated upstream
   imports: [RouterLink, NgIf, NgFor],
+=======
+  imports: [NgIf, NgFor,FormsModule],
+>>>>>>> Stashed changes
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
