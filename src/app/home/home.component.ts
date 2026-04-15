@@ -1,5 +1,7 @@
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { GetHotelUseCase } from '../application/get-hotel.use-case';
 import { Hotel } from '../domain/entities/hotel.entity';
 import { NgIf, NgFor } from '@angular/common';
@@ -8,17 +10,16 @@ import { GetFacilidadesUseCase } from '../application/get-facilidades.use-case';
 import { Facilidad } from '../domain/entities/facilidad.entity';
 import { GetTiposHabitacionUseCase } from '../application/get-tipos-habitacion.use-case';
 import { TipoHabitacion } from '../domain/entities/tipo-habitacion.entity';
+import { SetReservaUseCase } from '../application/set-reserva.use-case';
+import { Reserva } from '../domain/entities/reserva.entity';
 
 @Component({
   standalone: true,
-<<<<<<< Updated upstream
-  imports: [RouterLink, NgIf, NgFor],
-=======
   imports: [NgIf, NgFor,FormsModule],
->>>>>>> Stashed changes
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent implements OnInit {
 
   safeMapUrl?: SafeResourceUrl;
@@ -29,10 +30,24 @@ export class HomeComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
   private readonly getFacilidadesUseCase = inject(GetFacilidadesUseCase);
   private readonly getTiposHabitacionUseCase = inject(GetTiposHabitacionUseCase);
+  private readonly setReservaUseCase: SetReservaUseCase = inject(SetReservaUseCase);
+  private router = inject(Router);
 
   hotel?: Hotel;
   facilidades: Facilidad[] = [];
   tiposHabitacion: TipoHabitacion[] = [];
+  tipoSeleccionado: number=0;
+  dateIn: string = '';
+  dateOut: string = '';
+  tarifa: number = 0;
+
+  formValido(): boolean {
+    return (
+      this.dateIn !== '' &&
+      this.dateOut !== '' &&
+      this.tipoSeleccionado > 0
+    );
+  }
 
   ngOnInit(): void {
     this.getHotelUseCase.execute().subscribe({
@@ -62,6 +77,21 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+
+    const today = new Date().toISOString().split('T')[0];
+
+    const checkIn = document.getElementById("date-in") as HTMLInputElement;
+    const checkOut = document.getElementById("date-out") as HTMLInputElement;
+
+    checkIn.min = today;
+    checkOut.min = today;
+
+    checkIn.addEventListener("change", () => {
+      checkOut.min = checkIn.value;
+      if (checkOut.value && checkOut.value <= checkIn.value) {
+        checkOut.value = "";
+      }
+    });
   }
 
   currentRoomPage = 0;
@@ -86,6 +116,28 @@ export class HomeComponent implements OnInit {
   previousRoomPage(): void {
     if (this.currentRoomPage > 0) {
       this.currentRoomPage--;
+    }
+  }
+
+  onSubmit() {
+    if (this.formValido()) {
+      const reserva: Reserva = {
+        idReserva:0,
+        idCliente: 0,
+        idHabitacion:[],
+        fechaLlegada: new Date(this.dateIn),
+        fechaSalida: new Date(this.dateOut),
+        fechaReservacion:new Date(),
+        totalPagar: 0,
+        idOferta:0,
+        tarifa:this.tipoSeleccionado
+      };
+
+      this.setReservaUseCase.execute(reserva);
+      this.router.navigate(['/reserva']);
+      console.log('Reserva guardada:', reserva);
+    }else {
+      console.log('Formulario inválido');
     }
   }
 }

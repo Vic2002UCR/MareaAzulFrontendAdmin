@@ -1,11 +1,7 @@
 import {
   Title
-<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/@angular_router.js
-} from "./chunk-DTNU2NRH.js";
-=======
 } from "./chunk-U2IKLELY.js";
 import "./chunk-6KJ4GGLO.js";
->>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/@angular_router.js
 import {
   HashLocationStrategy,
   LOCATION_INITIALIZED,
@@ -13,18 +9,10 @@ import {
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller
-<<<<<<< Updated upstream:.angular/cache/19.2.23/MareaAzul/vite/deps/@angular_router.js
-} from "./chunk-IR5VD5KW.js";
-import "./chunk-5QPILUZQ.js";
-import {
-  DOCUMENT
-} from "./chunk-2DTHCC72.js";
-=======
 } from "./chunk-G5PNO5CW.js";
 import {
   DOCUMENT
 } from "./chunk-2UTZ6EIC.js";
->>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/@angular_router.js
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -91,7 +79,12 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-SRNMBPXD.js";
+} from "./chunk-3GACGZJ4.js";
+import {
+  defer,
+  isObservable
+} from "./chunk-FFZIAYYX.js";
+import "./chunk-6Q4RANH6.js";
 import {
   BehaviorSubject,
   ConnectableObservable,
@@ -106,12 +99,10 @@ import {
   concat,
   concatMap,
   defaultIfEmpty,
-  defer,
   filter,
   finalize,
   first,
   from,
-  isObservable,
   last,
   map,
   mergeAll,
@@ -127,7 +118,7 @@ import {
   takeUntil,
   tap,
   throwError
-} from "./chunk-S35MAB2V.js";
+} from "./chunk-CXCX2JKZ.js";
 
 // node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs
 var PRIMARY_OUTLET = "primary";

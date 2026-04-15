@@ -1,33 +1,19 @@
 import {
-<<<<<<<< Updated upstream:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-DTNU2NRH.js
-========
   withHttpTransferCache
 } from "./chunk-6KJ4GGLO.js";
 import {
->>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-U2IKLELY.js
   CommonModule,
   DomAdapter,
   getDOM,
   setRootDomAdapter
-<<<<<<<< Updated upstream:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-DTNU2NRH.js
-} from "./chunk-IR5VD5KW.js";
-import {
-  withHttpTransferCache
-} from "./chunk-5QPILUZQ.js";
-========
 } from "./chunk-G5PNO5CW.js";
->>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-U2IKLELY.js
 import {
   DOCUMENT,
   PLATFORM_BROWSER_ID,
   XhrFactory,
   isPlatformServer,
   parseCookieValue
-<<<<<<<< Updated upstream:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-DTNU2NRH.js
-} from "./chunk-2DTHCC72.js";
-========
 } from "./chunk-2UTZ6EIC.js";
->>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-U2IKLELY.js
 import {
   APP_ID,
   ApplicationModule,
@@ -86,11 +72,11 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-SRNMBPXD.js";
+} from "./chunk-3GACGZJ4.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-S35MAB2V.js";
+} from "./chunk-CXCX2JKZ.js";
 
 // node_modules/@angular/platform-browser/fesm2022/dom_renderer-DGKzginR.mjs
 var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
@@ -2030,8 +2016,4 @@ export {
    * License: MIT
    *)
 */
-<<<<<<<< Updated upstream:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-DTNU2NRH.js
-//# sourceMappingURL=chunk-DTNU2NRH.js.map
-========
 //# sourceMappingURL=chunk-U2IKLELY.js.map
->>>>>>>> Stashed changes:.angular/cache/19.2.24/MareaAzulAdmin/vite/deps/chunk-U2IKLELY.js

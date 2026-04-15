@@ -11,8 +11,6 @@ import { FacilidadRepository } from './domain/interfaces/facilidad.repository';
 import { FacilidadTestRepository } from './infrastructure/repositories/facilidad-test.repository';
 import { TipoHabitacionRepository } from './domain/interfaces/tipo-habitacion.repository';
 import { TipoHabitacionTestRepository } from './infrastructure/repositories/tipo-habitacion-test.repository';
-<<<<<<< Updated upstream
-=======
 import { ReservaRepository } from './domain/interfaces/reserva.repository';
 import { ReservaLocalRepository } from './infrastructure/repositories/reserva-local.repository';
 import { HabitacionRepository } from './domain/interfaces/habitacion.repository';
@@ -20,7 +18,6 @@ import { HabitacionTestRepository } from './infrastructure/repositories/habitaci
 import { TemporadaRepository } from './domain/interfaces/temporada.repository';
 import { TemporadaRemoteRepository } from './infrastructure/repositories/temporada-test.repository';
 
->>>>>>> Stashed changes
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,7 +43,18 @@ export const appConfig: ApplicationConfig = {
     {
       provide: TipoHabitacionRepository,
       useClass: TipoHabitacionTestRepository
+    },
+    {
+      provide: ReservaRepository,
+      useClass: ReservaLocalRepository
+    },
+    {
+      provide: HabitacionRepository,
+      useClass: HabitacionTestRepository
+    },
+    {
+      provide: TemporadaRepository,
+      useClass: TemporadaRemoteRepository
     }
-
   ]
 };
