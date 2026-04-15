@@ -15,7 +15,7 @@ import { Reserva } from '../domain/entities/reserva.entity';
 
 @Component({
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor,FormsModule],
+  imports: [NgIf, NgFor,FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

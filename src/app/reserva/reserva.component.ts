@@ -12,7 +12,7 @@ import { ReservaTestRepository } from "../infrastructure/repositories/reserva-te
 
 @Component({
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, FormsModule, DatePipe],
+  imports: [NgIf, NgFor, FormsModule, DatePipe],
   templateUrl: "./reserva.component.html",
   styleUrl: "./reserva.component.css",
 })

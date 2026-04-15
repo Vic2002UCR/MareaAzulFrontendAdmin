@@ -1,1 +1,35 @@
-<router-outlet></router-outlet>
+<header class="header-section" *ngIf="showHeader">
+  <div class="menu-item">
+    <div class="container-fluid">
+      <div class="header-bar">
+        <div class="logo">
+          <a routerLink="/">
+            <img src="/assets/img/logo.png" alt="">
+          </a>
+        </div>
+
+        <div class="nav-menu">
+          <nav class="mainmenu">
+            <ul>
+              <li><a routerLink="/sitio">Sitio</a></li>
+              <li><a routerLink="/reservaciones">Reservaciones</a></li>
+              <li><a routerLink="/habitaciones">Habitaciones</a></li>
+              <li><a routerLink="/estado-hotel">Estado del Hotel</a></li>
+              <li><a routerLink="/temporadas">Temporadas</a></li>
+              <li><a routerLink="/ofertas">Ofertas</a></li>
+              <li><a routerLink="/publicidad">Publicidad</a></li>
+            </ul>
+          </nav>
+
+          <div class="nav-right">
+            <a href="#" class="bk-btn">Cerrar Sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="main-content" [class.no-header]="!showHeader">
+  <router-outlet></router-outlet>
+</main>

@@ -13,7 +13,7 @@ export class TemporadaRemoteRepository implements TemporadaRepository {
         nombre: 'Temporada Alta',
         fechaInicio: new Date('2026-04-10'),
         fechaFin: new Date('2026-04-15'),
-        porcentaje: 0.20 
+        porcentaje: 0.80 
       },
       {
         id: 2,
