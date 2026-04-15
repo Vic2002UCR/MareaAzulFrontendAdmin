@@ -50,42 +50,38 @@
         </ng-template>
       </div>
 
+      <!-- Reserva -->
       <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
         <div class="booking-form">
-          <h3>Booking Your Hotel</h3>
-          <form action="#">
+          <h3>Reserva</h3>
+          <form (ngSubmit)="onSubmit()">
             <div class="check-date">
               <label for="date-in">Check In:</label>
-              <input type="text" class="date-input" id="date-in">
-              <i class="icon_calendar"></i>
+              <input type="date" class="date-input" id="date-in"  name="dateIn"
+           [(ngModel)]="dateIn">
             </div>
 
             <div class="check-date">
               <label for="date-out">Check Out:</label>
-              <input type="text" class="date-input" id="date-out">
-              <i class="icon_calendar"></i>
+              <input type="date" class="date-input" id="date-out"  name="dateOut"
+           [(ngModel)]="dateOut">
             </div>
 
-            <div class="select-option">
-              <label for="guest">Guests:</label>
-              <select id="guest">
-                <option value="">2 Adults</option>
-                <option value="">3 Adults</option>
+           <div class="check-date">
+              <label for="tarifa">Tipo de habitación:</label>
+              <select [(ngModel)]="tipoSeleccionado"    name="tipoHabitacion">
+                <option value="0">Seleccione un tipo de habitación</option>
+                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+                  {{ tipo.nombre }}
+                </option>
               </select>
-            </div>
+          </div>
 
-            <div class="select-option">
-              <label for="room">Room:</label>
-              <select id="room">
-                <option value="">1 Room</option>
-                <option value="">2 Room</option>
-              </select>
-            </div>
-
-            <button type="submit">Check Availability</button>
+            <button type="button" class="bk-btn" [disabled]="!formValido()" (click)="onSubmit()">Consultar Disponibilidad</button>
           </form>
         </div>
       </div>
+      
     </div>
   </div>
 </section>

@@ -11,6 +11,7 @@ html {
   background: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
+
 .bk-btn {
   background-color: #dfa974; /* 🔵 color (puedes cambiarlo) */
   color: white;
@@ -173,7 +174,6 @@ html {
   z-index: 2000;
 }
 
-/* TARJETAS */
 .promo-card {
   width: 220px;
   background: #fff;
@@ -183,7 +183,6 @@ html {
   position: relative;
 }
 
-/* TAG */
 .promo-tag {
   display: inline-block;
   font-size: 11px;
@@ -195,7 +194,6 @@ html {
   margin-bottom: 8px;
 }
 
-/* TITULO Y TEXTO */
 .promo-card h4 {
   font-size: 16px;
   margin-bottom: 8px;
@@ -207,7 +205,6 @@ html {
   line-height: 1.4;
 }
 
-/* BOTÓN */
 .promo-btn {
   display: inline-block;
   background: #c59d5f;
@@ -218,7 +215,6 @@ html {
   font-size: 13px;
 }
 
-/* CERRAR */
 .promo-close {
   position: absolute;
   top: 6px;
@@ -228,6 +224,87 @@ html {
   font-size: 16px;
   cursor: pointer;
 }
+
+.date-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.date-input:hover {
+  border-color: #dfa974;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #dfa974;
+  box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.2);
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(58%) sepia(32%) saturate(400%) hue-rotate(340deg);
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.date-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.date-input::-webkit-inner-spin-button,
+.date-input::-webkit-clear-button {
+  display: none;
+}
+
+.check-date {
+  position: relative;
+}
+
+.check-date i {
+  position: absolute;
+  right: 12px;
+  top: 42px;
+  color: #dfa974;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.booking-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.booking-form select:focus {
+  outline: none;
+  border-color: #dfa974;
+}
+
+.booking-form .bk-btn {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+}
+
 
 @media (max-width: 768px) {
   .promo-container {
