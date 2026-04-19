@@ -1,3 +1,78 @@
-<div class="page">
-  <h1>Publicicdad</h1>
+<div class="publicidad-page">
+  <div class="publicidad-header">
+    <h1>Publicidad</h1>
+    <button class="btn-agregar" (click)="abrirAgregar()">Agregar</button>
+  </div>
+
+  <div class="mensaje exito" *ngIf="mensajeExito">
+    {{ mensajeExito }}
+  </div>
+
+  <div class="mensaje error" *ngIf="mensajeError && !mostrarModal">
+    {{ mensajeError }}
+  </div>
+
+  <div class="carrusel-container">
+    <button class="flecha" (click)="prevPage()">
+      &#8249;
+    </button>
+
+    <div class="cards-container">
+      <div class="card-publicidad" *ngFor="let publi of publicidadesVisibles">
+        <div class="imagen-wrapper">
+          <img [src]="publi.imageUrl" alt="Publicidad" />
+        </div>
+
+        <div class="info">
+          <p><strong>Orden:</strong> {{ publi.orden }}</p>
+          <p><strong>Estado:</strong> {{ publi.estado ? 'Activa' : 'Inactiva' }}</p>
+        </div>
+
+        <div class="acciones">
+          <button (click)="abrirEditar(publi)">Editar</button>
+          <button (click)="eliminar(publi.id)">Eliminar</button>
+        </div>
+      </div>
+
+      <div class="sin-datos" *ngIf="publicidades.length === 0">
+        No hay publicidades registradas.
+      </div>
+    </div>
+
+    <button class="flecha" (click)="nextPage()">
+      &#8250;
+    </button>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="mostrarModal">
+  <div class="modal">
+    <h2>{{ modoEdicion ? 'Editar Publicidad' : 'Agregar Publicidad' }}</h2>
+
+    <div class="mensaje error" *ngIf="mensajeError">
+      {{ mensajeError }}
+    </div>
+
+    <label>Imagen URL</label>
+    <input type="text" [(ngModel)]="publicidadForm.imageUrl" />
+
+    <label>Link</label>
+    <input type="text" [(ngModel)]="publicidadForm.link" />
+
+    <label>Orden</label>
+    <input type="number" [(ngModel)]="publicidadForm.orden" />
+
+    <label>Estado</label>
+    <select [(ngModel)]="publicidadForm.estado">
+      <option [ngValue]="true">Activa</option>
+      <option [ngValue]="false">Inactiva</option>
+    </select>
+
+    <div class="modal-acciones">
+      <button (click)="cerrarModal()">Cancelar</button>
+      <button (click)="guardar()">
+        {{ modoEdicion ? 'Guardar cambios' : 'Agregar' }}
+      </button>
+    </div>
+  </div>
 </div>
