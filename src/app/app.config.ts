@@ -17,7 +17,8 @@ import { HabitacionRepository } from './domain/interfaces/habitacion.repository'
 import { HabitacionTestRepository } from './infrastructure/repositories/habitacion-test.repository';
 import { TemporadaRepository } from './domain/interfaces/temporada.repository';
 import { TemporadaRemoteRepository } from './infrastructure/repositories/temporada-test.repository';
-
+import { PublicidadRepository } from './domain/interfaces/publicidad.repository';
+import { PublicidadRemoteRepository } from './infrastructure/repositories/publicidad-remote.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -55,6 +56,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: TemporadaRepository,
       useClass: TemporadaRemoteRepository
+    },
+    {
+      provide: PublicidadRepository,
+      useClass: PublicidadRemoteRepository
     }
+
   ]
 };
