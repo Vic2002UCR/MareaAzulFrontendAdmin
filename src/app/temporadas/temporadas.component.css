@@ -1,0 +1,225 @@
+.temporadas-page {
+  padding: 40px;
+}
+
+.temporadas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-agregar {
+  background: #d4a373;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-agregar:hover {
+  opacity: 0.8;
+}
+
+.tabla {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.tabla th {
+  background: #f5f5f5;
+}
+
+.sin-datos {
+  text-align: center;
+  padding: 20px;
+}
+
+.mensaje {
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.exito {
+  background: #d4edda;
+  color: #155724;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.modal-pro {
+  background: white;
+  width: 600px;
+  padding: 30px;
+  border-radius: 10px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.form-grid {
+  display: flex;
+  gap: 20px;
+}
+
+/* IZQUIERDA */
+.form-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-left input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* DERECHA */
+.form-right {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-subir {
+  background: #d4a373;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #ccc;
+  cursor: pointer;
+}
+
+.btn-save {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #d4a373;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* Contenedor de botones en la celda */
+.acciones-celda {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Estilo base para botones de acción (basado en btn-agregar) */
+.btn-accion {
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 1px; /* Un pequeño redondeo los hace ver más modernos */
+  transition: opacity 0.2s;
+}
+
+.btn-accion:hover {
+  opacity: 0.8;
+}
+
+/* Color para Editar (igual al de Crear) */
+.btn-editar {
+  background: #d4a373;
+}
+
+/* Color para Eliminar (un tono que denote advertencia pero elegante) */
+.btn-eliminar {
+  background: #b87235; /* O puedes usar #a47148 si prefieres mantener todo en cafés */
+}
+
+/* Estilo específico para el modal de confirmación */
+.modal-confirmar {
+  background: white;
+  width: 400px; /* Más angosto que el de edición */
+  padding: 40px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+}
+
+.icono-advertencia {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* Botón de eliminar dentro del modal (más intenso para advertir) */
+.btn-eliminar-confirmar {
+  background: #bc6c25 !important; /* Un café más oscuro/rojizo */
+}
+
+.btn-eliminar-confirmar:hover {
+  background: #a45a1d !important;
+}
+
+.mensaje {
+  margin: 15px 0;
+  padding: 12px;
+  border-radius: 4px; /* Un poco de redondeo para suavizar */
+  font-weight: 500;
+}
+
+.exito {
+  background-color: #d4edda; /* Verde claro */
+  color: #155724;           /* Verde oscuro para el texto */
+  border: 1px solid #c3e6cb;
+}

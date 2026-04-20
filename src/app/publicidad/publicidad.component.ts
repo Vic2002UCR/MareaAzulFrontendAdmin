@@ -13,7 +13,7 @@ import { Publicidad } from '../domain/entities/publicidad.entity';
 })
 export class PublicidadComponent implements OnInit {
   private readonly publicidadUseCase = inject(PublicidadUseCase);
-
+  
   publicidades: Publicidad[] = [];
   publicidadesVisibles: Publicidad[] = [];
 
