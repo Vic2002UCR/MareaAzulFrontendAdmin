@@ -1,0 +1,128 @@
+.contenedor {
+  width: 90%;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-agregar {
+  padding: 5px 10px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+}
+
+.carrusel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flecha {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Scroll horizontal */
+.ofertas {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.card {
+  min-width: 180px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imagen {
+  height: 150px;
+  width: 100%;
+  position: relative;
+}
+
+/* X del mockup */
+.imagen::before,
+.imagen::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: black;
+  top: 50%;
+}
+
+.imagen::before {
+  transform: rotate(45deg);
+}
+
+.imagen::after {
+  transform: rotate(-45deg);
+}
+
+.titulo {
+  margin: 10px 0;
+}
+
+.acciones {
+  display: flex;
+  width: 100%;
+}
+
+.acciones button {
+  flex: 1;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+
+  width: 400px;        /* 🔥 ancho fijo */
+  max-width: 90%;      /* 🔥 responsive */
+  
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.acciones-modal {
+  display: flex;
+  justify-content: space-between;
+}
