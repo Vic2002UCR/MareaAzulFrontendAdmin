@@ -19,6 +19,9 @@ import { TemporadaRepository } from './domain/interfaces/temporada.repository';
 import { TemporadaRemoteRepository } from './infrastructure/repositories/temporada-remote.repository';
 import { PublicidadRepository } from './domain/interfaces/publicidad.repository';
 import { PublicidadRemoteRepository } from './infrastructure/repositories/publicidad-remote.repository';
+import { HabitacionDisponibilidadRepository } from './domain/interfaces/habitacion-disponibilidad.repository';
+import { HabitacionEstadoRepository } from './domain/interfaces/habitacion-estado.repository';
+import { HabitacionRemoteRepository } from './infrastructure/repositories/habitacion-remote.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,6 +63,14 @@ export const appConfig: ApplicationConfig = {
     {
       provide: PublicidadRepository,
       useClass: PublicidadRemoteRepository
+    },
+    {
+      provide: HabitacionDisponibilidadRepository,
+      useClass: HabitacionRemoteRepository
+    },
+    {
+      provide: HabitacionEstadoRepository,
+      useClass: HabitacionRemoteRepository
     }
 
   ]
