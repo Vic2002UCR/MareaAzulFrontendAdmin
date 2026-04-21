@@ -5,7 +5,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 
 import { HotelRepository } from './domain/interfaces/hotel.repository';
-import { HotelRemoteRepository } from './infrastructure/repositories/hotel-remote.repository';
 import { HotelTestRepository } from './infrastructure/repositories/hotel-test.repository';
 import { FacilidadRepository } from './domain/interfaces/facilidad.repository';
 import { FacilidadTestRepository } from './infrastructure/repositories/facilidad-test.repository';
@@ -19,6 +18,8 @@ import { TemporadaRepository } from './domain/interfaces/temporada.repository';
 import { TemporadaRemoteRepository } from './infrastructure/repositories/temporada-test.repository';
 import { PublicidadRepository } from './domain/interfaces/publicidad.repository';
 import { PublicidadRemoteRepository } from './infrastructure/repositories/publicidad-remote.repository';
+import { OfertaRepository } from './domain/interfaces/oferta.repository';
+import { OfertaRemoteRepository } from './infrastructure/repositories/oferta-remote.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,6 +61,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: PublicidadRepository,
       useClass: PublicidadRemoteRepository
+    },
+    {
+      provide: OfertaRepository,
+      useClass: OfertaRemoteRepository
     }
 
   ]

@@ -1,62 +1,127 @@
 <div class="contenedor">
 
-  <!-- Header -->
+  <!-- HEADER -->
   <div class="header">
-    <h2>Oferta</h2>
-    <button class="btn-agregar" (click)="agregar()">Agregar</button>
+    <h2>Ofertas</h2>
+    <button class="btn-agregar" (click)="agregar()">+ Agregar</button>
   </div>
 
-  <!-- Carrusel -->
-  <div class="carrusel">
-    <span class="flecha" (click)="scrollIzq()">&#10094;</span>
+  <!-- <div class="contenedor-doble"> -->
 
-    <div class="ofertas" #contenedorOfertas>
-      <div class="card" *ngFor="let oferta of ofertas">
-        
+  <!-- ACTIVAS -->
+  <div class="columna">
+    <h2>Ofertas Activas</h2>
+
+    <div class="grid-ofertas">
+      <div class="card" *ngFor="let oferta of ofertasActivas">
+
+        <!-- IMAGEN -->
         <div class="imagen">
-          <!-- luego imagen real -->
+          <img 
+            *ngIf="oferta.imageUrl; else sinImagenActiva" 
+            [src]="oferta.imageUrl" 
+            alt="oferta"
+          />
+
+          <ng-template #sinImagenActiva>
+            <span class="placeholder">Sin imagen</span>
+          </ng-template>
         </div>
 
-        <p class="titulo">{{ oferta.titulo }}</p>
+        <!-- INFO -->
+        <div class="info">
+          <h3 class="titulo">{{ oferta.nombre }}</h3>
+          <p class="descripcion">{{ oferta.descripcion }}</p>
 
+          <span class="descuento">
+            {{ oferta.descuento }}% OFF
+          </span>
+
+          <p class="fechas">
+            {{ oferta.fechaInicio | date:'shortDate' }} - 
+            {{ oferta.fechaFin | date:'shortDate' }}
+          </p>
+        </div>
+
+        <!-- ACCIONES -->
         <div class="acciones">
           <button (click)="editar(oferta)">Editar</button>
-          <button (click)="eliminar(oferta.id)">Eliminar</button>
+          <button (click)="cambiarEstado(oferta)">Desactivar</button>
         </div>
 
       </div>
     </div>
 
-    <span class="flecha" (click)="scrollDer()">&#10095;</span>
+  <!-- INACTIVAS -->
+  <div class="columna">
+    <h2>Ofertas Inactivas</h2>
+
+    <div class="grid-ofertas">
+      <div class="card" *ngFor="let oferta of ofertasInactivas">
+
+        <!-- IMAGEN -->
+        <div class="imagen">
+          <img 
+            *ngIf="oferta.imageUrl; else sinImagenInactiva" 
+            [src]="oferta.imageUrl" 
+            alt="oferta"
+          />
+
+          <ng-template #sinImagenInactiva>
+            <span class="placeholder">Sin imagen</span>
+          </ng-template>
+        </div>
+
+        <!-- INFO -->
+        <div class="info">
+          <h3 class="titulo">{{ oferta.nombre }}</h3>
+          <p class="descripcion">{{ oferta.descripcion }}</p>
+
+          <span class="descuento">
+            {{ oferta.descuento }}% OFF
+          </span>
+
+          <p class="fechas">
+            {{ oferta.fechaInicio | date:'shortDate' }} - 
+            {{ oferta.fechaFin | date:'shortDate' }}
+          </p>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="acciones">
+          <button (click)="editar(oferta)">Editar</button>
+          <button (click)="cambiarEstado(oferta)">Activar</button>
+        </div>
+
+      </div>
+    </div>
   </div>
 
 </div>
 
-<!-- MODAL -->
-<div class="modal-backdrop" *ngIf="mostrarModal" (click)="cerrarModal()">
+  <!-- MODAL -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
 
-  <div class="modal" (click)="$event.stopPropagation()">
+  <div class="modal">
 
-    <h3>Nueva Oferta</h3>
+    <h3>Agregar / Editar oferta</h3>
 
-    <form (ngSubmit)="guardarOferta()">
+    <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
+    <textarea [(ngModel)]="nuevaOferta.descripcion" placeholder="Descripción"></textarea>
 
-      <label>Título</label>
-      <input type="text" [(ngModel)]="nuevaOferta.titulo" name="titulo" required>
+    <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" />
+    <input type="number" [(ngModel)]="nuevaOferta.descuento" placeholder="Descuento" />
 
-      <label>Descripción</label>
-      <textarea [(ngModel)]="nuevaOferta.descripcion" name="descripcion"></textarea>
+    <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
+    <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
 
-      <label>Precio</label>
-      <input type="number" [(ngModel)]="nuevaOferta.precio" name="precio" required>
-
-      <div class="acciones-modal">
-        <button type="button" (click)="cerrarModal()">Cancelar</button>
-        <button type="submit">Guardar</button>
-      </div>
-
-    </form>
+    <div class="acciones-modal">
+      <button (click)="cerrarModal()">Cancelar</button>
+      <button (click)="guardarOferta()">Guardar</button>
+    </div>
 
   </div>
+
+</div>
 
 </div>
