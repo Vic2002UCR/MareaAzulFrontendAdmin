@@ -1,78 +1,120 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { Component, ElementRef, ViewChild, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { DatePipe, NgFor, NgIf } from "@angular/common";
+import { Oferta } from "../domain/entities/oferta.entity";
+import { GetOfertasUseCase } from "../application/get-ofertas.use-case";
+import { UpdateOfertaUseCase } from "../application/update-oferta.use-case";
+import { CreateOfertaUseCase } from "../application/create-oferta.use-case";
 
 @Component({
-  selector: 'app-ofertas',
+  selector: "app-ofertas",
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
-  templateUrl: './ofertas.component.html',
-  styleUrls: ['./ofertas.component.css']
+  imports: [FormsModule, NgFor, NgIf, DatePipe],
+  templateUrl: "./ofertas.component.html",
+  styleUrls: ["./ofertas.component.css"],
 })
-export class OfertasComponent {
-
-  @ViewChild('contenedorOfertas') contenedor!: ElementRef;
-
+export class OfertasComponent implements OnInit {
   mostrarModal = false;
 
-  ofertas = [
-    { id: 1, titulo: 'Oferta 1' },
-    { id: 2, titulo: 'Oferta 2' },
-    { id: 3, titulo: 'Oferta 3' }
-  ];
+  ofertas: Oferta[] = [];
 
-  nuevaOferta = {
-    titulo: '',
-    descripcion: '',
-    precio: 0
-  };
+  ofertasActivas: Oferta[] = [];
+  ofertasInactivas: Oferta[] = [];
 
+  nuevaOferta: Oferta = this.getEmptyOferta();
+
+  constructor(
+    private createOfertaUseCase: CreateOfertaUseCase,
+    private getOfertasUseCase: GetOfertasUseCase,
+    private updateOfertaUseCase: UpdateOfertaUseCase,
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarOfertas();
+  }
+
+  // Cargar ofertas desde API
+  cargarOfertas() {
+    // this.getOfertasUseCase.execute().subscribe({
+    //   next: (data) => {
+    //     this.ofertas = data;
+    //   },
+    //   error: (err) => console.error("Error cargando ofertas:", err),
+    // });
+    this.getOfertasUseCase.execute().subscribe({
+      next: (data) => {
+        this.ofertasActivas = data.filter((o) => o.estado);
+        this.ofertasInactivas = data.filter((o) => !o.estado);
+      },
+    });
+  }
+
+  // Abrir modal
   agregar() {
+    this.nuevaOferta = this.getEmptyOferta();
     this.mostrarModal = true;
   }
 
+  // Cerrar modal
   cerrarModal() {
     this.mostrarModal = false;
     this.resetFormulario();
   }
 
+  // Crear o actualizar
   guardarOferta() {
-    const nueva = {
-      id: Date.now(),
-      ...this.nuevaOferta
+    if (this.nuevaOferta.id) {
+      this.updateOfertaUseCase
+        .execute(this.nuevaOferta.id, this.nuevaOferta)
+        .subscribe(() => {
+          this.cargarOfertas();
+          this.cerrarModal();
+        });
+    } else {
+      this.createOfertaUseCase.execute(this.nuevaOferta).subscribe(() => {
+        this.cargarOfertas();
+        this.cerrarModal();
+      });
+    }
+  }
+
+  // Editar
+  editar(oferta: Oferta) {
+    this.nuevaOferta = { ...oferta };
+    this.mostrarModal = true;
+  }
+
+  // Eliminar (soft delete)
+  cambiarEstado(oferta: Oferta) {
+    const accion = oferta.estado ? "desactivar" : "activar";
+
+    if (!confirm(`¿Seguro que deseas ${accion} esta oferta?`)) return;
+
+    const actualizada = {
+      ...oferta,
+      estado: !oferta.estado,
     };
 
-    this.ofertas.push(nueva);
-    this.cerrarModal();
-  }
-
-  editar(oferta: any) {
-    console.log('Editar', oferta);
-  }
-
-  eliminar(id: number) {
-    this.ofertas = this.ofertas.filter(o => o.id !== id);
-  }
-
-  scrollIzq() {
-    this.contenedor.nativeElement.scrollBy({
-      left: -200,
-      behavior: 'smooth'
+    this.updateOfertaUseCase.execute(oferta.id!, actualizada).subscribe({
+      next: () => this.cargarOfertas(),
+      error: (err) => console.error("Error cambiando estado:", err),
     });
   }
 
-  scrollDer() {
-    this.contenedor.nativeElement.scrollBy({
-      left: 200,
-      behavior: 'smooth'
-    });
-  }
-
+  // Reset formulario
   resetFormulario() {
-    this.nuevaOferta = {
-      titulo: '',
-      descripcion: '',
-      precio: 0
+    this.nuevaOferta = this.getEmptyOferta();
+  }
+
+  //Helper limpio
+  private getEmptyOferta(): Oferta {
+    return {
+      nombre: "",
+      descripcion: "",
+      imageUrl: "",
+      descuento: 0,
+      fechaInicio: "",
+      fechaFin: "",
     };
   }
 }

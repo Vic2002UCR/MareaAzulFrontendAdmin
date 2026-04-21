@@ -1,128 +1,273 @@
-.contenedor {
-  width: 90%;
-  margin: auto;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: #f5f6f8;
+  color: #1f1f1f;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================
+   LAYOUT GENERAL
+========================= */
+.main-content {
+  padding-top: 120px;
+}
+
+/* =========================
+   HEADER GLOBAL (NAV)
+========================= */
+.menu-item {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL (SOLO WRAPPER)
+========================= */
+.contenedor {
+  padding: 20px;
+}
+
+/* =========================
+   HEADER DE OFERTAS
+========================= */
 .header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .btn-agregar {
-  padding: 5px 10px;
-  border: 1px solid black;
-  background: white;
+  padding: 10px 16px;
+  border: none;
+  background: #111827;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
 }
 
-.carrusel {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.btn-agregar:hover {
+  background: #1f2937;
+  transform: translateY(-2px);
 }
 
-.flecha {
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* Scroll horizontal */
-.ofertas {
-  display: flex;
+/* =========================
+   GRID DE OFERTAS (AQUÍ VA EL GRID REAL)
+========================= */
+.grid-ofertas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 0;
 }
 
+/* =========================
+   CARD
+========================= */
 .card {
-  min-width: 180px;
-  border: 2px solid black;
+  width: 100%;
+  min-height: 320px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   IMAGEN
+========================= */
 .imagen {
-  height: 150px;
+  height: 160px;
   width: 100%;
-  position: relative;
+  background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* X del mockup */
-.imagen::before,
-.imagen::after {
-  content: "";
-  position: absolute;
+.imagen img {
   width: 100%;
-  height: 2px;
-  background: black;
-  top: 50%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.imagen::before {
-  transform: rotate(45deg);
-}
-
-.imagen::after {
-  transform: rotate(-45deg);
+/* =========================
+   INFO
+========================= */
+.info {
+  padding: 12px;
 }
 
 .titulo {
-  margin: 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
 }
 
+.descripcion {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 10px 0;
+}
+
+.descuento {
+  display: inline-block;
+  background: #111827;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.fechas {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* =========================
+   ACCIONES
+========================= */
 .acciones {
   display: flex;
-  width: 100%;
+  border-top: 1px solid #f1f1f1;
 }
 
 .acciones button {
   flex: 1;
-  border: 1px solid black;
-  background: white;
+  border: none;
+  padding: 10px;
   cursor: pointer;
-  padding: 5px;
+  background: transparent;
+  transition: 0.2s;
+  font-weight: 500;
 }
 
-/* MODAL */
+.acciones button:hover {
+  background: #f3f4f6;
+}
+
+/* =========================
+   MODAL
+========================= */
 .modal-backdrop {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,0.5);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 999;
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: rgba(0,0,0,0.6) !important;
+  z-index: 99999 !important;
 }
 
 .modal {
   background: white;
+  position: relative !important;
+  margin: auto !important;
+  width: 420px !important;
   padding: 20px;
-
-  width: 400px;        /* 🔥 ancho fijo */
-  max-width: 90%;      /* 🔥 responsive */
-  
-  border-radius: 8px;
-
+  /* width: 420px; */
+  max-width: 92%;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  animation: pop 0.18s ease;
 }
 
+@keyframes pop {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =========================
+   INPUTS
+========================= */
 .modal input,
 .modal textarea {
   width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  outline: none;
 }
 
+.modal input:focus,
+.modal textarea:focus {
+  border-color: #111827;
+}
+
+/* =========================
+   BOTONES MODAL
+========================= */
 .acciones-modal {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
+}
+
+.acciones-modal button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.acciones-modal button:first-child {
+  background: #f3f4f6;
+}
+
+.acciones-modal button:last-child {
+  background: #111827;
+  color: white;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1200px) {
+  .grid-ofertas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-ofertas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-ofertas {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

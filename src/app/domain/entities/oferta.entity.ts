@@ -1,10 +1,10 @@
 export interface Oferta{
-    idOferta: number;
+    id?: number;
     nombre:string;
     descripcion:string;
-    imagenUrl:string;
-    estado: string;
+    imageUrl:string;
+    estado?: boolean;
     descuento: number;
-    fechaInicio: Date;
-    fechaFin: Date;
+    fechaInicio: string;
+    fechaFin: string;
 }
