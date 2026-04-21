@@ -1,3 +1,111 @@
-<div class="page">
-  <h1>Estado del hotel</h1>
+<div class="contenedor">
+
+  <!-- FORMULARIO -->
+  <form [formGroup]="form" class="filtros">
+
+    <div class="campo">
+      <label>Fecha llegada</label>
+      <input type="date" formControlName="fechaInicio">
+    </div>
+
+    <div class="campo">
+      <label>Fecha salida</label>
+      <input type="date" formControlName="fechaFin">
+    </div>
+
+    <div class="campo">
+      <label>Tipo de habitación</label>
+      <select formControlName="tipoId">
+        <option value="">Todos</option>
+        <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+          {{ tipo.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="acciones">
+      <button type="button" class="btn" (click)="consultar()">
+        Consultar
+      </button>
+
+      <button type="button" class="btn secundario" (click)="estadoHoy()">
+        Al día de hoy
+      </button>
+    </div>
+
+  </form>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading">
+    Cargando...
+  </div>
+
+  <!-- TITULO DISPONIBILIDAD -->
+  <h2 *ngIf="!mostrandoEstadoHoy && resultadosDisponibilidad.length" class="titulo">
+  Disponibilidad desde {{ fechaInicioConsulta }} hasta {{ fechaFinConsulta }}
+</h2>
+
+  <!-- TABLA DISPONIBILIDAD -->
+  <table *ngIf="!mostrandoEstadoHoy && resultadosDisponibilidad.length">
+
+    <thead>
+      <tr>
+        <th>Habitación</th>
+        <th>Tipo</th>
+        <th>Costo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let h of resultadosDisponibilidad">
+        <td>{{ h.habitacionId }}</td>
+        <td>{{ h.tipoHabitacion }}</td>
+        <td>{{ h.costoTotal | currency:'CRC' }}</td>
+        <td>
+          <span [ngClass]="h.disponible ? 'estado disponible' : 'estado ocupada'">
+            {{ h.disponible ? 'Disponible' : 'Ocupada' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <!-- TITULO ESTADO HOY -->
+  
+<h2 *ngIf="mostrandoEstadoHoy && resultadosEstado.length" class="titulo">
+  Estado del hotel al día de hoy ({{ fechaInicioConsulta }})
+</h2>
+
+  <!-- TABLA ESTADO HOY -->
+  <table *ngIf="mostrandoEstadoHoy && resultadosEstado.length">
+
+    <thead>
+      <tr>
+        <th>Habitación</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let h of resultadosEstado">
+        <td>{{ h.habitacionId }}</td>
+        <td>{{ h.tipoHabitacion }}</td>
+        <td>
+          <span [ngClass]="h.estado === 'DISPONIBLE' ? 'estado disponible' : 'estado ocupada'">
+            {{ h.estado }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <!-- MENSAJE -->
+  <div *ngIf="!loading && !resultadosDisponibilidad.length && !resultadosEstado.length" class="empty">
+    No hay resultados para mostrar
+  </div>
+
 </div>
