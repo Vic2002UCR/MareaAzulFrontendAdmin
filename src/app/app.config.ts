@@ -23,6 +23,8 @@ import { OfertaRemoteRepository } from "./infrastructure/repositories/oferta-rem
 import { HabitacionDisponibilidadRepository } from "./domain/interfaces/habitacion-disponibilidad.repository";
 import { HabitacionEstadoRepository } from "./domain/interfaces/habitacion-estado.repository";
 import { HabitacionRemoteRepository } from "./infrastructure/repositories/habitacion-remote.repository";
+import { AuthRepository } from './domain/interfaces/auth.repository';
+import { AuthRemoteRepository } from './infrastructure/repositories/auth-remote.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +39,10 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: "enabled",
       }),
     ),
+    {
+      provide: AuthRepository,
+      useClass: AuthRemoteRepository,
+    },
     {
       provide: HotelRepository,
       useClass: HotelTestRepository,
