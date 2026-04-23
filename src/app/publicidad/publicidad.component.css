@@ -1,0 +1,160 @@
+.publicidad-page {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.publicidad-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.publicidad-header h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 600;
+}
+
+.btn-agregar {
+  border: 2px solid #222;
+  background: white;
+  padding: 8px 18px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.carrusel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.flecha {
+  border: none;
+  background: transparent;
+  font-size: 48px;
+  cursor: pointer;
+  width: 40px;
+}
+
+.cards-container {
+  display: flex;
+  gap: 22px;
+  min-height: 340px;
+  align-items: flex-start;
+}
+
+.card-publicidad {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.imagen-wrapper {
+  width: 220px;
+  height: 220px;
+  border: 2px solid #222;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.imagen-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.info p {
+  margin: 4px 0;
+}
+
+.acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.acciones button {
+  border: 1px solid #222;
+  background: white;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.sin-datos {
+  font-size: 18px;
+  padding: 40px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 420px;
+  background: white;
+  border: 2px solid #222;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.modal input,
+.modal select {
+  padding: 8px;
+  border: 1px solid #222;
+  font-size: 14px;
+}
+
+.modal-acciones {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.modal-acciones button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #222;
+  background: white;
+  cursor: pointer;
+}
+
+.mensaje {
+  margin-bottom: 15px;
+  padding: 10px 14px;
+  border: 1px solid;
+  width: fit-content;
+}
+
+.mensaje.exito {
+  color: #0b6b2a;
+  border-color: #0b6b2a;
+  background: #eefaf1;
+}
+
+.mensaje.error {
+  color: #a12626;
+  border-color: #a12626;
+  background: #fff1f1;
+}

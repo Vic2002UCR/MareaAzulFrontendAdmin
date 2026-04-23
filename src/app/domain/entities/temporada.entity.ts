@@ -1,7 +1,7 @@
 export interface Temporada {
   id: number;
   nombre: string;
-  fechaInicio: Date;
-  fechaFin: Date;
+  fechaInicio: string;
+  fechaFin: string;
   porcentaje: number; 
 }

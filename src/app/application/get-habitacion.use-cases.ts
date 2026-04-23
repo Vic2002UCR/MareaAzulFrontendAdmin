@@ -18,7 +18,7 @@ export class GetHabitacionUseCase {
 
     return combineLatest([
       this.habitacionRepo.getHabitacion(),
-      this.temporadaRepo.getTemporadas(),
+      this.temporadaRepo.getAll(),
       this.tipoHabitacionRepo.getTiposHabitacion()
     ]).pipe(
       map(([habitaciones, temporadas, tipos]) => {
@@ -32,9 +32,12 @@ export class GetHabitacionUseCase {
           let precioFinal = precioBase;
 
           // buscar temporada
-          const temporada = temporadas.find(t =>
-            fechaEntrada >= t.fechaInicio && fechaEntrada <= t.fechaFin
-          );
+          const temporada = temporadas.find(t => {
+            const inicio = new Date(t.fechaInicio);
+            const fin = new Date(t.fechaFin);
+
+            return fechaEntrada >= inicio && fechaEntrada <= fin;
+          });
 
           if (temporada) {
             precioFinal = precioFinal + (precioFinal * temporada.porcentaje);
@@ -42,7 +45,7 @@ export class GetHabitacionUseCase {
 
           return {
             ...habitacion,
-            tipoInfo: tipo, 
+            tipoInfo: tipo,
             precio: precioFinal
           };
         });

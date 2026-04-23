@@ -1,3 +1,127 @@
-<div class="page">
-  <h1>Ofertas</h1>
+<div class="contenedor">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2>Ofertas</h2>
+    <button class="btn-agregar" (click)="agregar()">+ Agregar</button>
+  </div>
+
+  <!-- <div class="contenedor-doble"> -->
+
+  <!-- ACTIVAS -->
+  <div class="columna">
+    <h2>Ofertas Activas</h2>
+
+    <div class="grid-ofertas">
+      <div class="card" *ngFor="let oferta of ofertasActivas">
+
+        <!-- IMAGEN -->
+        <div class="imagen">
+          <img 
+            *ngIf="oferta.imageUrl; else sinImagenActiva" 
+            [src]="oferta.imageUrl" 
+            alt="oferta"
+          />
+
+          <ng-template #sinImagenActiva>
+            <span class="placeholder">Sin imagen</span>
+          </ng-template>
+        </div>
+
+        <!-- INFO -->
+        <div class="info">
+          <h3 class="titulo">{{ oferta.nombre }}</h3>
+          <p class="descripcion">{{ oferta.descripcion }}</p>
+
+          <span class="descuento">
+            {{ oferta.descuento }}% OFF
+          </span>
+
+          <p class="fechas">
+            {{ oferta.fechaInicio | date:'shortDate' }} - 
+            {{ oferta.fechaFin | date:'shortDate' }}
+          </p>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="acciones">
+          <button (click)="editar(oferta)">Editar</button>
+          <button (click)="cambiarEstado(oferta)">Desactivar</button>
+        </div>
+
+      </div>
+    </div>
+
+  <!-- INACTIVAS -->
+  <div class="columna">
+    <h2>Ofertas Inactivas</h2>
+
+    <div class="grid-ofertas">
+      <div class="card" *ngFor="let oferta of ofertasInactivas">
+
+        <!-- IMAGEN -->
+        <div class="imagen">
+          <img 
+            *ngIf="oferta.imageUrl; else sinImagenInactiva" 
+            [src]="oferta.imageUrl" 
+            alt="oferta"
+          />
+
+          <ng-template #sinImagenInactiva>
+            <span class="placeholder">Sin imagen</span>
+          </ng-template>
+        </div>
+
+        <!-- INFO -->
+        <div class="info">
+          <h3 class="titulo">{{ oferta.nombre }}</h3>
+          <p class="descripcion">{{ oferta.descripcion }}</p>
+
+          <span class="descuento">
+            {{ oferta.descuento }}% OFF
+          </span>
+
+          <p class="fechas">
+            {{ oferta.fechaInicio | date:'shortDate' }} - 
+            {{ oferta.fechaFin | date:'shortDate' }}
+          </p>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="acciones">
+          <button (click)="editar(oferta)">Editar</button>
+          <button (click)="cambiarEstado(oferta)">Activar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- MODAL -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
+
+  <div class="modal">
+
+    <h3>Agregar / Editar oferta</h3>
+
+    <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
+    <textarea [(ngModel)]="nuevaOferta.descripcion" placeholder="Descripción"></textarea>
+
+    <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" />
+    <input type="number" [(ngModel)]="nuevaOferta.descuento" placeholder="Descuento" />
+
+    <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
+    <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
+
+    <div class="acciones-modal">
+      <button (click)="cerrarModal()">Cancelar</button>
+      <button (click)="guardarOferta()">Guardar</button>
+    </div>
+
+  </div>
+
+</div>
+
 </div>
