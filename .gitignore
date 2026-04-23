@@ -1,3 +1,4 @@
-.angular/
 node_modules/
-dist/git merge --abort
+.DS_Store
+.angular/
+dist/
