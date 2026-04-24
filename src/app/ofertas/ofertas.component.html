@@ -1,127 +1,139 @@
 <div class="contenedor">
-
   <!-- HEADER -->
   <div class="header">
-    <h2>Ofertas</h2>
+    <h1>Ofertas</h1>
     <button class="btn-agregar" (click)="agregar()">+ Agregar</button>
   </div>
 
-  <!-- <div class="contenedor-doble"> -->
+  <!-- CONTENEDOR DOBLE -->
+  <div class="contenedor-doble">
+    <!-- ACTIVAS -->
+    <div class="columna">
+      <div class="columna activas">
+        <h2>Ofertas Activas</h2>
 
-  <!-- ACTIVAS -->
-  <div class="columna">
-    <h2>Ofertas Activas</h2>
+        <div class="grid-ofertas">
+          <div class="card" *ngFor="let oferta of ofertasActivas">
+            <div class="imagen">
+              <img
+                *ngIf="oferta.imageUrl; else sinImgA"
+                [src]="oferta.imageUrl"
+              />
+              <ng-template #sinImgA>
+                <span class="placeholder">Sin imagen</span>
+              </ng-template>
+            </div>
 
-    <div class="grid-ofertas">
-      <div class="card" *ngFor="let oferta of ofertasActivas">
+            <div class="info">
+              <h3>{{ oferta.nombre }}</h3>
+              <p>{{ oferta.descripcion }}</p>
 
-        <!-- IMAGEN -->
-        <div class="imagen">
-          <img 
-            *ngIf="oferta.imageUrl; else sinImagenActiva" 
-            [src]="oferta.imageUrl" 
-            alt="oferta"
-          />
+              <span class="descuento">{{ oferta.descuento }}% OFF</span>
 
-          <ng-template #sinImagenActiva>
-            <span class="placeholder">Sin imagen</span>
-          </ng-template>
+              <p class="fechas">
+                {{ oferta.fechaInicio | date: "shortDate" }} -
+                {{ oferta.fechaFin | date: "shortDate" }}
+              </p>
+            </div>
+
+            <div class="acciones">
+              <button (click)="editar(oferta)">Editar</button>
+              <button (click)="cambiarEstado(oferta)">Desactivar</button>
+            </div>
+          </div>
         </div>
-
-        <!-- INFO -->
-        <div class="info">
-          <h3 class="titulo">{{ oferta.nombre }}</h3>
-          <p class="descripcion">{{ oferta.descripcion }}</p>
-
-          <span class="descuento">
-            {{ oferta.descuento }}% OFF
-          </span>
-
-          <p class="fechas">
-            {{ oferta.fechaInicio | date:'shortDate' }} - 
-            {{ oferta.fechaFin | date:'shortDate' }}
-          </p>
-        </div>
-
-        <!-- ACCIONES -->
-        <div class="acciones">
-          <button (click)="editar(oferta)">Editar</button>
-          <button (click)="cambiarEstado(oferta)">Desactivar</button>
-        </div>
-
       </div>
     </div>
 
-  <!-- INACTIVAS -->
-  <div class="columna">
-    <h2>Ofertas Inactivas</h2>
+    <!-- INACTIVAS -->
+    <div class="columna">
+      <div class="columna inactivas">
+        <h2>Ofertas Inactivas</h2>
 
-    <div class="grid-ofertas">
-      <div class="card" *ngFor="let oferta of ofertasInactivas">
+        <div class="grid-ofertas">
+          <div class="card" *ngFor="let oferta of ofertasInactivas">
+            <div class="imagen">
+              <img
+                *ngIf="oferta.imageUrl; else sinImgI"
+                [src]="oferta.imageUrl"
+              />
+              <ng-template #sinImgI>
+                <span class="placeholder">Sin imagen</span>
+              </ng-template>
+            </div>
 
-        <!-- IMAGEN -->
-        <div class="imagen">
-          <img 
-            *ngIf="oferta.imageUrl; else sinImagenInactiva" 
-            [src]="oferta.imageUrl" 
-            alt="oferta"
-          />
+            <div class="info">
+              <h3>{{ oferta.nombre }}</h3>
+              <p>{{ oferta.descripcion }}</p>
 
-          <ng-template #sinImagenInactiva>
-            <span class="placeholder">Sin imagen</span>
-          </ng-template>
+              <span class="descuento">{{ oferta.descuento }}% OFF</span>
+
+              <p class="fechas">
+                {{ oferta.fechaInicio | date: "shortDate" }} -
+                {{ oferta.fechaFin | date: "shortDate" }}
+              </p>
+            </div>
+
+            <div class="acciones">
+              <button (click)="editar(oferta)">Editar</button>
+              <button (click)="cambiarEstado(oferta)">Activar</button>
+            </div>
+          </div>
         </div>
-
-        <!-- INFO -->
-        <div class="info">
-          <h3 class="titulo">{{ oferta.nombre }}</h3>
-          <p class="descripcion">{{ oferta.descripcion }}</p>
-
-          <span class="descuento">
-            {{ oferta.descuento }}% OFF
-          </span>
-
-          <p class="fechas">
-            {{ oferta.fechaInicio | date:'shortDate' }} - 
-            {{ oferta.fechaFin | date:'shortDate' }}
-          </p>
-        </div>
-
-        <!-- ACCIONES -->
-        <div class="acciones">
-          <button (click)="editar(oferta)">Editar</button>
-          <button (click)="cambiarEstado(oferta)">Activar</button>
-        </div>
-
       </div>
     </div>
   </div>
 
-</div>
+  <!-- MODAL FORM -->
+  <div class="modal-backdrop" *ngIf="mostrarModal">
+    <div class="modal-form">
+      <h3>Oferta</h3>
 
-  <!-- MODAL -->
-<div class="modal-backdrop" *ngIf="mostrarModal">
+      <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
+      <textarea
+        [(ngModel)]="nuevaOferta.descripcion"
+        placeholder="Descripción"
+      ></textarea>
 
-  <div class="modal">
+      <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" />
+      <input
+        type="number"
+        [(ngModel)]="nuevaOferta.descuento"
+        placeholder="Descuento"
+      />
 
-    <h3>Agregar / Editar oferta</h3>
+      <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
+      <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
 
-    <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
-    <textarea [(ngModel)]="nuevaOferta.descripcion" placeholder="Descripción"></textarea>
-
-    <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" />
-    <input type="number" [(ngModel)]="nuevaOferta.descuento" placeholder="Descuento" />
-
-    <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
-    <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
-
-    <div class="acciones-modal">
-      <button (click)="cerrarModal()">Cancelar</button>
-      <button (click)="guardarOferta()">Guardar</button>
+      <div class="acciones-modal">
+        <button (click)="cerrarModal()">Cancelar</button>
+        <button (click)="guardarOferta()">Guardar</button>
+      </div>
     </div>
-
   </div>
 
-</div>
+  <!-- ALERTA -->
+  <div class="overlay" *ngIf="mostrarConfirmacion">
+    <div class="modal-alerta">
+      <h3>
+        {{ accion === "activar" ? "Activar oferta" : "Desactivar oferta" }}
+      </h3>
 
+      <p>
+        {{
+          accion === "activar"
+            ? "La oferta estará disponible."
+            : "La oferta dejará de mostrarse."
+        }}
+      </p>
+
+      <div class="botones">
+        <button class="cancelar" (click)="cancelar()">Cancelar</button>
+
+        <button class="confirmar" [ngClass]="accion" (click)="confirmar()">
+          {{ accion === "activar" ? "Activar" : "Desactivar" }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
