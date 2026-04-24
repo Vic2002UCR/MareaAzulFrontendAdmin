@@ -1,3 +1,8 @@
+<!-- <h1>Conexión Angular + ASP.NET Core</h1>
+<h1>Conexión Angular + ASP.NET Core</h1>
+<h1>Conexión Angular + ASP.NET Core</h1>
+<p>{{ message }}</p> -->
+
 <header class="header-section" *ngIf="showHeader">
   <div class="menu-item">
     <div class="container-fluid">
@@ -22,7 +27,7 @@
           </nav>
 
           <div class="nav-right">
-            <a href="#" class="bk-btn">Cerrar Sesión</a>
+            <a (click)="logout()" class="bk-btn">Cerrar Sesión</a>
           </div>
         </div>
       </div>
