@@ -21,26 +21,49 @@ export class InicioComponent {
   constructor(
     private router: Router,
     private loginUseCase: LoginUseCase
-  ) {}
+  ) { }
 
-login() {
+  login() {
     this.errorMessage = '';
     this.loading = true;
 
-    this.loginUseCase.execute({
+    const request: LoginRequest = {
       correo: this.correo,
-      contrasena: this.contrasena
-    }).subscribe({
-      next: (response) => {
-        localStorage.setItem('token', response.token);
+      contrasena: this.contrasena,
+      deviceId: this.getDeviceId(),
+      deviceName: 'Web Browser'
+    };
+
+    this.loginUseCase.execute(request).subscribe({
+      next: (response: LoginResponse) => {
+        localStorage.setItem('accessToken', response.tokens.accessToken);
+        localStorage.setItem('refreshToken', response.tokens.refreshToken);
+
+        localStorage.setItem('admin', JSON.stringify(response.admin));
+
         this.loading = false;
         this.router.navigate(['/sitio']);
       },
       error: (error) => {
         this.loading = false;
-        this.errorMessage = error?.error?.message || 'Credenciales incorrectas';
+
+        const message = error?.error?.message || 'Credenciales iválidos';
+
+        alert(message);
+
         console.error('Error en login', error);
       }
     });
+  }
+
+  getDeviceId(): string {
+    let deviceId = localStorage.getItem('deviceId');
+
+    if (!deviceId) {
+      deviceId = crypto.randomUUID();
+      localStorage.setItem('deviceId', deviceId);
+    }
+
+    return deviceId;
   }
 }

@@ -34,4 +34,14 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  logout() {
+  // elimina tokens
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('admin');
+  localStorage.removeItem('deviceId'); // opcional
+
+  this.router.navigate(['/inicio']);
+}
 }

@@ -1,9 +1,8 @@
 import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
 import { provideRouter, withInMemoryScrolling } from "@angular/router";
-import { provideHttpClient } from "@angular/common/http";
-
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './infrastructure/interceptors/auth.interceptor';
 import { routes } from "./app.routes";
-
 import { HotelRepository } from "./domain/interfaces/hotel.repository";
 import { HotelTestRepository } from "./infrastructure/repositories/hotel-test.repository";
 import { FacilidadRepository } from "./domain/interfaces/facilidad.repository";
@@ -29,8 +28,7 @@ import { AuthRemoteRepository } from './infrastructure/repositories/auth-remote.
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
 
     provideRouter(
       routes,
