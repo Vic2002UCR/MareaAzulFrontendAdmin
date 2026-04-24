@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   
   //Victor
-  apiUrl: 'http://localhost:5074/api'
+  //napiUrl: 'http://localhost:5074/api'
 
   //Kenneth
 
@@ -13,4 +13,6 @@ export const environment = {
   //Melany
 
   //Dilana
+  apiUrl: 'https://localhost:7151/api'
+
 };
