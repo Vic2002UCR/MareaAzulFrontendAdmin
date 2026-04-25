@@ -79,10 +79,10 @@ export class EstadoDelHotelComponent implements OnInit {
     // filtro reactivo SOLO si hay datos
     this.form.get('tipoId')?.valueChanges.subscribe(() => {
 
-  // 🔴 SI NO HAY DATOS → NO HACER NADA
+  // SI NO HAY DATOS → NO HACER NADA
   if (!this.datosCargados) return;
 
-  // 🟡 SOLO permitir filtro automático en "estado hoy"
+  // SOLO permitir filtro automático en "estado hoy"
   if (this.mostrandoEstadoHoy) {
     this.aplicarFiltro();
   }
@@ -120,7 +120,7 @@ export class EstadoDelHotelComponent implements OnInit {
     const tipoId = this.getTipoId();
 
     if (fechaInicio === fechaFin) {
-      alert('Las fechas no pueden ser iguales. Use "Al día de hoy".');
+      alert('La fecha inicial debe ser menor a la final. Use "Al día de hoy" para ver el estado actual de las habitaciones.');
       return;
     }
 
@@ -175,7 +175,7 @@ export class EstadoDelHotelComponent implements OnInit {
       this.resultadosEstado = data;
       this.estadoOriginal = [...data];
 
-      this.datosCargados = true; // 🔥 permitir filtro
+      this.datosCargados = true; // permitir filtro
 
     } catch (error) {
       console.error(error);
