@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PublicidadRepository } from '../../domain/interfaces/publicidad.repository';
 import { Publicidad } from '../../domain/entities/publicidad.entity';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class PublicidadRemoteRepository implements PublicidadRepository {
-    private apiUrl = 'https://localhost:7151/api/Publicidad';
+    private apiUrl = `${environment.apiUrl}/Publicidad`;
 
     constructor(private http: HttpClient) { }
 

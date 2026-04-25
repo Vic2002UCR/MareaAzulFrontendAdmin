@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { DatePipe, NgFor, NgIf } from "@angular/common";
+import { DatePipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { Oferta } from "../domain/entities/oferta.entity";
 import { GetOfertasUseCase } from "../application/get-ofertas.use-case";
 import { UpdateOfertaUseCase } from "../application/update-oferta.use-case";
@@ -9,7 +9,7 @@ import { CreateOfertaUseCase } from "../application/create-oferta.use-case";
 @Component({
   selector: "app-ofertas",
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf, DatePipe],
+  imports: [FormsModule, NgFor, NgIf, DatePipe, NgClass],
   templateUrl: "./ofertas.component.html",
   styleUrls: ["./ofertas.component.css"],
 })
@@ -23,6 +23,10 @@ export class OfertasComponent implements OnInit {
 
   nuevaOferta: Oferta = this.getEmptyOferta();
 
+  mostrarConfirmacion = false;
+  ofertaSeleccionada!: Oferta;
+  accion: "activar" | "desactivar" = "activar";
+
   constructor(
     private createOfertaUseCase: CreateOfertaUseCase,
     private getOfertasUseCase: GetOfertasUseCase,
@@ -35,12 +39,6 @@ export class OfertasComponent implements OnInit {
 
   // Cargar ofertas desde API
   cargarOfertas() {
-    // this.getOfertasUseCase.execute().subscribe({
-    //   next: (data) => {
-    //     this.ofertas = data;
-    //   },
-    //   error: (err) => console.error("Error cargando ofertas:", err),
-    // });
     this.getOfertasUseCase.execute().subscribe({
       next: (data) => {
         this.ofertasActivas = data.filter((o) => o.estado);
@@ -86,19 +84,19 @@ export class OfertasComponent implements OnInit {
 
   // Eliminar (soft delete)
   cambiarEstado(oferta: Oferta) {
-    const accion = oferta.estado ? "desactivar" : "activar";
+    this.ofertaSeleccionada = oferta;
+    this.accion = oferta.estado ? "desactivar" : "activar";
+    this.mostrarConfirmacion = true;
 
-    if (!confirm(`¿Seguro que deseas ${accion} esta oferta?`)) return;
+    // const actualizada = {
+    //   ...oferta,
+    //   estado: !oferta.estado,
+    // };
 
-    const actualizada = {
-      ...oferta,
-      estado: !oferta.estado,
-    };
-
-    this.updateOfertaUseCase.execute(oferta.id!, actualizada).subscribe({
-      next: () => this.cargarOfertas(),
-      error: (err) => console.error("Error cambiando estado:", err),
-    });
+    // this.updateOfertaUseCase.execute(oferta.id!, actualizada).subscribe({
+    //   next: () => this.cargarOfertas(),
+    //   error: (err) => console.error("Error cambiando estado:", err),
+    // });
   }
 
   // Reset formulario
@@ -116,5 +114,26 @@ export class OfertasComponent implements OnInit {
       fechaInicio: "",
       fechaFin: "",
     };
+  }
+
+  confirmar() {
+    const actualizada: Oferta = {
+      ...this.ofertaSeleccionada,
+      estado: this.accion === "activar",
+    };
+
+    this.updateOfertaUseCase
+      .execute(this.ofertaSeleccionada.id!, actualizada)
+      .subscribe({
+        next: () => {
+          this.cargarOfertas();
+          this.mostrarConfirmacion = false;
+        },
+        error: (err) => console.error("Error cambiando estado:", err),
+      });
+  }
+
+  cancelar() {
+    this.mostrarConfirmacion = false;
   }
 }
