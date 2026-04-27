@@ -1,108 +1,82 @@
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: #f5f6f8;
-  color: #1f1f1f;
-  margin: 0;
-  padding: 0;
-}
-
-/* =========================
-   LAYOUT GENERAL
-========================= */
-.main-content {
-  padding-top: 120px;
-}
-
-/* =========================
-   HEADER GLOBAL (NAV)
-========================= */
-.menu-item {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-/* =========================
-   CONTENEDOR PRINCIPAL (SOLO WRAPPER)
-========================= */
+/* CONTENEDOR */
 .contenedor {
   padding: 20px;
 }
 
-/* =========================
-   HEADER DE OFERTAS
-========================= */
+/* HEADER */
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .btn-agregar {
   padding: 10px 16px;
-  border: none;
   background: #111827;
   color: white;
   border-radius: 10px;
+  border: none;
   cursor: pointer;
-  transition: 0.2s;
-  font-weight: 500;
 }
 
-.btn-agregar:hover {
-  background: #1f2937;
-  transform: translateY(-2px);
+/* COLUMNAS */
+.contenedor-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  padding: 15px;
+  border-radius: 16px;
+  transition: all 0.2s ease;
 }
 
-/* =========================
-   GRID DE OFERTAS (AQUÍ VA EL GRID REAL)
-========================= */
+/* ACTIVAS (verde suave) */
+.columna.activas {
+  background: #ecfdf5; /* verde muy suave */
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 15px;
+}
+
+/* INACTIVAS (gris/rojo suave) */
+.columna.inactivas {
+  background: #fef2f2; /* rojo muy suave */
+  border: 1px solid #fecaca;
+  border-radius: 16px;
+  padding: 15px;
+}
+
+.columna h2 {
+  margin-bottom: 10px;
+}
+
+/* GRID */
 .grid-ofertas {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
-/* =========================
-   CARD
-========================= */
+/* CARD */
 .card {
-  width: 100%;
-  min-height: 320px;
   background: white;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
+  transition: all 0.25s ease;
 }
 
+/* CARD:HOVER */
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* =========================
-   IMAGEN
-========================= */
+/* IMAGEN */
 .imagen {
-  height: 160px;
-  width: 100%;
-  background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  height: 140px;
+  background: #eee;
 }
 
 .imagen img {
@@ -111,163 +85,128 @@ body {
   object-fit: cover;
 }
 
-/* =========================
-   INFO
-========================= */
+/* INFO */
 .info {
   padding: 12px;
 }
 
-.titulo {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 6px 0;
-}
-
-.descripcion {
-  font-size: 13px;
-  color: #6b7280;
-  margin: 0 0 10px 0;
-}
-
 .descuento {
-  display: inline-block;
-  background: #111827;
+  background: black;
   color: white;
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 12px;
-  margin-bottom: 8px;
 }
 
-.fechas {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-/* =========================
-   ACCIONES
-========================= */
+/* ACCIONES */
 .acciones {
   display: flex;
-  border-top: 1px solid #f1f1f1;
 }
 
 .acciones button {
   flex: 1;
-  border: none;
   padding: 10px;
+  border: none;
   cursor: pointer;
   background: transparent;
-  transition: 0.2s;
-  font-weight: 500;
 }
 
 .acciones button:hover {
   background: #f3f4f6;
 }
 
-/* =========================
-   MODAL
-========================= */
+/* MODAL BACKDROP */
 .modal-backdrop {
-  position: fixed !important;
-  inset: 0 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  background: rgba(0,0,0,0.6) !important;
-  z-index: 99999 !important;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal {
+/* MODAL FORM */
+.modal-form {
   background: white;
-  position: relative !important;
-  margin: auto !important;
-  width: 420px !important;
   padding: 20px;
-  /* width: 420px; */
-  max-width: 92%;
   border-radius: 16px;
+  width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  animation: pop 0.18s ease;
+  gap: 10px;
 }
 
-@keyframes pop {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* =========================
-   INPUTS
-========================= */
-.modal input,
-.modal textarea {
-  width: 100%;
+/* INPUTS */
+.modal-form input,
+.modal-form textarea {
   padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  outline: none;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
-.modal input:focus,
-.modal textarea:focus {
-  border-color: #111827;
-}
-
-/* =========================
-   BOTONES MODAL
-========================= */
+/* BOTONES MODAL */
 .acciones-modal {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
 }
 
 .acciones-modal button {
   flex: 1;
   padding: 10px;
-  border-radius: 10px;
   border: none;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.acciones-modal button:first-child {
-  background: #f3f4f6;
+  border-radius: 8px;
 }
 
 .acciones-modal button:last-child {
-  background: #111827;
+  background: black;
   color: white;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1200px) {
-  .grid-ofertas {
-    grid-template-columns: repeat(3, 1fr);
-  }
+/* ALERTA */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 900px) {
-  .grid-ofertas {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* MODAL ALERTA */
+.modal-alerta {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
 }
 
-@media (max-width: 600px) {
-  .grid-ofertas {
-    grid-template-columns: repeat(1, 1fr);
-  }
+/* BOTONES ALERTA */
+.botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.cancelar {
+  background: #ddd;
+}
+
+.confirmar.activar {
+  background: #28a745;
+  color: white;
+}
+
+.confirmar.desactivar {
+  background: #dc3545;
+  color: white;
+}
+
+/* ANIMACIÓN SUAVE */
+button {
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-1px);
 }

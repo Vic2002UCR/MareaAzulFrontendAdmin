@@ -5,6 +5,7 @@ import { HabitacionDisponibilidadRepository } from '../../domain/interfaces/habi
 import { HabitacionEstadoRepository } from '../../domain/interfaces/habitacion-estado.repository';
 import { Disponibilidad } from '../../domain/entities/disponibilidad.entity';
 import { EstadoHoy } from '../../domain/entities/estado-hoy.entity';
+import { environment } from '../../../environments/environment';
 
 
 
@@ -12,8 +13,8 @@ import { EstadoHoy } from '../../domain/entities/estado-hoy.entity';
 export class HabitacionRemoteRepository
   implements HabitacionDisponibilidadRepository, HabitacionEstadoRepository {
 
-  private baseUrl = 'https://localhost:7151/api/Habitacion';
-
+  private baseUrl = `${environment.apiUrl}/Habitacion`;
+// 'https://localhost:7151/api/Habitacion'
   constructor(private http: HttpClient) {}
 
   async consultarDisponibilidad(
