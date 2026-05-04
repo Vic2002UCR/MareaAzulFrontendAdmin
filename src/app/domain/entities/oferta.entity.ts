@@ -4,7 +4,7 @@ export interface Oferta{
     descripcion:string;
     imageUrl:string;
     estado?: boolean;
-    descuento: number;
+    descuento: number|null;
     fechaInicio: string;
     fechaFin: string;
 }

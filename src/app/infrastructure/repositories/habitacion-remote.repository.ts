@@ -7,8 +7,6 @@ import { Disponibilidad } from '../../domain/entities/disponibilidad.entity';
 import { EstadoHoy } from '../../domain/entities/estado-hoy.entity';
 import { environment } from '../../../environments/environment';
 
-
-
 @Injectable()
 export class HabitacionRemoteRepository
   implements HabitacionDisponibilidadRepository, HabitacionEstadoRepository {
@@ -20,26 +18,22 @@ export class HabitacionRemoteRepository
   async consultarDisponibilidad(
     inicio: string,
     fin: string,
-    tipoId?: number
+    tipoId?: number,
   ): Promise<Disponibilidad[]> {
-
     let url = `${this.baseUrl}/disponibilidad?inicio=${inicio}&fin=${fin}`;
 
     if (tipoId) {
       url += `&tipoId=${tipoId}`;
     }
 
-    const response = await firstValueFrom(
-      this.http.get<Disponibilidad[]>(url)
-    );
+    const response = await firstValueFrom(this.http.get<Disponibilidad[]>(url));
 
     return response ?? [];
   }
 
   async obtenerEstadoHoy(): Promise<EstadoHoy[]> {
-
     const response = await firstValueFrom(
-      this.http.get<EstadoHoy[]>(`${this.baseUrl}/estado-hoy`)
+      this.http.get<EstadoHoy[]>(`${this.baseUrl}/estado-hoy`),
     );
 
     return response ?? [];
