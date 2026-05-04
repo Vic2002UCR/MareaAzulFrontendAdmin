@@ -87,7 +87,7 @@
   <!-- MODAL FORM -->
   <div class="modal-backdrop" *ngIf="mostrarModal">
     <div class="modal-form">
-      <h3>Oferta</h3>
+      <h3 class="modal-titulo">Oferta</h3>
 
       <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
       <textarea
@@ -95,11 +95,12 @@
         placeholder="Descripción"
       ></textarea>
 
-      <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" />
+      <!-- <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" /> -->
+      <input type="file" (change)="onFileSelected($event)" />
       <input
         type="number"
         [(ngModel)]="nuevaOferta.descuento"
-        placeholder="Descuento"
+        placeholder="Descuento %"
       />
 
       <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />

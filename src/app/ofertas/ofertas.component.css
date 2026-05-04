@@ -125,15 +125,21 @@
   align-items: center;
 }
 
+.modal-titulo{
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
 /* MODAL FORM */
 .modal-form {
   background: white;
-  padding: 20px;
+  width: 600px;
+  padding: 30px;
   border-radius: 16px;
-  width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 /* INPUTS */
@@ -158,8 +164,13 @@
 }
 
 .acciones-modal button:last-child {
-  background: black;
+  background: #d4a373;
   color: white;
+}
+
+.acciones-modal button:first-child {
+  background: #ccc;
+  color: black;
 }
 
 /* ALERTA */
@@ -193,12 +204,12 @@
 }
 
 .confirmar.activar {
-  background: #28a745;
+  background: #d4a373;
   color: white;
 }
 
 .confirmar.desactivar {
-  background: #dc3545;
+  background: #d4a373;
   color: white;
 }
 

@@ -5,6 +5,7 @@ import { Oferta } from "../domain/entities/oferta.entity";
 import { GetOfertasUseCase } from "../application/get-ofertas.use-case";
 import { UpdateOfertaUseCase } from "../application/update-oferta.use-case";
 import { CreateOfertaUseCase } from "../application/create-oferta.use-case";
+import { UploadService } from "../infrastructure/services/upload.service";
 
 @Component({
   selector: "app-ofertas",
@@ -31,6 +32,7 @@ export class OfertasComponent implements OnInit {
     private createOfertaUseCase: CreateOfertaUseCase,
     private getOfertasUseCase: GetOfertasUseCase,
     private updateOfertaUseCase: UpdateOfertaUseCase,
+    private uploadService: UploadService,
   ) {}
 
   ngOnInit(): void {
@@ -110,7 +112,7 @@ export class OfertasComponent implements OnInit {
       nombre: "",
       descripcion: "",
       imageUrl: "",
-      descuento: 0,
+      descuento: null,
       fechaInicio: "",
       fechaFin: "",
     };
@@ -135,5 +137,15 @@ export class OfertasComponent implements OnInit {
 
   cancelar() {
     this.mostrarConfirmacion = false;
+  }
+
+  selectedFile!: File;
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    this.uploadService.uploadImage(this.selectedFile).subscribe((res) => {
+      this.nuevaOferta.imageUrl = res.url;
+    });
   }
 }

@@ -1,3 +1,129 @@
-<div class="page">
-  <h1>Sitio</h1>
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Admin</h2>
+
+    <ul>
+      <li 
+        [class.active]="seccion === 'sitio'"
+        (click)="seccion = 'sitio'">
+        Home
+      </li>
+
+      <li 
+        [class.active]="seccion === 'sobreNosotros'"
+        (click)="seccion = 'sobreNosotros'">
+        Sobre Nosotros
+      </li>
+
+      <li 
+        [class.active]="seccion === 'comoLlegar'"
+        (click)="seccion = 'comoLlegar'">
+        Cómo llegar
+      </li>
+
+      <li 
+        [class.active]="seccion === 'contacto'"
+        (click)="seccion = 'contacto'">
+        Contacto
+      </li>
+
+      <li 
+        [class.active]="seccion === 'facilidades'"
+        (click)="seccion = 'facilidades'">
+        Facilidades
+      </li>
+
+    </ul>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="content">
+
+    <!-- SITIO (default) -->
+    <div *ngIf="seccion === 'sitio'">
+
+      <h2>Modificar Sitio</h2>
+
+      <!-- HOME -->
+      <div class="card">
+        <h3>Home</h3>
+
+        <textarea [(ngModel)]="hotel.homeDescription"></textarea>
+
+        <input type="file" (change)="onFileSelected($event)" />
+        <button (click)="uploadImage()">Subir imagen</button>
+
+        <img *ngIf="hotel.homeImgUrl" [src]="hotel.homeImgUrl" />
+      </div>
+
+      <button (click)="guardar()">Guardar cambios</button>
+    </div>
+
+    <!-- SOBRE NOSOTROS -->
+    <div *ngIf="seccion === 'sobreNosotros'">
+
+      <h2>Modificar Sitio</h2>
+
+      <!-- SOBRE NOSOTROS -->
+      <div class="card">
+        <h3>Sobre Nosotros</h3>
+        <textarea [(ngModel)]="hotel.sobreNosotros"></textarea>
+      </div>
+
+      <button (click)="guardar()">Guardar cambios</button>
+    </div>
+
+    <!-- COMO LLEGAR -->
+    <div *ngIf="seccion === 'comoLlegar'">
+
+      <h2>Modificar Sitio</h2>
+
+      <!-- COMO LLEGAR -->
+      <div class="card">
+        <h3>Cómo Llegar</h3>
+        <textarea [(ngModel)]="hotel.direccion"></textarea>
+
+        <label>Link:</label>
+        <input [(ngModel)]="hotel.linkMaps">
+      </div>
+
+      <button (click)="guardar()">Guardar cambios</button>
+    </div>
+
+    <!-- CONTACTO -->
+    <div *ngIf="seccion === 'contacto'">
+
+      <h2>Modificar Sitio</h2>
+
+      <!-- COMO LLEGAR -->
+      <div class="card">
+        <h3>Cómo Llegar</h3>
+        <label>Correo:</label>
+        <input [(ngModel)]="hotel.email">
+
+        <label>Teléfono:</label>
+        <input [(ngModel)]="hotel.telefono">
+      </div>
+
+      <button (click)="guardar()">Guardar cambios</button>
+    </div>
+
+     <!-- FACILIDADES -->
+    <div *ngIf="seccion === 'facilidades'">
+
+      <h2>Modificar Sitio</h2>
+
+      <!-- COMO LLEGAR -->
+      <div class="card">
+        <h3>Facilidades</h3>
+        
+      </div>
+
+      <button (click)="guardar()">Guardar cambios</button>
+    </div>
+
+  </main>
+
 </div>
