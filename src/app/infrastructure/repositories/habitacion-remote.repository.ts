@@ -1,17 +1,18 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { firstValueFrom } from "rxjs";
-import { HabitacionDisponibilidadRepository } from "../../domain/interfaces/habitacion-disponibilidad.repository";
-import { HabitacionEstadoRepository } from "../../domain/interfaces/habitacion-estado.repository";
-import { Disponibilidad } from "../../domain/entities/disponibilidad.entity";
-import { EstadoHoy } from "../../domain/entities/estado-hoy.entity";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { HabitacionDisponibilidadRepository } from '../../domain/interfaces/habitacion-disponibilidad.repository';
+import { HabitacionEstadoRepository } from '../../domain/interfaces/habitacion-estado.repository';
+import { Disponibilidad } from '../../domain/entities/disponibilidad.entity';
+import { EstadoHoy } from '../../domain/entities/estado-hoy.entity';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class HabitacionRemoteRepository
-  implements HabitacionDisponibilidadRepository, HabitacionEstadoRepository
-{
-  private baseUrl = "https://localhost:7151/api/Habitacion";
+  implements HabitacionDisponibilidadRepository, HabitacionEstadoRepository {
 
+  private baseUrl = `${environment.apiUrl}/Habitacion`;
+// 'https://localhost:7151/api/Habitacion'
   constructor(private http: HttpClient) {}
 
   async consultarDisponibilidad(
