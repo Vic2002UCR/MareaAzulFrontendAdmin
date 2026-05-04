@@ -3,6 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PublicidadUseCase } from '../application/publicidad.use-case';
 import { Publicidad } from '../domain/entities/publicidad.entity';
+import { UploadService } from '../infrastructure/services/upload.service';
 
 @Component({
   selector: 'app-publicidad',
@@ -13,7 +14,8 @@ import { Publicidad } from '../domain/entities/publicidad.entity';
 })
 export class PublicidadComponent implements OnInit {
   private readonly publicidadUseCase = inject(PublicidadUseCase);
-  
+  private readonly uploadService = inject(UploadService);
+
   publicidades: Publicidad[] = [];
   publicidadesVisibles: Publicidad[] = [];
 
@@ -27,6 +29,7 @@ export class PublicidadComponent implements OnInit {
   mensajeExito = '';
 
   publicidadForm: Publicidad = this.getPublicidadVacia();
+  selectedFile?: File;
 
   ngOnInit(): void {
     this.cargarPublicidades();
@@ -170,5 +173,28 @@ export class PublicidadComponent implements OnInit {
         this.mensajeError = err?.error?.mensaje || 'Error al eliminar publicidad.';
       }
     });
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length === 0) {
+      return;
+    }
+
+    this.selectedFile = input.files[0];
+
+    this.uploadService.uploadImage(this.selectedFile).subscribe({
+      next: (res) => {
+        this.publicidadForm.imageUrl = res.url;
+        this.mensajeError = '';
+      },
+      error: (err) => {
+        console.error(err);
+        this.mensajeError = 'Error al subir la imagen.';
+      }
+    });
+
+
   }
 }

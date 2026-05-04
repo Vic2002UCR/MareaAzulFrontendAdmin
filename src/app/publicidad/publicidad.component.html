@@ -53,8 +53,8 @@
       {{ mensajeError }}
     </div>
 
-    <label>Imagen URL</label>
-    <input type="text" [(ngModel)]="publicidadForm.imageUrl" />
+    <label>Imagen</label>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
 
     <label>Link</label>
     <input type="text" [(ngModel)]="publicidadForm.link" />
