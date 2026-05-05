@@ -1,7 +1,8 @@
 <div class="publicidad-page">
+
   <div class="publicidad-header">
     <h1>Publicidad</h1>
-    <button class="btn-agregar" (click)="abrirAgregar()">Agregar</button>
+    <button class="btn-agregar" (click)="abrirAgregar()">Crear Publicidad</button>
   </div>
 
   <div class="mensaje exito" *ngIf="mensajeExito">
@@ -13,14 +14,16 @@
   </div>
 
   <div class="carrusel-container">
-    <button class="flecha" (click)="prevPage()">
-      &#8249;
-    </button>
+    <button class="flecha" (click)="prevPage()">&#8249;</button>
 
     <div class="cards-container">
       <div class="card-publicidad" *ngFor="let publi of publicidadesVisibles">
         <div class="imagen-wrapper">
-          <img [src]="publi.imageUrl" alt="Publicidad" />
+          <img *ngIf="publi.imageUrl; else sinImagen" [src]="publi.imageUrl" alt="Publicidad" />
+
+          <ng-template #sinImagen>
+            <span class="sin-imagen">Sin imagen</span>
+          </ng-template>
         </div>
 
         <div class="info">
@@ -29,8 +32,8 @@
         </div>
 
         <div class="acciones">
-          <button (click)="abrirEditar(publi)">Editar</button>
-          <button (click)="eliminar(publi.id)">Eliminar</button>
+          <button class="btn-accion btn-editar" (click)="abrirEditar(publi)">Editar</button>
+          <button class="btn-accion btn-eliminar" (click)="eliminar(publi.id)">Eliminar</button>
         </div>
       </div>
 
@@ -39,40 +42,52 @@
       </div>
     </div>
 
-    <button class="flecha" (click)="nextPage()">
-      &#8250;
-    </button>
+    <button class="flecha" (click)="nextPage()">&#8250;</button>
   </div>
 </div>
 
 <div class="modal-backdrop" *ngIf="mostrarModal">
-  <div class="modal">
-    <h2>{{ modoEdicion ? 'Editar Publicidad' : 'Agregar Publicidad' }}</h2>
+  <div class="modal-pro">
 
-    <div class="mensaje error" *ngIf="mensajeError">
+    <h2 class="titulo">
+      {{ modoEdicion ? 'Editar Publicidad' : 'Agregar Publicidad' }}
+    </h2>
+
+    <div class="mensaje error" *ngIf="mensajeError" style="margin: 0 0 15px 0;">
       {{ mensajeError }}
     </div>
 
-    <label>Imagen</label>
-    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    <div class="form-grid">
+      <div class="form-left">
 
-    <label>Link</label>
-    <input type="text" [(ngModel)]="publicidadForm.link" />
+        <label>Imagen</label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" />
 
-    <label>Orden</label>
-    <input type="number" [(ngModel)]="publicidadForm.orden" />
+        <div class="preview" *ngIf="publicidadForm.imageUrl">
+          <img [src]="publicidadForm.imageUrl" alt="Vista previa de publicidad" />
+        </div>
 
-    <label>Estado</label>
-    <select [(ngModel)]="publicidadForm.estado">
-      <option [ngValue]="true">Activa</option>
-      <option [ngValue]="false">Inactiva</option>
-    </select>
+        <label>Link</label>
+        <input type="text" [(ngModel)]="publicidadForm.link" />
 
-    <div class="modal-acciones">
-      <button (click)="cerrarModal()">Cancelar</button>
-      <button (click)="guardar()">
-        {{ modoEdicion ? 'Guardar cambios' : 'Agregar' }}
+        <label>Orden</label>
+        <input type="number" [(ngModel)]="publicidadForm.orden" />
+
+        <label>Estado</label>
+        <select [(ngModel)]="publicidadForm.estado">
+          <option [ngValue]="true">Activa</option>
+          <option [ngValue]="false">Inactiva</option>
+        </select>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-save" (click)="guardar()">
+        {{ modoEdicion ? 'Guardar' : 'Agregar' }}
       </button>
     </div>
+
   </div>
 </div>

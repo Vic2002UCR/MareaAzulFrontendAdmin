@@ -1,27 +1,23 @@
 .publicidad-page {
   padding: 40px;
-  font-family: Arial, sans-serif;
 }
 
 .publicidad-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 30px;
-}
-
-.publicidad-header h1 {
-  margin: 0;
-  font-size: 42px;
-  font-weight: 600;
 }
 
 .btn-agregar {
-  border: 2px solid #222;
-  background: white;
-  padding: 8px 18px;
-  font-size: 18px;
+  background: #d4a373;
+  color: white;
+  border: none;
+  padding: 10px 20px;
   cursor: pointer;
+}
+
+.btn-agregar:hover {
+  opacity: 0.8;
 }
 
 .carrusel-container {
@@ -29,6 +25,7 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
+  margin-top: 20px;
 }
 
 .flecha {
@@ -51,20 +48,30 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  border: 1px solid #ccc;
+  background: white;
+  padding: 10px;
 }
 
 .imagen-wrapper {
-  width: 220px;
+  width: 100%;
   height: 220px;
-  border: 2px solid #222;
   overflow: hidden;
-  background: #f4f4f4;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .imagen-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.sin-imagen {
+  color: #666;
 }
 
 .info {
@@ -77,84 +84,143 @@
 }
 
 .acciones {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
-.acciones button {
-  border: 1px solid #222;
-  background: white;
-  padding: 6px;
+.btn-accion {
+  color: white;
+  border: none;
+  padding: 6px 12px;
   cursor: pointer;
+  font-size: 14px;
+  border-radius: 1px;
+  transition: opacity 0.2s;
+}
+
+.btn-accion:hover {
+  opacity: 0.8;
+}
+
+.btn-editar {
+  background: #d4a373;
+}
+
+.btn-eliminar {
+  background: #b87235;
 }
 
 .sin-datos {
-  font-size: 18px;
-  padding: 40px;
+  text-align: center;
+  padding: 20px;
 }
 
+/* MENSAJES */
+.mensaje {
+  margin: 15px 0;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.exito {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* MODAL */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0,0,0,0.6);
+
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
+
+  z-index: 9999;
 }
 
-.modal {
-  width: 420px;
+.modal-pro {
   background: white;
-  border: 2px solid #222;
-  padding: 24px;
+  width: 600px;
+  padding: 30px;
+  border-radius: 10px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.form-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.form-left {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.modal h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.modal input,
-.modal select {
+.form-left input,
+.form-left select {
   padding: 8px;
-  border: 1px solid #222;
-  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.modal-acciones {
+.preview {
+  width: 100%;
+  height: 180px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* FOOTER */
+.modal-footer {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
-.modal-acciones button {
+.btn-cancel {
   flex: 1;
   padding: 10px;
-  border: 1px solid #222;
-  background: white;
+  border: none;
+  background: #ccc;
   cursor: pointer;
 }
 
-.mensaje {
-  margin-bottom: 15px;
-  padding: 10px 14px;
-  border: 1px solid;
-  width: fit-content;
-}
-
-.mensaje.exito {
-  color: #0b6b2a;
-  border-color: #0b6b2a;
-  background: #eefaf1;
-}
-
-.mensaje.error {
-  color: #a12626;
-  border-color: #a12626;
-  background: #fff1f1;
+.btn-save {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #d4a373;
+  color: white;
+  cursor: pointer;
 }
