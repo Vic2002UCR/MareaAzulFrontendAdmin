@@ -27,26 +27,45 @@ export class GetHabitacionUseCase {
 
           // buscar el tipo de habitación
           const tipo = tipos.find(t => t.id === habitacion.tipo);
+          const precioBaseNoche = tipo?.tarifa || 0;
 
-          let precioBase = tipo?.tarifa || 0;
-          let precioFinal = precioBase;
+          let precioTotalEstancia = 0;
 
-          // buscar temporada
-          const temporada = temporadas.find(t => {
-            const inicio = new Date(t.fechaInicio);
-            const fin = new Date(t.fechaFin);
+          // Creamos un cursor para recorrer día por día desde la entrada
+          let fechaCursor = new Date(fechaEntrada);
 
-            return fechaEntrada >= inicio && fechaEntrada <= fin;
-          });
+          // Clonamos la fecha de salida para la comparación
+          const salida = new Date(fechaSalida);
 
-          if (temporada) {
-            precioFinal = precioFinal + (precioFinal * temporada.porcentaje);
+          // Recorremos cada noche de la estancia
+          while (fechaCursor < salida) {
+
+            // Buscamos si el día actual del cursor cae en alguna Temporada Alta
+            const temporadaAlta = temporadas.find(t => {
+              const inicio = new Date(t.fechaInicio);
+              const fin = new Date(t.fechaFin);
+
+              // Solo comparamos la fecha sin horas para evitar errores 
+              const d = new Date(fechaCursor);
+              d.setHours(0, 0, 0, 0);
+              inicio.setHours(0, 0, 0, 0);
+              fin.setHours(0, 0, 0, 0);
+
+              return d >= inicio && d <= fin;
+            });
+
+            // Si es temporada alta, sumamos el porcentaje; si no, sumamos solo el base
+            const aumento = temporadaAlta ? (precioBaseNoche * temporadaAlta.porcentaje) : 0;
+            precioTotalEstancia += (precioBaseNoche + aumento);
+
+            // Avanzamos el cursor al día siguiente
+            fechaCursor.setDate(fechaCursor.getDate() + 1);
           }
 
           return {
             ...habitacion,
             tipoInfo: tipo,
-            precio: precioFinal
+            precio: precioTotalEstancia // es el total calculado noche a noche
           };
         });
 

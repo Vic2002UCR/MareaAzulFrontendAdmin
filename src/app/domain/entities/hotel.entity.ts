@@ -5,7 +5,7 @@ export interface Hotel {
   codigoPostal: string;
   email: string;
   logo: string;
-  linkMaps: string;
+  googleMapLink: string;
   homeImgUrl: string;
   homeDescription: string;
   sobreNosotros: string;

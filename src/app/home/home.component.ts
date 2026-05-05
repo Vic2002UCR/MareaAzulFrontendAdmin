@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       next: (hotel) => {
         this.hotel = hotel;
         this.safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          hotel.linkMaps
+          hotel.googleMapLink
         );
       },
       error: (err) => {

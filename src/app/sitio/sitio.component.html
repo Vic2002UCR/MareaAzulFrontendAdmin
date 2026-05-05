@@ -5,33 +5,23 @@
     <h2>Admin</h2>
 
     <ul>
-      <li 
-        [class.active]="seccion === 'sitio'"
-        (click)="seccion = 'sitio'">
+      <li [class.active]="seccion === 'sitio'" (click)="seccion = 'sitio'">
         Home
       </li>
 
-      <li 
-        [class.active]="seccion === 'sobreNosotros'"
-        (click)="seccion = 'sobreNosotros'">
+      <li [class.active]="seccion === 'sobreNosotros'" (click)="seccion = 'sobreNosotros'">
         Sobre Nosotros
       </li>
 
-      <li 
-        [class.active]="seccion === 'comoLlegar'"
-        (click)="seccion = 'comoLlegar'">
+      <li [class.active]="seccion === 'comoLlegar'" (click)="seccion = 'comoLlegar'">
         Cómo llegar
       </li>
 
-      <li 
-        [class.active]="seccion === 'contacto'"
-        (click)="seccion = 'contacto'">
+      <li [class.active]="seccion === 'contacto'" (click)="seccion = 'contacto'">
         Contacto
       </li>
 
-      <li 
-        [class.active]="seccion === 'facilidades'"
-        (click)="seccion = 'facilidades'">
+      <li [class.active]="seccion === 'facilidades'" (click)="seccion = 'facilidades'">
         Facilidades
       </li>
 
@@ -83,10 +73,11 @@
       <!-- COMO LLEGAR -->
       <div class="card">
         <h3>Cómo Llegar</h3>
+        <label>Dirección:</label>
         <textarea [(ngModel)]="hotel.direccion"></textarea>
 
         <label>Link:</label>
-        <input [(ngModel)]="hotel.linkMaps">
+        <input [(ngModel)]="hotel.googleMapLink">
       </div>
 
       <button (click)="guardar()">Guardar cambios</button>
@@ -97,9 +88,9 @@
 
       <h2>Modificar Sitio</h2>
 
-      <!-- COMO LLEGAR -->
+      <!-- CONTACTO -->
       <div class="card">
-        <h3>Cómo Llegar</h3>
+        <h3>Contacto</h3>
         <label>Correo:</label>
         <input [(ngModel)]="hotel.email">
 
@@ -110,7 +101,7 @@
       <button (click)="guardar()">Guardar cambios</button>
     </div>
 
-     <!-- FACILIDADES -->
+    <!-- FACILIDADES -->
     <div *ngIf="seccion === 'facilidades'">
 
       <h2>Modificar Sitio</h2>
@@ -118,12 +109,21 @@
       <!-- COMO LLEGAR -->
       <div class="card">
         <h3>Facilidades</h3>
-        
+
       </div>
 
       <button (click)="guardar()">Guardar cambios</button>
     </div>
 
   </main>
+
+  <!-- ESTRUCTURA DEL MODAL -->
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-box">
+      <h2>¡Éxito!</h2>
+      <p>Los cambios se han guardado correctamente.</p>
+      <button (click)="cerrarModal()">Aceptar</button>
+    </div>
+  </div>
 
 </div>

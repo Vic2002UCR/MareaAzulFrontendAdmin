@@ -19,6 +19,8 @@ export class SitioComponent implements OnInit {
 
   selectedFile!: File;
 
+  mostrarModal: boolean = false;
+
   constructor(
     private getHotelUseCase: GetHotelUseCase,
     private updateHotelUseCase: UpdateHotelUseCase,
@@ -35,10 +37,14 @@ export class SitioComponent implements OnInit {
     console.log(this.hotel.homeImgUrl);
     this.updateHotelUseCase.execute(this.hotel)
       .subscribe(() => {
-        alert('Cambios guardados');
+        this.mostrarModal = true;
       });
   }
 
+  cerrarModal() {
+    this.mostrarModal = false;
+  }
+  
   // Imagen
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
