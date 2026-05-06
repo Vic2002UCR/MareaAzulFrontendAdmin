@@ -5,47 +5,73 @@ import { FacilidadRepository } from '../../domain/interfaces/facilidad.repositor
 
 @Injectable()
 export class FacilidadTestRepository implements FacilidadRepository {
-  getFacilidades(): Observable<Facilidad[]> {
+  getAll(): Observable<Facilidad[]> {
     const facilidades: Facilidad[] = [
       {
-        idFacilidad: 4,
+        id: 4,
         nombre: 'Catering Service',
         descripcion: 'Servicio de catering para eventos y ocasiones especiales.',
-        imgUrl: '/assets/img/services/restaurant.png'
+        imageUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 5,
+        id: 5,
         nombre: 'Spa',
         descripcion: 'Relájate con nuestros tratamientos de spa y bienestar.',
-        imgUrl: '/assets/img/services/restaurant.png'
+        imageUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 6,
+        id: 6,
         nombre: 'Gimnasio',
         descripcion: 'Mantente en forma con nuestro gimnasio totalmente equipado.',
-        imgUrl: '/assets/img/services/restaurant.png'
+        imageUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 7,
+        id: 7,
         nombre: 'Wi-Fi',
         descripcion: 'Conexión a internet rápida y gratuita en todo el hotel.',
-        imgUrl: '/assets/img/services/restaurant.png'
+        imageUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 8,
+        id: 8,
         nombre: 'Bar',
         descripcion: 'Disfruta de bebidas y cócteles frente al mar.',
-        imgUrl: '/assets/img/services/restaurant.png'
+        imageUrl: '/assets/img/services/restaurant.png'
       },
       {
-        idFacilidad: 9,
+        id: 9,
         nombre: 'Room Service',
         descripcion: 'Servicio a la habitación disponible para tu comodidad.',
-        imgUrl: '/assets/img/services/restaurant.png'
-      },
-
+        imageUrl: '/assets/img/services/restaurant.png'
+      }
     ];
 
     return of(facilidades);
+  }
+
+  getById(id: number): Observable<Facilidad> {
+    const facilidad: Facilidad = {
+      id,
+      nombre: 'Spa',
+      descripcion: 'Relájate con nuestros tratamientos de spa y bienestar.',
+      imageUrl: '/assets/img/services/restaurant.png'
+    };
+
+    return of(facilidad);
+  }
+
+  getPublicas(): Observable<Facilidad[]> {
+    return this.getAll();
+  }
+
+  create(facilidad: Facilidad): Observable<Facilidad> {
+    return of(facilidad);
+  }
+
+  update(id: number, facilidad: Facilidad): Observable<any> {
+    return of({ mensaje: 'Facilidad actualizada correctamente.' });
+  }
+
+  delete(id: number): Observable<any> {
+    return of({ mensaje: 'Facilidad eliminada correctamente.' });
   }
 }

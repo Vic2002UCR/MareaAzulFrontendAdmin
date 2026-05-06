@@ -1,6 +1,6 @@
 export interface Facilidad {
-  idFacilidad: number;
+  id: number;
   nombre: string;
   descripcion: string;
-  imgUrl: string;
+  imageUrl: string;
 }

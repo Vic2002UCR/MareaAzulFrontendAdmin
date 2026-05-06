@@ -5,11 +5,12 @@ import { Hotel } from '../domain/entities/hotel.entity';
 import { GetHotelUseCase } from '../application/get-hotel.use-case';
 import { UpdateHotelUseCase } from '../application/update-hotel.use-case';
 import { UploadService } from '../infrastructure/services/upload.service';
+import { FacilidadesComponent } from '../facilidades/facilidades.component';
 
 @Component({
   selector: 'app-sitio',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, FacilidadesComponent],
   templateUrl: './sitio.component.html',
   styleUrl: './sitio.component.css'
 })

@@ -6,7 +6,7 @@ import { GetHotelUseCase } from '../application/get-hotel.use-case';
 import { Hotel } from '../domain/entities/hotel.entity';
 import { NgIf, NgFor } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { GetFacilidadesUseCase } from '../application/get-facilidades.use-case';
+import { FacilidadUseCase } from '../application/facilidades.use-case';
 import { Facilidad } from '../domain/entities/facilidad.entity';
 import { GetTiposHabitacionUseCase } from '../application/get-tipos-habitacion.use-case';
 import { TipoHabitacion } from '../domain/entities/tipo-habitacion.entity';
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   private readonly getHotelUseCase = inject(GetHotelUseCase);
   private sanitizer = inject(DomSanitizer);
-  private readonly getFacilidadesUseCase = inject(GetFacilidadesUseCase);
+  private readonly getFacilidadesUseCase = inject(FacilidadUseCase);
   private readonly getTiposHabitacionUseCase = inject(GetTiposHabitacionUseCase);
   private readonly setReservaUseCase: SetReservaUseCase = inject(SetReservaUseCase);
   private router = inject(Router);
@@ -62,11 +62,11 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    this.getFacilidadesUseCase.execute().subscribe({
-      next: (facilidades) => {
+    this.getFacilidadesUseCase.obtenerPublicas().subscribe({
+      next: (facilidades: Facilidad[]) => {
         this.facilidades = facilidades;
       },
-      error: (err) => {
+      error: (err: unknown) => {
         console.error(err);
       }
     });
