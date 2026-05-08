@@ -120,7 +120,7 @@ export class EstadoDelHotelComponent implements OnInit {
     const tipoId = this.getTipoId();
 
     if (fechaInicio === fechaFin) {
-      alert('La fecha inicial debe ser menor a la final. Use "Al día de hoy" para ver el estado actual de las habitaciones.');
+      alert('La fecha inicial debe ser menor a la final.');
       return;
     }
 
@@ -230,4 +230,9 @@ export class EstadoDelHotelComponent implements OnInit {
     const tipo = this.tiposHabitacion.find(t => t.nombre === nombre);
     return tipo ? tipo.id : 0;
   }
+
+  imprimirReporte() {
+  window.print();
+}
+
 }

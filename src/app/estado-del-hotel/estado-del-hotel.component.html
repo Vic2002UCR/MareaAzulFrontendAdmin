@@ -1,3 +1,11 @@
+<div class="encabezado-reporte">
+
+  <h1>Estado del Hotel</h1>
+
+  
+
+</div>
+
 <div class="contenedor">
 
   <!-- FORMULARIO -->
@@ -31,6 +39,7 @@
       <button type="button" class="btn secundario" (click)="estadoHoy()">
         Al día de hoy
       </button>
+
     </div>
 
   </form>
@@ -107,5 +116,13 @@
   <div *ngIf="!loading && !resultadosDisponibilidad.length && !resultadosEstado.length" class="empty">
     No hay resultados para mostrar
   </div>
+  <button
+    type="button"
+    class="btn imprimir"
+    (click)="imprimirReporte()">
+
+    Imprimir reporte
+
+  </button>
 
 </div>
