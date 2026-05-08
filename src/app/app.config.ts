@@ -4,15 +4,15 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './infrastructure/interceptors/auth.interceptor';
 import { routes } from "./app.routes";
 import { HotelRepository } from "./domain/interfaces/hotel.repository";
-import { HotelTestRepository } from "./infrastructure/repositories/hotel-test.repository";
 import { FacilidadRepository } from "./domain/interfaces/facilidad.repository";
-import { FacilidadTestRepository } from "./infrastructure/repositories/facilidad-test.repository";
 import { TipoHabitacionRepository } from "./domain/interfaces/tipo-habitacion.repository";
-import { TipoHabitacionTestRepository } from "./infrastructure/repositories/tipo-habitacion-test.repository";
+import { TipoHabitacionRemoteRepository } from "./infrastructure/repositories/tipo-habitacion-remote.repository";
 import { ReservaRepository } from "./domain/interfaces/reserva.repository";
 import { ReservaLocalRepository } from "./infrastructure/repositories/reserva-local.repository";
 import { HabitacionRepository } from "./domain/interfaces/habitacion.repository";
 import { HabitacionTestRepository } from "./infrastructure/repositories/habitacion-test.repository";
+import { HabitacionAdminRepository } from "./domain/interfaces/habitacion-admin.repository";
+import { HabitacionAdminRemoteRepository } from "./infrastructure/repositories/habitacion-admin-remote.repository";
 import { TemporadaRepository } from "./domain/interfaces/temporada.repository";
 import { TemporadaRemoteRepository } from "./infrastructure/repositories/temporada-remote.repository";
 import { PublicidadRepository } from "./domain/interfaces/publicidad.repository";
@@ -31,61 +31,18 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptors([authInterceptor])),
-
-    provideRouter(
-      routes,
-      withInMemoryScrolling({
-        anchorScrolling: "enabled",
-        scrollPositionRestoration: "enabled",
-      }),
-    ),
-    {
-      provide: AuthRepository,
-      useClass: AuthRemoteRepository,
-    },
-    {
-      provide: HotelRepository,
-      useClass: HotelRemoteRepository,
-    },
-    {
-      provide: FacilidadRepository,
-      useClass: FacilidadTestRepository,
-    },
-    {
-      provide: TipoHabitacionRepository,
-      useClass: TipoHabitacionTestRepository,
-    },
-    {
-      provide: ReservaRepository,
-      useClass: ReservaLocalRepository,
-    },
-    {
-      provide: HabitacionRepository,
-      useClass: HabitacionTestRepository,
-    },
-    {
-      provide: TemporadaRepository,
-      useClass: TemporadaRemoteRepository,
-    },
-    {
-      provide: PublicidadRepository,
-      useClass: PublicidadRemoteRepository,
-    },
-    {
-      provide: OfertaRepository,
-      useClass: OfertaRemoteRepository,
-    },
-    {
-      provide: HabitacionDisponibilidadRepository,
-      useClass: HabitacionRemoteRepository,
-    },
-    {
-      provide: HabitacionEstadoRepository,
-      useClass: HabitacionRemoteRepository,
-    },
-    {
-      provide: FacilidadRepository,
-      useClass: FacilidadRemoteRepository
-    }
+    provideRouter(routes, withInMemoryScrolling({ anchorScrolling: "enabled", scrollPositionRestoration: "enabled" })),
+    { provide: AuthRepository, useClass: AuthRemoteRepository },
+    { provide: HotelRepository, useClass: HotelRemoteRepository },
+    { provide: FacilidadRepository, useClass: FacilidadRemoteRepository },
+    { provide: TipoHabitacionRepository, useClass: TipoHabitacionRemoteRepository },
+    { provide: ReservaRepository, useClass: ReservaLocalRepository },
+    { provide: HabitacionRepository, useClass: HabitacionTestRepository },
+    { provide: HabitacionAdminRepository, useClass: HabitacionAdminRemoteRepository },
+    { provide: TemporadaRepository, useClass: TemporadaRemoteRepository },
+    { provide: PublicidadRepository, useClass: PublicidadRemoteRepository },
+    { provide: OfertaRepository, useClass: OfertaRemoteRepository },
+    { provide: HabitacionDisponibilidadRepository, useClass: HabitacionRemoteRepository },
+    { provide: HabitacionEstadoRepository, useClass: HabitacionRemoteRepository },
   ],
 };

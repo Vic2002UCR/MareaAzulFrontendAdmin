@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { TipoHabitacion } from '../../domain/entities/tipo-habitacion.entity';
-import { TipoHabitacionRepository } from '../../domain/interfaces/tipo-habitacion.repository';
+import { TipoHabitacionRepository, ActualizarTipoHabitacionRequest } from '../../domain/interfaces/tipo-habitacion.repository';
 
 @Injectable()
 export class TipoHabitacionTestRepository implements TipoHabitacionRepository {
+  private tipos: TipoHabitacion[] = [
+    { id: 1, nombre: 'Individual', descripcion: 'Perfecta para parejas, cómoda y espaciosa.', capacidad: 2, tarifa: 120, imgUrl: '/assets/img/room/room-b1.jpg' },
+    { id: 2, nombre: 'Doble', descripcion: 'Ideal para familias, con mayor espacio.', capacidad: 5, tarifa: 250, imgUrl: '/assets/img/room/room-b2.jpg' },
+    { id: 3, nombre: 'Suite', descripcion: 'Experiencia premium con todas las comodidades.', capacidad: 3, tarifa: 350, imgUrl: '/assets/img/room/room-b3.jpg' },
+    { id: 4, nombre: 'Familiar', descripcion: 'Ideal para viajeros solos que buscan comodidad.', capacidad: 1, tarifa: 90, imgUrl: '/assets/img/room/room-b1.jpg' },
+  ];
+
   getTiposHabitacion(): Observable<TipoHabitacion[]> {
     return of([
       {
@@ -88,5 +95,27 @@ export class TipoHabitacionTestRepository implements TipoHabitacionRepository {
       //   imgUrl: '/assets/img/room/room-b1.jpg'
       // }
     ]);
+  }
+
+  getById(id: number): Observable<TipoHabitacion> {
+    const tipo = this.tipos.find(t => t.id === id);
+    return tipo ? of(tipo) : throwError(() => new Error('No encontrado'));
+  }
+
+  update(id: number, data: ActualizarTipoHabitacionRequest): Observable<void> {
+    const tipo = this.tipos.find(t => t.id === id);
+    if (tipo) {
+      tipo.nombre = data.nombre;
+      tipo.descripcion = data.descripcion;
+      tipo.capacidad = data.capacidad;
+      tipo.tarifa = data.tarifa;
+      tipo.imgUrl = data.imageUrl;
+    }
+    return of(void 0);
+  }
+
+  delete(id: number): Observable<void> {
+    this.tipos = this.tipos.filter(t => t.id !== id);
+    return of(void 0);
   }
 }

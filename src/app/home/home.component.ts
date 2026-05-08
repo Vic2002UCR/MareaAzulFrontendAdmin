@@ -1,4 +1,3 @@
-import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,7 @@ import { Reserva } from '../domain/entities/reserva.entity';
 
 @Component({
   standalone: true,
-  imports: [NgIf, NgFor,FormsModule],
+  imports: [NgIf, NgFor, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -41,6 +40,9 @@ export class HomeComponent implements OnInit {
   dateOut: string = '';
   tarifa: number = 0;
 
+  mensajeNavegacion = '';
+  tipoMensaje: 'exito' | 'error' | '' = '';
+
   formValido(): boolean {
     return (
       this.dateIn !== '' &&
@@ -50,6 +52,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const state = history.state as { mensaje?: string; tipo?: 'exito' | 'error' };
+    if (state?.mensaje) {
+      this.mensajeNavegacion = state.mensaje;
+      this.tipoMensaje = state.tipo ?? 'exito';
+      setTimeout(() => {
+        this.mensajeNavegacion = '';
+        this.tipoMensaje = '';
+      }, 4000);
+    }
+
     this.getHotelUseCase.execute().subscribe({
       next: (hotel) => {
         this.hotel = hotel;

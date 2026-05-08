@@ -1,5 +1,13 @@
 
 
+<!-- Mensaje de éxito/error por navegación -->
+<div *ngIf="mensajeNavegacion"
+     class="nav-mensaje"
+     [class.nav-exito]="tipoMensaje === 'exito'"
+     [class.nav-error]="tipoMensaje === 'error'">
+  {{ mensajeNavegacion }}
+</div>
+
 <!-- Floating Container -->
 <div class="promo-container">
 

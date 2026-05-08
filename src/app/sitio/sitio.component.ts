@@ -54,7 +54,7 @@ export class SitioComponent implements OnInit {
   uploadImage() {
   if (!this.selectedFile) return;
 
-  this.uploadService.uploadImage(this.selectedFile)
+  this.uploadService.uploadImage(this.selectedFile, 'sitio')
     .subscribe(res => {
       this.hotel.homeImgUrl = res.url; 
     });

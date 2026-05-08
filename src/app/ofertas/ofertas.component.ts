@@ -144,7 +144,7 @@ export class OfertasComponent implements OnInit {
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
 
-    this.uploadService.uploadImage(this.selectedFile).subscribe((res) => {
+    this.uploadService.uploadImage(this.selectedFile, 'ofertas').subscribe((res) => {
       this.nuevaOferta.imageUrl = res.url;
     });
   }

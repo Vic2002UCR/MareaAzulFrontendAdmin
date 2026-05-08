@@ -184,7 +184,7 @@ export class PublicidadComponent implements OnInit {
 
     this.selectedFile = input.files[0];
 
-    this.uploadService.uploadImage(this.selectedFile).subscribe({
+    this.uploadService.uploadImage(this.selectedFile, 'publicidad').subscribe({
       next: (res) => {
         this.publicidadForm.imageUrl = res.url;
         this.mensajeError = '';

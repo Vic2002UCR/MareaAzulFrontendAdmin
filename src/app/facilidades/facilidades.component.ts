@@ -190,7 +190,7 @@ export class FacilidadesComponent implements OnInit {
 
     this.selectedFile = input.files[0];
 
-    this.uploadService.uploadImage(this.selectedFile).subscribe({
+    this.uploadService.uploadImage(this.selectedFile, 'facilidades').subscribe({
       next: (res) => {
         this.facilidadForm.imageUrl = res.url;
         this.mensajeError = '';
