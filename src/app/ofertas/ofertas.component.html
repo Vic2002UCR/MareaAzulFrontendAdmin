@@ -1,4 +1,5 @@
 <div class="contenedor">
+  <app-alert></app-alert>
   <!-- HEADER -->
   <div class="header">
     <h1>Ofertas</h1>
@@ -107,7 +108,7 @@
       <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
 
       <div class="acciones-modal">
-        <button (click)="cerrarModal()">Cancelar</button>
+        <button (click)="cancelarEdicion()">Cancelar</button>
         <button (click)="guardarOferta()">Guardar</button>
       </div>
     </div>

@@ -11,7 +11,7 @@ import { Disponibilidad } from '../domain/entities/disponibilidad.entity';
 import { EstadoHoy } from '../domain/entities/estado-hoy.entity';
 import { TipoHabitacion } from '../domain/entities/tipo-habitacion.entity';
 import { firstValueFrom } from 'rxjs';
-
+import { AlertService } from '../shared/alerts/alert/alert.service';
 @Component({
   selector: 'app-estado-del-hotel',
   standalone: true,
@@ -22,6 +22,7 @@ import { firstValueFrom } from 'rxjs';
 export class EstadoDelHotelComponent implements OnInit {
 
   private fb = inject(FormBuilder);
+  alertService = inject(AlertService);
 
   // repos
   private disponibilidadRepo = inject(HabitacionDisponibilidadRepository);
@@ -107,7 +108,7 @@ export class EstadoDelHotelComponent implements OnInit {
       );
     } catch (error) {
       console.error(error);
-      alert('Error cargando tipos de habitación');
+      this.alertService.error('Error cargando tipos de habitación');
     } finally {
       this.loadingTipos = false;
     }
@@ -120,12 +121,12 @@ export class EstadoDelHotelComponent implements OnInit {
     const tipoId = this.getTipoId();
 
     if (fechaInicio === fechaFin) {
-      alert('La fecha inicial debe ser menor a la final.');
+      this.alertService.warning('La fecha inicial no debe ser igual a la final.');
       return;
     }
 
     if (fechaInicio! > fechaFin!) {
-      alert('La fecha inicial debe ser menor a la final');
+      this.alertService.warning('La fecha inicial debe ser menor a la final.');
       return;
     }
 
@@ -151,7 +152,7 @@ export class EstadoDelHotelComponent implements OnInit {
 
     } catch (error) {
       console.error(error);
-      alert('Error al consultar disponibilidad');
+      this.alertService.error('Error al consultar disponibilidad');
     } finally {
       this.loading = false;
     }
@@ -179,7 +180,7 @@ export class EstadoDelHotelComponent implements OnInit {
 
     } catch (error) {
       console.error(error);
-      alert('Error al consultar estado');
+      this.alertService.error('Error al consultar estado');
     } finally {
       this.loading = false;
     }

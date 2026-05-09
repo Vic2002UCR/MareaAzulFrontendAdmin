@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginUseCase } from '../application/login.use-case';
 import { LoginRequest } from '../infrastructure/dtos/login-request';
 import { LoginResponse } from '../infrastructure/dtos/login-response';
 import { NgIf } from '@angular/common';
+import { AlertService } from '../shared/alerts/alert/alert.service';
 
 @Component({
   selector: 'app-inicio',
@@ -18,6 +19,7 @@ export class InicioComponent {
   contrasena = '';
   errorMessage = '';
   loading = false;
+  alertService = inject(AlertService);
 
   constructor(
     private router: Router,
@@ -50,7 +52,7 @@ export class InicioComponent {
 
         const message = error?.error?.message || 'Credenciales iválidos';
 
-        alert(message);
+        this.alertService.error(message);
 
         console.error('Error en login', error);
       }

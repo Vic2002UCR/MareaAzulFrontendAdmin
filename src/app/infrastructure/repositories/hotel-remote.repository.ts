@@ -17,4 +17,8 @@ export class HotelRemoteRepository implements HotelRepository {
   updateHotel(hotel: Hotel): Observable<void> {
     return this.http.put<void>(this.apiUrl, hotel);
   }
+
+  createHotel(hotel: Hotel): Observable<Hotel> {
+    return this.http.post<Hotel>(this.apiUrl, hotel);
+  }
 }

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { PublicidadUseCase } from '../application/publicidad.use-case';
 import { Publicidad } from '../domain/entities/publicidad.entity';
 import { UploadService } from '../infrastructure/services/upload.service';
+import { ConfirmService } from '../shared/confirm/confirm.service';
+import { AlertService } from '../shared/alerts/alert/alert.service';
 
 @Component({
   selector: 'app-publicidad',
@@ -15,6 +17,8 @@ import { UploadService } from '../infrastructure/services/upload.service';
 export class PublicidadComponent implements OnInit {
   private readonly publicidadUseCase = inject(PublicidadUseCase);
   private readonly uploadService = inject(UploadService);
+  private readonly alertService = inject(AlertService);
+  private readonly confirmService = inject(ConfirmService);
 
   publicidades: Publicidad[] = [];
   publicidadesVisibles: Publicidad[] = [];
@@ -53,7 +57,7 @@ export class PublicidadComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.mensajeError = 'Error al cargar publicidades.';
+        this.alertService.error('Error al cargar publicidades.');
       }
     });
   }
@@ -96,27 +100,58 @@ export class PublicidadComponent implements OnInit {
   }
 
   cerrarModal(): void {
+
+    const hayCambios =
+      this.publicidadForm.imageUrl.trim() ||
+      this.publicidadForm.link.trim()
+
+    if (hayCambios) {
+
+      this.confirmService.open(
+        '¿Desea deshacer los cambios?',
+        () => {
+          this.cerrarModalSinConfirmar();
+        }
+      );
+
+      return;
+    }
+
+    this.cerrarModalSinConfirmar();
+  }
+
+  cerrarModalSinConfirmar(mostrarAlerta = true): void {
     this.mostrarModal = false;
     this.publicidadForm = this.getPublicidadVacia();
     this.mensajeError = '';
+    this.selectedFile = undefined;
+
+    if (mostrarAlerta) {
+      this.alertService.warning('Cambios descartados.');
+    }
   }
 
   guardar(): void {
     this.mensajeError = '';
     this.mensajeExito = '';
 
+    if (!this.publicidadForm.imageUrl.trim() && !this.publicidadForm.link.trim()) {
+      this.alertService.warning('Todos los campos son obligatorios.');
+      return;
+    }
+
     if (!this.publicidadForm.imageUrl || !this.publicidadForm.imageUrl.trim()) {
-      this.mensajeError = 'La imagen es obligatoria.';
+      this.alertService.warning('La imagen es obligatoria.');
       return;
     }
 
     if (!this.publicidadForm.link || !this.publicidadForm.link.trim()) {
-      this.mensajeError = 'El enlace es obligatorio.';
+      this.alertService.warning('El enlace es obligatorio.');
       return;
     }
 
     if (this.publicidadForm.orden < 0) {
-      this.mensajeError = 'El orden no puede ser negativo.';
+      this.alertService.warning('El orden no puede ser negativo.');
       return;
     }
 
@@ -126,53 +161,80 @@ export class PublicidadComponent implements OnInit {
 
     if (this.modoEdicion) {
       this.publicidadUseCase.update(this.publicidadForm.id, this.publicidadForm).subscribe({
-        next: (resp) => {
-          this.mensajeExito = resp?.mensaje || 'Publicidad actualizada correctamente.';
+        next: () => {
+          this.alertService.success('Publicidad actualizada correctamente.');
           this.cargarPublicidades();
-          this.cerrarModal();
+          this.cerrarModalSinConfirmar(false);
         },
         error: (err) => {
           console.error(err);
-          this.mensajeError = err?.error?.mensaje || 'Error al actualizar publicidad.';
+          this.alertService.error(err?.error?.mensaje || 'Error al actualizar publicidad.');
         }
       });
     } else {
       this.publicidadUseCase.create(this.publicidadForm).subscribe({
         next: () => {
-          this.mensajeExito = 'Publicidad agregada correctamente.';
+          this.alertService.success('Publicidad agregada correctamente.');
           this.cargarPublicidades();
-          this.cerrarModal();
+          this.cerrarModalSinConfirmar(false);
         },
         error: (err) => {
           console.error(err);
-          this.mensajeError = err?.error?.mensaje || 'Error al crear publicidad.';
+          this.alertService.error(err?.error?.mensaje || 'Error al crear publicidad.');
         }
       });
     }
   }
 
   eliminar(id: number): void {
+
     this.mensajeError = '';
     this.mensajeExito = '';
 
-    const confirmado = confirm('¿Deseas eliminar esta publicidad?');
-    if (!confirmado) return;
+    this.confirmService.open(
+      '¿Deseas eliminar esta publicidad?',
 
-    this.publicidadUseCase.delete(id).subscribe({
-      next: (resp) => {
-        this.mensajeExito = resp?.mensaje || 'Publicidad eliminada correctamente.';
-        this.cargarPublicidades();
+      () => {
 
-        const maxPage = Math.ceil(Math.max(this.publicidades.length - 1, 1) / this.itemsPerPage) - 1;
-        if (this.currentPage > maxPage) {
-          this.currentPage = Math.max(maxPage, 0);
-        }
+        this.publicidadUseCase.delete(id).subscribe({
+
+          next: (resp) => {
+
+            this.alertService.success(
+              resp?.mensaje || 'Publicidad eliminada correctamente.'
+            );
+
+            this.cargarPublicidades();
+
+            const maxPage =
+              Math.ceil(
+                Math.max(this.publicidades.length - 1, 1) / this.itemsPerPage
+              ) - 1;
+
+            if (this.currentPage > maxPage) {
+              this.currentPage = Math.max(maxPage, 0);
+            }
+          },
+
+          error: (err: any) => {
+            console.error(err);
+
+            this.alertService.error(
+              err?.error?.mensaje || 'Error al eliminar publicidad.'
+            );
+          }
+
+        });
+
       },
-      error: (err) => {
-        console.error(err);
-        this.mensajeError = err?.error?.mensaje || 'Error al eliminar publicidad.';
+
+      () => {
+        this.alertService.info(
+          'No se realizaron cambios.'
+        );
       }
-    });
+
+    );
   }
 
   onFileSelected(event: Event): void {
@@ -184,6 +246,14 @@ export class PublicidadComponent implements OnInit {
 
     this.selectedFile = input.files[0];
 
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+
+    if (!allowedTypes.includes(this.selectedFile.type)) {
+      this.alertService.warning('El archivo seleccionado no es una imagen válida.');
+      input.value = '';
+      return;
+    }
+
     this.uploadService.uploadImage(this.selectedFile, 'publicidad').subscribe({
       next: (res) => {
         this.publicidadForm.imageUrl = res.url;
@@ -191,7 +261,7 @@ export class PublicidadComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.mensajeError = 'Error al subir la imagen.';
+        this.alertService.error('Error al subir la imagen.');
       }
     });
 
