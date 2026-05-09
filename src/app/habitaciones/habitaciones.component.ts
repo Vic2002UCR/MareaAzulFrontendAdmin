@@ -70,6 +70,10 @@ export class HabitacionesComponent implements OnInit {
   mostrarConfirmarEliminar = false;
   tipoAEliminar: TipoHabitacion | null = null;
 
+  // ── Modal confirmar eliminar habitación individual ───────────────────
+  mostrarConfirmarEliminarHab = false;
+  habAEliminar: HabitacionAdmin | null = null;
+
   ngOnInit(): void {
     this.cargarTipos();
   }
@@ -208,11 +212,37 @@ export class HabitacionesComponent implements OnInit {
     });
   }
 
-  eliminarHabitacion(id: number): void {
-    this.habAdminRepo.eliminar(id).subscribe({
-      next: () => this.cargarHabitaciones(this.form.id),
-      error: err => this.errorModal = err?.error?.mensaje || 'Error al eliminar habitación'
+  pedirConfirmarEliminarHab(hab: HabitacionAdmin): void {
+    this.habAEliminar = hab;
+    this.mostrarConfirmarEliminarHab = true;
+  }
+
+  confirmarEliminarHab(): void {
+    if (!this.habAEliminar) return;
+    this.habAdminRepo.eliminar(this.habAEliminar.idHabitacion).subscribe({
+      next: () => {
+        this.mostrarConfirmarEliminarHab = false;
+        this.habAEliminar = null;
+        this.cargarHabitaciones(this.form.id);
+      },
+      error: err => {
+        this.mostrarConfirmarEliminarHab = false;
+        this.habAEliminar = null;
+        const msg: string = err?.error?.mensaje ?? '';
+        if (err?.status === 404) {
+          this.errorModal = 'La habitación no existe en la base de datos.';
+        } else if (msg.toLowerCase().includes('reservaci')) {
+          this.errorModal = 'No se puede eliminar la habitación porque tiene reservaciones activas asociadas.';
+        } else {
+          this.errorModal = 'Ocurrió un error al eliminar la habitación. Intente nuevamente.';
+        }
+      }
     });
+  }
+
+  cancelarEliminarHab(): void {
+    this.mostrarConfirmarEliminarHab = false;
+    this.habAEliminar = null;
   }
 
   toggleEstado(hab: HabitacionAdmin): void {

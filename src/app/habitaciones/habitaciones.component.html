@@ -128,7 +128,7 @@
               </label>
             </td>
             <td>
-              <button class="btn-del-hab" (click)="eliminarHabitacion(hab.idHabitacion)">✕</button>
+              <button class="btn-del-hab" (click)="pedirConfirmarEliminarHab(hab)">✕</button>
             </td>
           </tr>
           <tr *ngIf="habitaciones.length === 0">
@@ -166,6 +166,22 @@
     <p class="notif-texto">{{ textoNotif }}</p>
 
     <button class="btn-notif-ok" (click)="cerrarNotif()">Aceptar</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- MODAL CONFIRMAR ELIMINAR HABITACIÓN INDIVIDUAL              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" *ngIf="mostrarConfirmarEliminarHab">
+  <div class="modal-confirmar">
+    <p class="confirmar-texto">
+      ¿Estás seguro de que deseas eliminar la habitación <strong>{{ habAEliminar?.numeroHabitacion }}</strong>?
+    </p>
+    <p class="confirmar-sub">Esta acción no se puede deshacer.</p>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="cancelarEliminarHab()">Cancelar</button>
+      <button class="btn-eliminar-confirm" (click)="confirmarEliminarHab()">Eliminar</button>
+    </div>
   </div>
 </div>
 
