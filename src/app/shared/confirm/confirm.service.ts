@@ -9,14 +9,23 @@ export class ConfirmService {
   message = '';
 
   private confirmCallback!: () => void;
+  private cancelCallback?: () => void;
 
-  open(message: string, onConfirm: () => void): void {
+  open(
+    message: string,
+    onConfirm: () => void,
+    onCancel?: () => void
+  ): void {
+
     this.message = message;
     this.visible = true;
+
     this.confirmCallback = onConfirm;
+    this.cancelCallback = onCancel;
   }
 
   confirm(): void {
+
     this.visible = false;
 
     if (this.confirmCallback) {
@@ -25,6 +34,11 @@ export class ConfirmService {
   }
 
   cancel(): void {
+
     this.visible = false;
+
+    if (this.cancelCallback) {
+      this.cancelCallback();
+    }
   }
 }

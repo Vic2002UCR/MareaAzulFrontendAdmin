@@ -203,6 +203,7 @@ export class FacilidadesComponent implements OnInit {
 
     this.confirmService.open(
       '¿Deseas eliminar esta facilidad?',
+
       () => {
 
         this.facilidadUseCase.eliminar(id).subscribe({
@@ -235,7 +236,14 @@ export class FacilidadesComponent implements OnInit {
 
         });
 
+      },
+
+      () => {
+        this.alertService.info(
+          'No se realizaron cambios.'
+        );
       }
+
     );
   }
 
@@ -246,7 +254,7 @@ export class FacilidadesComponent implements OnInit {
 
     this.selectedFile = input.files[0];
 
-    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/jfif'];
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
     if (!allowedTypes.includes(this.selectedFile.type)) {
       this.alertService.warning('El archivo seleccionado no es una imagen válida.');

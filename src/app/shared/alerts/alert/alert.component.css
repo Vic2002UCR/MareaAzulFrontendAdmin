@@ -87,9 +87,9 @@
 /* INFO */
 
 .info {
-  background: #eef3f7;
-  border-left: 6px solid #6c8ba1;
-  color: #304a5f;
+  background: #f5ecd8;
+  border-left: 6px solid #d4a373;
+  color: #7a5a2f;
 }
 
 @keyframes slideIn {
