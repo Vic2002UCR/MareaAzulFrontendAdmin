@@ -1,128 +1,139 @@
 <div class="admin-layout">
-
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2>Admin</h2>
 
     <ul>
       <li [class.active]="seccion === 'sitio'" (click)="seccion = 'sitio'">
         Home
       </li>
 
-      <li [class.active]="seccion === 'sobreNosotros'" (click)="seccion = 'sobreNosotros'">
+      <li
+        [class.active]="seccion === 'sobreNosotros'"
+        (click)="seccion = 'sobreNosotros'"
+      >
         Sobre Nosotros
       </li>
 
-      <li [class.active]="seccion === 'comoLlegar'" (click)="seccion = 'comoLlegar'">
+      <li
+        [class.active]="seccion === 'comoLlegar'"
+        (click)="seccion = 'comoLlegar'"
+      >
         Cómo llegar
       </li>
 
-      <li [class.active]="seccion === 'contacto'" (click)="seccion = 'contacto'">
+      <li
+        [class.active]="seccion === 'contacto'"
+        (click)="seccion = 'contacto'"
+      >
         Contacto
       </li>
 
-      <li [class.active]="seccion === 'facilidades'" (click)="seccion = 'facilidades'">
+      <li
+        [class.active]="seccion === 'facilidades'"
+        (click)="seccion = 'facilidades'"
+      >
         Facilidades
       </li>
-
     </ul>
   </aside>
 
   <!-- CONTENIDO -->
   <main class="content">
+    <div class="page-header">
+      <h1>Modificar Sitio</h1>
+    </div>
 
-    <!-- SITIO (default) -->
-    <div *ngIf="seccion === 'sitio'">
+    <!-- HOME -->
+    <div *ngIf="seccion === 'sitio'" class="card">
+      <h2>Home</h2>
 
-      <h2>Modificar Sitio</h2>
+      <label>Descripción</label>
 
-      <!-- HOME -->
-      <div class="card">
-        <h3>Home</h3>
+      <textarea [(ngModel)]="hotel.homeDescription" rows="5"></textarea>
 
-        <textarea [(ngModel)]="hotel.homeDescription"></textarea>
+      <div class="upload-section">
+        <label class="custom-upload">
+          <input type="file" (change)="onFileSelected($event)" hidden />
 
-        <input type="file" (change)="onFileSelected($event)" />
-        <button (click)="uploadImage()">Subir imagen</button>
+          Seleccionar imagen
+        </label>
 
-        <img *ngIf="hotel.homeImgUrl" [src]="hotel.homeImgUrl" />
+        <button class="btn-secondary" (click)="uploadImage()">
+          Subir imagen
+        </button>
       </div>
 
-      <button (click)="guardar()">Guardar cambios</button>
+      <img
+        *ngIf="hotel.homeImgUrl"
+        [src]="hotel.homeImgUrl"
+        class="preview-img"
+      />
+      <div class="actions">
+        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+      </div>
     </div>
 
     <!-- SOBRE NOSOTROS -->
-    <div *ngIf="seccion === 'sobreNosotros'">
+    <div *ngIf="seccion === 'sobreNosotros'" class="card">
+      <h2>Sobre Nosotros</h2>
 
-      <h2>Modificar Sitio</h2>
+      <textarea [(ngModel)]="hotel.sobreNosotros" rows="6"></textarea>
 
-      <!-- SOBRE NOSOTROS -->
-      <div class="card">
-        <h3>Sobre Nosotros</h3>
-        <textarea [(ngModel)]="hotel.sobreNosotros"></textarea>
+      <div class="actions">
+        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
       </div>
-
-      <button (click)="guardar()">Guardar cambios</button>
     </div>
 
     <!-- COMO LLEGAR -->
-    <div *ngIf="seccion === 'comoLlegar'">
+    <div *ngIf="seccion === 'comoLlegar'" class="card">
+      <h2>Cómo Llegar</h2>
 
-      <h2>Modificar Sitio</h2>
+      <label>Dirección</label>
 
-      <!-- COMO LLEGAR -->
-      <div class="card">
-        <h3>Cómo Llegar</h3>
-        <label>Dirección:</label>
-        <textarea [(ngModel)]="hotel.direccion"></textarea>
+      <textarea [(ngModel)]="hotel.direccion" rows="4"></textarea>
 
-        <label>Link:</label>
-        <input [(ngModel)]="hotel.googleMapLink">
+      <label>Link de Google Maps</label>
+
+      <input [(ngModel)]="hotel.googleMapLink" />
+
+      <div class="actions">
+        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
       </div>
-
-      <button (click)="guardar()">Guardar cambios</button>
     </div>
 
     <!-- CONTACTO -->
-    <div *ngIf="seccion === 'contacto'">
+    <div *ngIf="seccion === 'contacto'" class="card">
+      <h2>Contacto</h2>
 
-      <h2>Modificar Sitio</h2>
+      <label>Correo</label>
 
-      <!-- CONTACTO -->
-      <div class="card">
-        <h3>Contacto</h3>
-        <label>Correo:</label>
-        <input [(ngModel)]="hotel.email">
+      <input [(ngModel)]="hotel.email" />
 
-        <label>Teléfono:</label>
-        <input [(ngModel)]="hotel.telefono">
+      <label>Teléfono</label>
+
+      <input [(ngModel)]="hotel.telefono" />
+
+      <div class="actions">
+        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
       </div>
-
-      <button (click)="guardar()">Guardar cambios</button>
     </div>
 
     <!-- FACILIDADES -->
-    <div *ngIf="seccion === 'facilidades'">
+    <div *ngIf="seccion === 'facilidades'" class="card">
+      <h2>Facilidades</h2>
 
-      <h2>Modificar Sitio</h2>
-
-      <div class="card">
-        <h3>Facilidades</h3>
-
-        <app-facilidades></app-facilidades>
-      </div>
-
+      <app-facilidades></app-facilidades>
     </div>
-
   </main>
 
-  <!-- ESTRUCTURA DEL MODAL -->
+  <!-- MODAL -->
   <div class="modal-overlay" *ngIf="mostrarModal">
     <div class="modal-box">
       <h2>¡Éxito!</h2>
+
       <p>Los cambios se han guardado correctamente.</p>
+
       <button (click)="cerrarModal()">Aceptar</button>
     </div>
   </div>
-
 </div>
