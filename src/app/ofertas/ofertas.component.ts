@@ -8,6 +8,7 @@ import { CreateOfertaUseCase } from "../application/create-oferta.use-case";
 import { UploadService } from "../infrastructure/services/upload.service";
 import { AlertComponent } from "../shared/alerts/alert/alert.component";
 import { AlertService } from "../shared/alerts/alert/alert.service";
+import { ConfirmService } from "../shared/confirm/confirm.service";
 
 @Component({
   selector: "app-ofertas",
@@ -46,7 +47,8 @@ export class OfertasComponent implements OnInit {
     private getOfertasUseCase: GetOfertasUseCase,
     private updateOfertaUseCase: UpdateOfertaUseCase,
     private uploadService: UploadService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private confirmService: ConfirmService,
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +88,21 @@ export class OfertasComponent implements OnInit {
 
     this.resetFormulario();
   }
+
+  cancelarEdicion() {
+
+  this.confirmService.open(
+    "¿Desea cancelar los cambios realizados?",
+    () => {
+
+      this.cerrarModal();
+
+      this.alertService.info(
+        "Cambios cancelados"
+      );
+    }
+  );
+}
 
   validarFormulario(): boolean {
 

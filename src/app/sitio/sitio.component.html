@@ -1,7 +1,6 @@
 <div class="admin-layout">
   <!-- SIDEBAR -->
   <aside class="sidebar">
-
     <ul>
       <li [class.active]="seccion === 'sitio'" (click)="seccion = 'sitio'">
         Home
@@ -49,7 +48,7 @@
 
       <label>Descripción</label>
 
-      <textarea [(ngModel)]="hotel.homeDescription" rows="5"></textarea>
+      <textarea [(ngModel)]="hotel.homeDescription" rows="5"> </textarea>
 
       <div class="upload-section">
         <label class="custom-upload">
@@ -68,8 +67,12 @@
         [src]="hotel.homeImgUrl"
         class="preview-img"
       />
+
       <div class="actions">
         <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+        <button class="btn-secondary" (click)="cancelarCambios()">
+          Cancelar cambios
+        </button>
       </div>
     </div>
 
@@ -77,10 +80,12 @@
     <div *ngIf="seccion === 'sobreNosotros'" class="card">
       <h2>Sobre Nosotros</h2>
 
-      <textarea [(ngModel)]="hotel.sobreNosotros" rows="6"></textarea>
+      <textarea [(ngModel)]="hotel.sobreNosotros" rows="6"> </textarea>
 
       <div class="actions">
         <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+        
+        <button class="btn-secondary" (click)="cancelarCambios()">Cancelar cambios</button>
       </div>
     </div>
 
@@ -90,7 +95,7 @@
 
       <label>Dirección</label>
 
-      <textarea [(ngModel)]="hotel.direccion" rows="4"></textarea>
+      <textarea [(ngModel)]="hotel.direccion" rows="4"> </textarea>
 
       <label>Link de Google Maps</label>
 
