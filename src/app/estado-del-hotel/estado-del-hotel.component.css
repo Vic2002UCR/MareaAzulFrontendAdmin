@@ -57,6 +57,14 @@ input, select {
 .btn.secundario {
   background: #555;
 }
+.btn.imprimir {
+  background: #555;
+  color: white;
+  display: block;
+  margin: 20px auto;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
 
 /* TITULOS */
 .titulo {
@@ -114,4 +122,200 @@ td {
   text-align: center;
   margin-top: 30px;
   color: #777;
+}
+.encabezado-reporte {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  margin-bottom: 20px;
+}
+
+.encabezado-reporte h1 {
+
+  margin: 0;
+
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.encabezado-reporte .btn {
+
+  white-space: nowrap;
+}
+@media print {
+ /* OCULTAR MENÚ Y BOTONES DEL HEADER GLOBAL */
+
+  ::ng-deep .mainmenu,
+  ::ng-deep .nav-right {
+    display: none !important;
+  }
+
+  /* MOSTRAR SOLO EL LOGO */
+
+  ::ng-deep .header-section {
+
+    display: flex !important;
+    justify-content: center;
+
+    border-bottom: 2px solid black;
+
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  ::ng-deep .logo {
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  ::ng-deep .logo img {
+
+    max-width: 220px;
+    height: auto;
+  }
+
+  /* CONFIG GENERAL */
+
+  body {
+    margin: 0;
+    padding: 20px;
+    background: white;
+  }
+
+  /* OCULTAR ELEMENTOS NO NECESARIOS */
+
+  button,
+  form,
+  nav ,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  /* MOSTRAR SOLO EL REPORTE */
+
+  .encabezado-reporte,
+  .contenedor,
+  .contenedor * {
+    visibility: visible;
+  }
+
+  /* ENCABEZADO */
+
+  .encabezado-reporte {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+
+    border-bottom: 2px solid black;
+  }
+
+  .encabezado-reporte h1 {
+
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    color: black;
+  }
+
+  /* CONTENEDOR */
+
+  .contenedor {
+
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* TITULOS */
+
+  .titulo {
+
+    font-size: 24px !important;
+    font-weight: bold;
+
+    margin-bottom: 20px;
+
+    color: black !important;
+  }
+
+  /* TABLAS */
+
+  table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 10px;
+  }
+
+    thead {
+
+  background: white !important;
+  color: black !important;
+
+  font-weight: bold;
+}
+
+  th,
+  td {
+
+    border: 1px solid #ccc;
+
+    padding: 12px;
+
+    text-align: center;
+  }
+
+  /* ESTADOS */
+
+  .estado {
+
+    font-weight: bold;
+    border: none;
+  }
+
+  /* EVITAR CORTES */
+
+  tr,
+  td,
+  th {
+    page-break-inside: avoid;
+  }
+
+  /* MENSAJE VACÍO */
+
+  .empty {
+
+    margin-top: 20px;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    text-align: center;
+  }
+
+  /* LIMPIAR EFECTOS WEB */
+
+  * {
+
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
 }
