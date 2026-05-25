@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { NgIf } from "@angular/common";
+
 
 import { Hotel } from "../domain/entities/hotel.entity";
 
@@ -15,7 +15,7 @@ import { ConfirmService } from "../shared/confirm/confirm.service";
 @Component({
   selector: "app-sitio",
   standalone: true,
-  imports: [FormsModule, NgIf, FacilidadesComponent],
+  imports: [FormsModule, FacilidadesComponent],
   templateUrl: "./sitio.component.html",
   styleUrl: "./sitio.component.css",
 })

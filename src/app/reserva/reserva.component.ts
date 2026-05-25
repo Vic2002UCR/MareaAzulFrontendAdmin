@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { GetReservaUseCase } from "../application/get-reserva.use-cases";
 import { Reserva } from "../domain/entities/reserva.entity";
-import { NgFor, NgIf } from "@angular/common";
+
 import { FormsModule } from "@angular/forms";
 import { RouterLink } from "@angular/router";
 import { forkJoin } from "rxjs";
@@ -12,7 +12,7 @@ import { ReservaTestRepository } from "../infrastructure/repositories/reserva-te
 
 @Component({
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe],
   templateUrl: "./reserva.component.html",
   styleUrl: "./reserva.component.css",
 })

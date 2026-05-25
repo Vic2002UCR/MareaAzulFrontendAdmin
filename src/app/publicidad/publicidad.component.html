@@ -5,89 +5,90 @@
     <button class="btn-agregar" (click)="abrirAgregar()">Crear Publicidad</button>
   </div>
 
-  <div class="mensaje exito" *ngIf="mensajeExito">
-    {{ mensajeExito }}
-  </div>
+  @if (mensajeExito) {
+    <div class="mensaje exito">
+      {{ mensajeExito }}
+    </div>
+  }
 
-  <div class="mensaje error" *ngIf="mensajeError && !mostrarModal">
-    {{ mensajeError }}
-  </div>
+  @if (mensajeError && !mostrarModal) {
+    <div class="mensaje error">
+      {{ mensajeError }}
+    </div>
+  }
 
   <div class="carrusel-container">
     <button class="flecha" (click)="prevPage()">&#8249;</button>
 
     <div class="cards-container">
-      <div class="card-publicidad" *ngFor="let publi of publicidadesVisibles">
-        <div class="imagen-wrapper">
-          <img *ngIf="publi.imageUrl; else sinImagen" [src]="publi.imageUrl" alt="Publicidad" />
-
-          <ng-template #sinImagen>
-            <span class="sin-imagen">Sin imagen</span>
-          </ng-template>
+      @for (publi of publicidadesVisibles; track publi) {
+        <div class="card-publicidad">
+          <div class="imagen-wrapper">
+            @if (publi.imageUrl) {
+              <img [src]="publi.imageUrl" alt="Publicidad" />
+            } @else {
+              <span class="sin-imagen">Sin imagen</span>
+            }
+          </div>
+          <div class="info">
+            <p><strong>Orden:</strong> {{ publi.orden }}</p>
+            <p><strong>Estado:</strong> {{ publi.estado ? 'Activa' : 'Inactiva' }}</p>
+          </div>
+          <div class="acciones">
+            <button class="btn-accion btn-editar" (click)="abrirEditar(publi)">Editar</button>
+            <button class="btn-accion btn-eliminar" (click)="eliminar(publi.id)">Eliminar</button>
+          </div>
         </div>
+      }
 
-        <div class="info">
-          <p><strong>Orden:</strong> {{ publi.orden }}</p>
-          <p><strong>Estado:</strong> {{ publi.estado ? 'Activa' : 'Inactiva' }}</p>
+      @if (publicidades.length === 0) {
+        <div class="sin-datos">
+          No hay publicidades registradas.
         </div>
-
-        <div class="acciones">
-          <button class="btn-accion btn-editar" (click)="abrirEditar(publi)">Editar</button>
-          <button class="btn-accion btn-eliminar" (click)="eliminar(publi.id)">Eliminar</button>
-        </div>
-      </div>
-
-      <div class="sin-datos" *ngIf="publicidades.length === 0">
-        No hay publicidades registradas.
-      </div>
+      }
     </div>
 
     <button class="flecha" (click)="nextPage()">&#8250;</button>
   </div>
 </div>
 
-<div class="modal-backdrop" *ngIf="mostrarModal">
-  <div class="modal-pro">
-
-    <h2 class="titulo">
-      {{ modoEdicion ? 'Editar Publicidad' : 'Agregar Publicidad' }}
-    </h2>
-
-    <div class="mensaje error" *ngIf="mensajeError" style="margin: 0 0 15px 0;">
-      {{ mensajeError }}
-    </div>
-
-    <div class="form-grid">
-      <div class="form-left">
-
-        <label>Imagen</label>
-        <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-
-        <div class="preview" *ngIf="publicidadForm.imageUrl">
-          <img [src]="publicidadForm.imageUrl" alt="Vista previa de publicidad" />
+@if (mostrarModal) {
+  <div class="modal-backdrop">
+    <div class="modal-pro">
+      <h2 class="titulo">
+        {{ modoEdicion ? 'Editar Publicidad' : 'Agregar Publicidad' }}
+      </h2>
+      @if (mensajeError) {
+        <div class="mensaje error" style="margin: 0 0 15px 0;">
+          {{ mensajeError }}
         </div>
-
-        <label>Link</label>
-        <input type="text" [(ngModel)]="publicidadForm.link" />
-
-        <label>Orden</label>
-        <input type="number" [(ngModel)]="publicidadForm.orden" />
-
-        <label>Estado</label>
-        <select [(ngModel)]="publicidadForm.estado">
-          <option [ngValue]="true">Activa</option>
-          <option [ngValue]="false">Inactiva</option>
-        </select>
-
+      }
+      <div class="form-grid">
+        <div class="form-left">
+          <label>Imagen</label>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+          @if (publicidadForm.imageUrl) {
+            <div class="preview">
+              <img [src]="publicidadForm.imageUrl" alt="Vista previa de publicidad" />
+            </div>
+          }
+          <label>Link</label>
+          <input type="text" [(ngModel)]="publicidadForm.link" />
+          <label>Orden</label>
+          <input type="number" [(ngModel)]="publicidadForm.orden" />
+          <label>Estado</label>
+          <select [(ngModel)]="publicidadForm.estado">
+            <option [ngValue]="true">Activa</option>
+            <option [ngValue]="false">Inactiva</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-save" (click)="guardar()">
+          {{ modoEdicion ? 'Guardar' : 'Agregar' }}
+        </button>
       </div>
     </div>
-
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
-      <button class="btn-save" (click)="guardar()">
-        {{ modoEdicion ? 'Guardar' : 'Agregar' }}
-      </button>
-    </div>
-
   </div>
-</div>
+}

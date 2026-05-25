@@ -12,26 +12,28 @@
           [(ngModel)]="correo"
           placeholder="correo@ejemplo.com"
           required>
+        </div>
+
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          <input
+            id="contrasena"
+            type="password"
+            name="contrasena"
+            [(ngModel)]="contrasena"
+            placeholder="********"
+            required>
+          </div>
+
+          <button type="submit" class="login-btn" [disabled]="loading">
+            {{ loading ? 'Ingresando...' : 'Ingresar' }}
+          </button>
+
+          @if (errorMessage) {
+            <p class="error-message">
+              {{ errorMessage }}
+            </p>
+          }
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="contrasena">Contraseña</label>
-        <input
-          id="contrasena"
-          type="password"
-          name="contrasena"
-          [(ngModel)]="contrasena"
-          placeholder="********"
-          required>
-      </div>
-
-      <button type="submit" class="login-btn" [disabled]="loading">
-        {{ loading ? 'Ingresando...' : 'Ingresar' }}
-      </button>
-
-      <p *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </p>
-    </form>
-  </div>
-</div>
+    </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { ApiService, TestResponse } from './infrastructure/services/api.service';
@@ -9,7 +9,7 @@ import { ConfirmComponent } from './shared/confirm/confirm.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgIf, AlertComponent, ConfirmComponent],
+  imports: [RouterOutlet, RouterLink, AlertComponent, ConfirmComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { DatePipe, NgClass, NgFor, NgIf } from "@angular/common";
+import { DatePipe, NgClass } from "@angular/common";
 import { Oferta } from "../domain/entities/oferta.entity";
 import { GetOfertasUseCase } from "../application/get-ofertas.use-case";
 import { UpdateOfertaUseCase } from "../application/update-oferta.use-case";
@@ -15,12 +15,10 @@ import { ConfirmService } from "../shared/confirm/confirm.service";
   standalone: true,
   imports: [
     FormsModule,
-    NgFor,
-    NgIf,
     DatePipe,
     NgClass,
-    AlertComponent,
-  ],
+    AlertComponent
+],
   templateUrl: "./ofertas.component.html",
   styleUrls: ["./ofertas.component.css"],
 })

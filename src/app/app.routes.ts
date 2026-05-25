@@ -10,6 +10,7 @@ import { OfertasComponent } from './ofertas/ofertas.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { authGuard } from './guards/auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: 'temporadas', component: TemporadasComponent, canActivate: [authGuard] },
   { path: 'ofertas', component: OfertasComponent, canActivate: [authGuard] },
   { path: 'publicidad', component: PublicidadComponent, canActivate: [authGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
 
   // Fallback
   { path: '**', redirectTo: 'inicio' }

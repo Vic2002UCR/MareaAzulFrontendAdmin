@@ -8,67 +8,64 @@
     <button class="flecha" (click)="prevPage()">&#8249;</button>
 
     <div class="cards-container">
-      <div class="card-publicidad" *ngFor="let facilidad of facilidadesVisibles">
-        <div class="imagen-wrapper">
-          <img *ngIf="facilidad.imageUrl; else sinImagen" [src]="facilidad.imageUrl" alt="Facilidad" />
-
-          <ng-template #sinImagen>
-            <span class="sin-imagen">Sin imagen</span>
-          </ng-template>
+      @for (facilidad of facilidadesVisibles; track facilidad) {
+        <div class="card-publicidad">
+          <div class="imagen-wrapper">
+            @if (facilidad.imageUrl) {
+              <img [src]="facilidad.imageUrl" alt="Facilidad" />
+            } @else {
+              <span class="sin-imagen">Sin imagen</span>
+            }
+          </div>
+          <div class="info">
+            <p><strong>Nombre:</strong> {{ facilidad.nombre }}</p>
+            <p><strong>Descripción:</strong> {{ facilidad.descripcion }}</p>
+          </div>
+          <div class="acciones">
+            <button class="btn-accion btn-editar" (click)="abrirEditar(facilidad)">Editar</button>
+            <button class="btn-accion btn-eliminar" (click)="eliminar(facilidad.id)">Eliminar</button>
+          </div>
         </div>
+      }
 
-        <div class="info">
-          <p><strong>Nombre:</strong> {{ facilidad.nombre }}</p>
-          <p><strong>Descripción:</strong> {{ facilidad.descripcion }}</p>
+      @if (facilidades.length === 0) {
+        <div class="sin-datos">
+          No hay facilidades registradas.
         </div>
-
-        <div class="acciones">
-          <button class="btn-accion btn-editar" (click)="abrirEditar(facilidad)">Editar</button>
-          <button class="btn-accion btn-eliminar" (click)="eliminar(facilidad.id)">Eliminar</button>
-        </div>
-      </div>
-
-      <div class="sin-datos" *ngIf="facilidades.length === 0">
-        No hay facilidades registradas.
-      </div>
+      }
     </div>
 
     <button class="flecha" (click)="nextPage()">&#8250;</button>
   </div>
 </div>
 
-<div class="modal-backdrop" *ngIf="mostrarModal">
-  <div class="modal-pro">
-
-    <h2 class="titulo">
-      {{ modoEdicion ? 'Editar Facilidad' : 'Agregar Facilidad' }}
-    </h2>
-
-    <div class="form-grid">
-      <div class="form-left">
-
-        <label>Imagen</label>
-        <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-
-        <div class="preview" *ngIf="facilidadForm.imageUrl">
-          <img [src]="facilidadForm.imageUrl" alt="Vista previa de facilidad" />
+@if (mostrarModal) {
+  <div class="modal-backdrop">
+    <div class="modal-pro">
+      <h2 class="titulo">
+        {{ modoEdicion ? 'Editar Facilidad' : 'Agregar Facilidad' }}
+      </h2>
+      <div class="form-grid">
+        <div class="form-left">
+          <label>Imagen</label>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+          @if (facilidadForm.imageUrl) {
+            <div class="preview">
+              <img [src]="facilidadForm.imageUrl" alt="Vista previa de facilidad" />
+            </div>
+          }
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="facilidadForm.nombre" />
+          <label>Descripción</label>
+          <textarea [(ngModel)]="facilidadForm.descripcion"></textarea>
         </div>
-
-        <label>Nombre</label>
-        <input type="text" [(ngModel)]="facilidadForm.nombre" />
-
-        <label>Descripción</label>
-        <textarea [(ngModel)]="facilidadForm.descripcion"></textarea>
-
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-save" (click)="guardar()">
+          {{ modoEdicion ? 'Guardar' : 'Agregar' }}
+        </button>
       </div>
     </div>
-
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
-      <button class="btn-save" (click)="guardar()">
-        {{ modoEdicion ? 'Guardar' : 'Agregar' }}
-      </button>
-    </div>
-
   </div>
-</div>
+}

@@ -14,34 +14,32 @@
         <h2>Ofertas Activas</h2>
 
         <div class="grid-ofertas">
-          <div class="card" *ngFor="let oferta of ofertasActivas">
-            <div class="imagen">
-              <img
-                *ngIf="oferta.imageUrl; else sinImgA"
-                [src]="oferta.imageUrl"
-              />
-              <ng-template #sinImgA>
-                <span class="placeholder">Sin imagen</span>
-              </ng-template>
+          @for (oferta of ofertasActivas; track oferta) {
+            <div class="card">
+              <div class="imagen">
+                @if (oferta.imageUrl) {
+                  <img
+                    [src]="oferta.imageUrl"
+                    />
+                } @else {
+                  <span class="placeholder">Sin imagen</span>
+                }
+              </div>
+              <div class="info">
+                <h3>{{ oferta.nombre }}</h3>
+                <p>{{ oferta.descripcion }}</p>
+                <span class="descuento">{{ oferta.descuento }}% OFF</span>
+                <p class="fechas">
+                  {{ oferta.fechaInicio | date: "shortDate" }} -
+                  {{ oferta.fechaFin | date: "shortDate" }}
+                </p>
+              </div>
+              <div class="acciones">
+                <button (click)="editar(oferta)">Editar</button>
+                <button (click)="cambiarEstado(oferta)">Desactivar</button>
+              </div>
             </div>
-
-            <div class="info">
-              <h3>{{ oferta.nombre }}</h3>
-              <p>{{ oferta.descripcion }}</p>
-
-              <span class="descuento">{{ oferta.descuento }}% OFF</span>
-
-              <p class="fechas">
-                {{ oferta.fechaInicio | date: "shortDate" }} -
-                {{ oferta.fechaFin | date: "shortDate" }}
-              </p>
-            </div>
-
-            <div class="acciones">
-              <button (click)="editar(oferta)">Editar</button>
-              <button (click)="cambiarEstado(oferta)">Desactivar</button>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>
@@ -52,90 +50,85 @@
         <h2>Ofertas Inactivas</h2>
 
         <div class="grid-ofertas">
-          <div class="card" *ngFor="let oferta of ofertasInactivas">
-            <div class="imagen">
-              <img
-                *ngIf="oferta.imageUrl; else sinImgI"
-                [src]="oferta.imageUrl"
-              />
-              <ng-template #sinImgI>
-                <span class="placeholder">Sin imagen</span>
-              </ng-template>
+          @for (oferta of ofertasInactivas; track oferta) {
+            <div class="card">
+              <div class="imagen">
+                @if (oferta.imageUrl) {
+                  <img
+                    [src]="oferta.imageUrl"
+                    />
+                } @else {
+                  <span class="placeholder">Sin imagen</span>
+                }
+              </div>
+              <div class="info">
+                <h3>{{ oferta.nombre }}</h3>
+                <p>{{ oferta.descripcion }}</p>
+                <span class="descuento">{{ oferta.descuento }}% OFF</span>
+                <p class="fechas">
+                  {{ oferta.fechaInicio | date: "shortDate" }} -
+                  {{ oferta.fechaFin | date: "shortDate" }}
+                </p>
+              </div>
+              <div class="acciones">
+                <button (click)="editar(oferta)">Editar</button>
+                <button (click)="cambiarEstado(oferta)">Activar</button>
+              </div>
             </div>
-
-            <div class="info">
-              <h3>{{ oferta.nombre }}</h3>
-              <p>{{ oferta.descripcion }}</p>
-
-              <span class="descuento">{{ oferta.descuento }}% OFF</span>
-
-              <p class="fechas">
-                {{ oferta.fechaInicio | date: "shortDate" }} -
-                {{ oferta.fechaFin | date: "shortDate" }}
-              </p>
-            </div>
-
-            <div class="acciones">
-              <button (click)="editar(oferta)">Editar</button>
-              <button (click)="cambiarEstado(oferta)">Activar</button>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>
   </div>
 
   <!-- MODAL FORM -->
-  <div class="modal-backdrop" *ngIf="mostrarModal">
-    <div class="modal-form">
-      <h3 class="modal-titulo">Oferta</h3>
-
-      <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
-      <textarea
-        [(ngModel)]="nuevaOferta.descripcion"
-        placeholder="Descripción"
-      ></textarea>
-
-      <!-- <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" /> -->
-      <input type="file" (change)="onFileSelected($event)" />
-      <input
-        type="number"
-        [(ngModel)]="nuevaOferta.descuento"
-        placeholder="Descuento %"
-      />
-
-      <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
-      <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
-
-      <div class="acciones-modal">
-        <button (click)="cancelarEdicion()">Cancelar</button>
-        <button (click)="guardarOferta()">Guardar</button>
+  @if (mostrarModal) {
+    <div class="modal-backdrop">
+      <div class="modal-form">
+        <h3 class="modal-titulo">Oferta</h3>
+        <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
+        <textarea
+          [(ngModel)]="nuevaOferta.descripcion"
+          placeholder="Descripción"
+        ></textarea>
+        <!-- <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" /> -->
+        <input type="file" (change)="onFileSelected($event)" />
+        <input
+          type="number"
+          [(ngModel)]="nuevaOferta.descuento"
+          placeholder="Descuento %"
+          />
+          <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
+          <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
+          <div class="acciones-modal">
+            <button (click)="cancelarEdicion()">Cancelar</button>
+            <button (click)="guardarOferta()">Guardar</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    }
 
-  <!-- ALERTA -->
-  <div class="overlay" *ngIf="mostrarConfirmacion">
-    <div class="modal-alerta">
-      <h3>
-        {{ accion === "activar" ? "Activar oferta" : "Desactivar oferta" }}
-      </h3>
-
-      <p>
-        {{
-          accion === "activar"
+    <!-- ALERTA -->
+    @if (mostrarConfirmacion) {
+      <div class="overlay">
+        <div class="modal-alerta">
+          <h3>
+            {{ accion === "activar" ? "Activar oferta" : "Desactivar oferta" }}
+          </h3>
+          <p>
+            {{
+            accion === "activar"
             ? "La oferta estará disponible."
             : "La oferta dejará de mostrarse."
-        }}
-      </p>
-
-      <div class="botones">
-        <button class="cancelar" (click)="cancelar()">Cancelar</button>
-
-        <button class="confirmar" [ngClass]="accion" (click)="confirmar()">
-          {{ accion === "activar" ? "Activar" : "Desactivar" }}
-        </button>
+            }}
+          </p>
+          <div class="botones">
+            <button class="cancelar" (click)="cancelar()">Cancelar</button>
+            <button class="confirmar" [ngClass]="accion" (click)="confirmar()">
+              {{ accion === "activar" ? "Activar" : "Desactivar" }}
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    }
   </div>
-</div>

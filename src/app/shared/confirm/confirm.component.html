@@ -1,25 +1,20 @@
-<div class="confirm-overlay" *ngIf="confirmService.visible">
-  <div class="confirm-modal">
-
-    <h2>Confirmación</h2>
-
-    <p>{{ confirmService.message }}</p>
-
-    <div class="confirm-actions">
-
-      <button
-        class="btn-cancel"
-        (click)="confirmService.cancel()">
-        Cancelar
-      </button>
-
-      <button
-        class="btn-confirm"
-        (click)="confirmService.confirm()">
-        Aceptar
-      </button>
-
+@if (confirmService.visible) {
+  <div class="confirm-overlay">
+    <div class="confirm-modal">
+      <h2>Confirmación</h2>
+      <p>{{ confirmService.message }}</p>
+      <div class="confirm-actions">
+        <button
+          class="btn-cancel"
+          (click)="confirmService.cancel()">
+          Cancelar
+        </button>
+        <button
+          class="btn-confirm"
+          (click)="confirmService.confirm()">
+          Aceptar
+        </button>
+      </div>
     </div>
-
   </div>
-</div>
+}

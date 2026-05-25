@@ -26,6 +26,8 @@ import { AuthRepository } from './domain/interfaces/auth.repository';
 import { AuthRemoteRepository } from './infrastructure/repositories/auth-remote.repository';
 import { HotelRemoteRepository } from "./infrastructure/repositories/hotel-remote.repository";
 import { FacilidadRemoteRepository } from "./infrastructure/repositories/facilidad-remote.repository";
+import { DashboardRepository } from "./domain/interfaces/dashboard.repository";
+import { DashboardRemoteRepository } from "./infrastructure/repositories/dashboard-http.repository";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,5 +46,7 @@ export const appConfig: ApplicationConfig = {
     { provide: OfertaRepository, useClass: OfertaRemoteRepository },
     { provide: HabitacionDisponibilidadRepository, useClass: HabitacionRemoteRepository },
     { provide: HabitacionEstadoRepository, useClass: HabitacionRemoteRepository },
+    { provide: DashboardRepository, useClass: DashboardRemoteRepository },
+    
   ],
 };

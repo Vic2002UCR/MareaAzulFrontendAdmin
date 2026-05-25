@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { GetHotelUseCase } from "../application/get-hotel.use-case";
 import { Hotel } from "../domain/entities/hotel.entity";
-import { NgIf, NgFor } from "@angular/common";
+
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { FacilidadUseCase } from "../application/facilidades.use-case";
 import { Facilidad } from "../domain/entities/facilidad.entity";
@@ -14,7 +14,7 @@ import { Reserva } from "../domain/entities/reserva.entity";
 
 @Component({
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule],
+  imports: [FormsModule],
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.css",
 })

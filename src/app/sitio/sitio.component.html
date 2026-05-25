@@ -9,28 +9,28 @@
       <li
         [class.active]="seccion === 'sobreNosotros'"
         (click)="seccion = 'sobreNosotros'"
-      >
+        >
         Sobre Nosotros
       </li>
 
       <li
         [class.active]="seccion === 'comoLlegar'"
         (click)="seccion = 'comoLlegar'"
-      >
+        >
         Cómo llegar
       </li>
 
       <li
         [class.active]="seccion === 'contacto'"
         (click)="seccion = 'contacto'"
-      >
+        >
         Contacto
       </li>
 
       <li
         [class.active]="seccion === 'facilidades'"
         (click)="seccion = 'facilidades'"
-      >
+        >
         Facilidades
       </li>
     </ul>
@@ -43,102 +43,92 @@
     </div>
 
     <!-- HOME -->
-    <div *ngIf="seccion === 'sitio'" class="card">
-      <h2>Home</h2>
-
-      <label>Descripción</label>
-
-      <textarea [(ngModel)]="hotel.homeDescription" rows="5"> </textarea>
-
-      <div class="upload-section">
-        <label class="custom-upload">
-          <input type="file" (change)="onFileSelected($event)" hidden />
-
-          Seleccionar imagen
-        </label>
-
-        <button class="btn-secondary" (click)="uploadImage()">
-          Subir imagen
-        </button>
+    @if (seccion === 'sitio') {
+      <div class="card">
+        <h2>Home</h2>
+        <label>Descripción</label>
+        <textarea [(ngModel)]="hotel.homeDescription" rows="5"> </textarea>
+        <div class="upload-section">
+          <label class="custom-upload">
+            <input type="file" (change)="onFileSelected($event)" hidden />
+            Seleccionar imagen
+          </label>
+          <button class="btn-secondary" (click)="uploadImage()">
+            Subir imagen
+          </button>
+        </div>
+        @if (hotel.homeImgUrl) {
+          <img
+            [src]="hotel.homeImgUrl"
+            class="preview-img"
+            />
+        }
+        <div class="actions">
+          <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+          <button class="btn-secondary" (click)="cancelarCambios()">
+            Cancelar cambios
+          </button>
+        </div>
       </div>
-
-      <img
-        *ngIf="hotel.homeImgUrl"
-        [src]="hotel.homeImgUrl"
-        class="preview-img"
-      />
-
-      <div class="actions">
-        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
-        <button class="btn-secondary" (click)="cancelarCambios()">
-          Cancelar cambios
-        </button>
-      </div>
-    </div>
+    }
 
     <!-- SOBRE NOSOTROS -->
-    <div *ngIf="seccion === 'sobreNosotros'" class="card">
-      <h2>Sobre Nosotros</h2>
-
-      <textarea [(ngModel)]="hotel.sobreNosotros" rows="6"> </textarea>
-
-      <div class="actions">
-        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
-        
-        <button class="btn-secondary" (click)="cancelarCambios()">Cancelar cambios</button>
+    @if (seccion === 'sobreNosotros') {
+      <div class="card">
+        <h2>Sobre Nosotros</h2>
+        <textarea [(ngModel)]="hotel.sobreNosotros" rows="6"> </textarea>
+        <div class="actions">
+          <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+          <button class="btn-secondary" (click)="cancelarCambios()">Cancelar cambios</button>
+        </div>
       </div>
-    </div>
+    }
 
     <!-- COMO LLEGAR -->
-    <div *ngIf="seccion === 'comoLlegar'" class="card">
-      <h2>Cómo Llegar</h2>
-
-      <label>Dirección</label>
-
-      <textarea [(ngModel)]="hotel.direccion" rows="4"> </textarea>
-
-      <label>Link de Google Maps</label>
-
-      <input [(ngModel)]="hotel.googleMapLink" />
-
-      <div class="actions">
-        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+    @if (seccion === 'comoLlegar') {
+      <div class="card">
+        <h2>Cómo Llegar</h2>
+        <label>Dirección</label>
+        <textarea [(ngModel)]="hotel.direccion" rows="4"> </textarea>
+        <label>Link de Google Maps</label>
+        <input [(ngModel)]="hotel.googleMapLink" />
+        <div class="actions">
+          <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+        </div>
       </div>
-    </div>
+    }
 
     <!-- CONTACTO -->
-    <div *ngIf="seccion === 'contacto'" class="card">
-      <h2>Contacto</h2>
-
-      <label>Correo</label>
-
-      <input [(ngModel)]="hotel.email" />
-
-      <label>Teléfono</label>
-
-      <input [(ngModel)]="hotel.telefono" />
-
-      <div class="actions">
-        <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+    @if (seccion === 'contacto') {
+      <div class="card">
+        <h2>Contacto</h2>
+        <label>Correo</label>
+        <input [(ngModel)]="hotel.email" />
+        <label>Teléfono</label>
+        <input [(ngModel)]="hotel.telefono" />
+        <div class="actions">
+          <button class="btn-primary" (click)="guardar()">Guardar cambios</button>
+        </div>
       </div>
-    </div>
+    }
 
     <!-- FACILIDADES -->
-    <div *ngIf="seccion === 'facilidades'" class="card">
-      <h2>Facilidades</h2>
-
-      <app-facilidades></app-facilidades>
-    </div>
+    @if (seccion === 'facilidades') {
+      <div class="card">
+        <h2>Facilidades</h2>
+        <app-facilidades></app-facilidades>
+      </div>
+    }
   </main>
 
   <!-- MODAL -->
-  <div class="modal-overlay" *ngIf="mostrarModal">
-    <div class="modal-box">
-      <h2>¡Éxito!</h2>
-
-      <p>Los cambios se han guardado correctamente.</p>
-
-      <button (click)="cerrarModal()">Aceptar</button>
+  @if (mostrarModal) {
+    <div class="modal-overlay">
+      <div class="modal-box">
+        <h2>¡Éxito!</h2>
+        <p>Los cambios se han guardado correctamente.</p>
+        <button (click)="cerrarModal()">Aceptar</button>
+      </div>
     </div>
-  </div>
+  }
 </div>

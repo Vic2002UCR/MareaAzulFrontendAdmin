@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { LoginUseCase } from '../application/login.use-case';
 import { LoginRequest } from '../infrastructure/dtos/login-request';
 import { LoginResponse } from '../infrastructure/dtos/login-response';
-import { NgIf } from '@angular/common';
+
 import { AlertService } from '../shared/alerts/alert/alert.service';
 
 @Component({
   selector: 'app-inicio',
-  imports: [FormsModule,NgIf],
+  imports: [FormsModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })

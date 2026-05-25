@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+
 import { TipoHabitacion } from '../domain/entities/tipo-habitacion.entity';
 import { HabitacionAdmin, HabitacionAdminRepository } from '../domain/interfaces/habitacion-admin.repository';
 import { GetTiposHabitacionUseCase } from '../application/get-tipos-habitacion.use-case';
@@ -11,7 +11,7 @@ import { UploadService } from '../infrastructure/services/upload.service';
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
+  imports: [FormsModule],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.css'
 })

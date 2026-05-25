@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Facilidad } from '../domain/entities/facilidad.entity';
 import { FacilidadUseCase } from '../application/facilidades.use-case';
@@ -10,7 +10,7 @@ import { ConfirmService } from '../shared/confirm/confirm.service';
 @Component({
   selector: 'app-facilidades',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule],
+  imports: [FormsModule],
   templateUrl: './facilidades.component.html',
   styleUrls: ['./facilidades.component.css']
 })

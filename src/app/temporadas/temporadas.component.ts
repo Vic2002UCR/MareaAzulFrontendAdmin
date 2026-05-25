@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { TemporadaUseCase } from '../application/temporada.use-case';
 import { Temporada } from '../domain/entities/temporada.entity';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-temporadas',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './temporadas.component.html',
   styleUrl: './temporadas.component.css'
 })

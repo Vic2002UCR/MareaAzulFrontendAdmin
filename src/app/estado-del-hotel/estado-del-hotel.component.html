@@ -2,7 +2,7 @@
 
   <h1>Estado del Hotel</h1>
 
-  
+
 
 </div>
 
@@ -25,9 +25,11 @@
       <label>Tipo de habitación</label>
       <select formControlName="tipoId">
         <option value="">Todos</option>
-        <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
-          {{ tipo.nombre }}
-        </option>
+        @for (tipo of tiposHabitacion; track tipo) {
+          <option [value]="tipo.id">
+            {{ tipo.nombre }}
+          </option>
+        }
       </select>
     </div>
 
@@ -45,77 +47,87 @@
   </form>
 
   <!-- LOADING -->
-  <div *ngIf="loading" class="loading">
-    Cargando...
-  </div>
+  @if (loading) {
+    <div class="loading">
+      Cargando...
+    </div>
+  }
 
   <!-- TITULO DISPONIBILIDAD -->
-  <h2 *ngIf="!mostrandoEstadoHoy && resultadosDisponibilidad.length" class="titulo">
-  Disponibilidad desde {{ fechaInicioConsulta }} hasta {{ fechaFinConsulta }}
-</h2>
+  @if (!mostrandoEstadoHoy && resultadosDisponibilidad.length) {
+    <h2 class="titulo">
+      Disponibilidad desde {{ fechaInicioConsulta }} hasta {{ fechaFinConsulta }}
+    </h2>
+  }
 
   <!-- TABLA DISPONIBILIDAD -->
-  <table *ngIf="!mostrandoEstadoHoy && resultadosDisponibilidad.length">
-
-    <thead>
-      <tr>
-        <th>Habitación</th>
-        <th>Tipo</th>
-        <th>Costo</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let h of resultadosDisponibilidad">
-        <td>{{ h.habitacionId }}</td>
-        <td>{{ h.tipoHabitacion }}</td>
-        <td>{{ h.costoTotal | currency:'$' }}</td>
-        <td>
-          <span [ngClass]="h.disponible ? 'estado disponible' : 'estado ocupada'">
-            {{ h.disponible ? 'Disponible' : 'Ocupada' }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-
-  </table>
+  @if (!mostrandoEstadoHoy && resultadosDisponibilidad.length) {
+    <table>
+      <thead>
+        <tr>
+          <th>Habitación</th>
+          <th>Tipo</th>
+          <th>Costo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (h of resultadosDisponibilidad; track h) {
+          <tr>
+            <td>{{ h.habitacionId }}</td>
+            <td>{{ h.tipoHabitacion }}</td>
+            <td>{{ h.costoTotal | currency:'$' }}</td>
+            <td>
+              <span [ngClass]="h.disponible ? 'estado disponible' : 'estado ocupada'">
+                {{ h.disponible ? 'Disponible' : 'Ocupada' }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <!-- TITULO ESTADO HOY -->
-  
-<h2 *ngIf="mostrandoEstadoHoy && resultadosEstado.length" class="titulo">
-  Estado del hotel al día de hoy ({{ fechaInicioConsulta }})
-</h2>
+
+  @if (mostrandoEstadoHoy && resultadosEstado.length) {
+    <h2 class="titulo">
+      Estado del hotel al día de hoy ({{ fechaInicioConsulta }})
+    </h2>
+  }
 
   <!-- TABLA ESTADO HOY -->
-  <table *ngIf="mostrandoEstadoHoy && resultadosEstado.length">
-
-    <thead>
-      <tr>
-        <th>Habitación</th>
-        <th>Tipo</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let h of resultadosEstado">
-        <td>{{ h.habitacionId }}</td>
-        <td>{{ h.tipoHabitacion }}</td>
-        <td>
-          <span [ngClass]="h.estado === 'DISPONIBLE' ? 'estado disponible' : 'estado ocupada'">
-            {{ h.estado }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-
-  </table>
+  @if (mostrandoEstadoHoy && resultadosEstado.length) {
+    <table>
+      <thead>
+        <tr>
+          <th>Habitación</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (h of resultadosEstado; track h) {
+          <tr>
+            <td>{{ h.habitacionId }}</td>
+            <td>{{ h.tipoHabitacion }}</td>
+            <td>
+              <span [ngClass]="h.estado === 'DISPONIBLE' ? 'estado disponible' : 'estado ocupada'">
+                {{ h.estado }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <!-- MENSAJE -->
-  <div *ngIf="!loading && !resultadosDisponibilidad.length && !resultadosEstado.length" class="empty">
-    No hay resultados para mostrar
-  </div>
+  @if (!loading && !resultadosDisponibilidad.length && !resultadosEstado.length) {
+    <div class="empty">
+      No hay resultados para mostrar
+    </div>
+  }
   <button
     type="button"
     class="btn imprimir"

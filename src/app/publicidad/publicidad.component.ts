@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { PublicidadUseCase } from '../application/publicidad.use-case';
 import { Publicidad } from '../domain/entities/publicidad.entity';
@@ -10,7 +10,7 @@ import { AlertService } from '../shared/alerts/alert/alert.service';
 @Component({
   selector: 'app-publicidad',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule],
+  imports: [FormsModule],
   templateUrl: './publicidad.component.html',
   styleUrl: './publicidad.component.css'
 })

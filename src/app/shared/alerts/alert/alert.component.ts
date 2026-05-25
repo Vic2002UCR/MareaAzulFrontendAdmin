@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { AlertService } from './alert.service';
 
 @Component({
   selector: 'app-alert',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [NgClass],
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.css',
 })

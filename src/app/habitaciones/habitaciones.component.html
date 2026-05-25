@@ -5,198 +5,215 @@
   </div>
 
   <!-- CARRUSEL DE TARJETAS -->
-  <div class="carousel-wrapper" *ngIf="tiposHabitacion.length > 0">
-
-    <button class="flecha flecha-izq" (click)="anterior()" [disabled]="!puedeAnterior()">&#8249;</button>
-
-    <div class="carousel-viewport">
-      <div class="carousel-track" [style.transform]="trackTransform">
-        <div class="room-card" *ngFor="let tipo of tiposHabitacion">
-
-          <!-- Imagen de fondo -->
-          <div class="card-bg" [style.background-image]="'url(' + tipo.imgUrl + ')'">
-
-            <!-- Info resumida (siempre visible) -->
-            <div class="card-info-min">
-              <span class="card-nombre">{{ tipo.nombre }}</span>
-              <span class="card-precio">${{ tipo.tarifa }}</span>
-            </div>
-
-            <!-- Overlay completo al hacer hover -->
-            <div class="card-overlay">
-              <div class="card-info-full">
-                <p class="overlay-nombre">{{ tipo.nombre }}</p>
-                <p class="overlay-precio">${{ tipo.tarifa }}</p>
-                <p class="overlay-detalle">Capacidad: Max {{ tipo.capacidad }}</p>
-                <p class="overlay-detalle">Descripción: {{ tipo.descripcion }}</p>
+  @if (tiposHabitacion.length > 0) {
+    <div class="carousel-wrapper">
+      <button class="flecha flecha-izq" (click)="anterior()" [disabled]="!puedeAnterior()">&#8249;</button>
+      <div class="carousel-viewport">
+        <div class="carousel-track" [style.transform]="trackTransform">
+          @for (tipo of tiposHabitacion; track tipo) {
+            <div class="room-card">
+              <!-- Imagen de fondo -->
+              <div class="card-bg" [style.background-image]="'url(' + tipo.imgUrl + ')'">
+                <!-- Info resumida (siempre visible) -->
+                <div class="card-info-min">
+                  <span class="card-nombre">{{ tipo.nombre }}</span>
+                  <span class="card-precio">${{ tipo.tarifa }}</span>
+                </div>
+                <!-- Overlay completo al hacer hover -->
+                <div class="card-overlay">
+                  <div class="card-info-full">
+                    <p class="overlay-nombre">{{ tipo.nombre }}</p>
+                    <p class="overlay-precio">${{ tipo.tarifa }}</p>
+                    <p class="overlay-detalle">Capacidad: Max {{ tipo.capacidad }}</p>
+                    <p class="overlay-detalle">Descripción: {{ tipo.descripcion }}</p>
+                  </div>
+                  <div class="card-buttons">
+                    <button class="btn-editar" (click)="abrirEditar(tipo)">Editar</button>
+                    <button class="btn-eliminar" (click)="pedirConfirmarEliminar(tipo)">Eliminar</button>
+                  </div>
+                </div>
               </div>
-              <div class="card-buttons">
-                <button class="btn-editar" (click)="abrirEditar(tipo)">Editar</button>
-                <button class="btn-eliminar" (click)="pedirConfirmarEliminar(tipo)">Eliminar</button>
-              </div>
             </div>
-
-          </div>
+          }
         </div>
       </div>
+      <button class="flecha flecha-der" (click)="siguiente()" [disabled]="!puedeSiguiente()">&#8250;</button>
     </div>
-
-    <button class="flecha flecha-der" (click)="siguiente()" [disabled]="!puedeSiguiente()">&#8250;</button>
-
-  </div>
+  }
 
   <!-- Indicador de posición -->
-  <div class="carousel-indicador" *ngIf="tiposHabitacion.length > visiblesCount">
-    <span *ngFor="let tipo of tiposHabitacion; let i = index"
+  @if (tiposHabitacion.length > visiblesCount) {
+    <div class="carousel-indicador">
+      @for (tipo of tiposHabitacion; track tipo; let i = $index) {
+        <span
           class="dot"
           [class.dot-activo]="i >= carouselIndex && i < carouselIndex + visiblesCount">
-    </span>
-  </div>
+        </span>
+      }
+    </div>
+  }
 
   <!-- Sin tipos -->
-  <div class="sin-datos" *ngIf="tiposHabitacion.length === 0">
-    No hay tipos de habitación registrados.
-  </div>
+  @if (tiposHabitacion.length === 0) {
+    <div class="sin-datos">
+      No hay tipos de habitación registrados.
+    </div>
+  }
 
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- MODAL EDITAR                                                -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div class="modal-backdrop" *ngIf="mostrarModal">
-  <div class="modal-box">
-
-    <div class="modal-error" *ngIf="errorModal">{{ errorModal }}</div>
-
-    <!-- Campos del tipo -->
-    <div class="modal-fields">
-      <div class="field-row">
-        <label>Nombre:</label>
-        <input type="text" [(ngModel)]="form.nombre" name="nombre" />
-      </div>
-      <div class="field-row">
-        <label>Descripción:</label>
-        <textarea [(ngModel)]="form.descripcion" name="descripcion" rows="3"></textarea>
-      </div>
-      <div class="field-row">
-        <label>Capacidad:</label>
-        <input type="number" [(ngModel)]="form.capacidad" name="capacidad" min="1" />
-      </div>
-      <div class="field-row">
-        <label>Precio:</label>
-        <input type="number" [(ngModel)]="form.tarifa" name="tarifa" min="0.01" step="0.01" />
-      </div>
-
-      <!-- Imagen -->
-      <div class="field-row foto-row">
-        <div class="foto-preview">
-          <img [src]="previewUrl" alt="Vista previa" *ngIf="previewUrl" />
+@if (mostrarModal) {
+  <div class="modal-backdrop">
+    <div class="modal-box">
+      @if (errorModal) {
+        <div class="modal-error">{{ errorModal }}</div>
+      }
+      <!-- Campos del tipo -->
+      <div class="modal-fields">
+        <div class="field-row">
+          <label>Nombre:</label>
+          <input type="text" [(ngModel)]="form.nombre" name="nombre" />
         </div>
-        <div class="foto-acciones">
-          <label class="btn-subir" for="fileInputModal">Subir</label>
-          <input id="fileInputModal" type="file" accept="image/*"
-                 (change)="onFileSelected($event)" style="display:none" />
-          <small *ngIf="form.imageUrl !== valorOriginal.imageUrl" class="imagen-ok">✓ Imagen actualizada</small>
+        <div class="field-row">
+          <label>Descripción:</label>
+          <textarea [(ngModel)]="form.descripcion" name="descripcion" rows="3"></textarea>
+        </div>
+        <div class="field-row">
+          <label>Capacidad:</label>
+          <input type="number" [(ngModel)]="form.capacidad" name="capacidad" min="1" />
+        </div>
+        <div class="field-row">
+          <label>Precio:</label>
+          <input type="number" [(ngModel)]="form.tarifa" name="tarifa" min="0.01" step="0.01" />
+        </div>
+        <!-- Imagen -->
+        <div class="field-row foto-row">
+          <div class="foto-preview">
+            @if (previewUrl) {
+              <img [src]="previewUrl" alt="Vista previa" />
+            }
+          </div>
+          <div class="foto-acciones">
+            <label class="btn-subir" for="fileInputModal">Subir</label>
+            <input id="fileInputModal" type="file" accept="image/*"
+              (change)="onFileSelected($event)" style="display:none" />
+              @if (form.imageUrl !== valorOriginal.imageUrl) {
+                <small class="imagen-ok">✓ Imagen actualizada</small>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- Sección habitaciones individuales -->
+        <div class="hab-seccion">
+          <div class="hab-seccion-header">
+            <span>Habitaciones</span>
+            <button class="btn-agregar-hab" (click)="agregarHabitacion()">Agregar</button>
+          </div>
+          @if (cargandoHabitaciones) {
+            <div class="cargando-hab">Cargando...</div>
+          }
+          @if (!cargandoHabitaciones) {
+            <table class="hab-tabla">
+              <thead>
+                <tr>
+                  <th>Número habitación</th>
+                  <th>Activa</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (hab of habitaciones; track hab) {
+                  <tr>
+                    <td>{{ hab.numeroHabitacion }}</td>
+                    <td>
+                      <label class="toggle">
+                        <input type="checkbox" [checked]="hab.estado" (change)="toggleEstado(hab)" />
+                        <span class="slider"></span>
+                      </label>
+                    </td>
+                    <td>
+                      <button class="btn-del-hab" (click)="pedirConfirmarEliminarHab(hab)">✕</button>
+                    </td>
+                  </tr>
+                }
+                @if (habitaciones.length === 0) {
+                  <tr>
+                    <td colspan="3" class="sin-hab">Sin habitaciones registradas</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+        </div>
+        <!-- Botones modal -->
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="cerrarModal()" [disabled]="guardando">Cancelar</button>
+          <button class="btn-save" (click)="guardar()" [disabled]="!puedeGuardar()">
+            {{ guardando ? 'Guardando...' : 'Aceptar' }}
+          </button>
         </div>
       </div>
     </div>
+  }
 
-    <!-- Sección habitaciones individuales -->
-    <div class="hab-seccion">
-      <div class="hab-seccion-header">
-        <span>Habitaciones</span>
-        <button class="btn-agregar-hab" (click)="agregarHabitacion()">Agregar</button>
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MODAL NOTIFICACIÓN (éxito / error)                          -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  @if (mostrarNotif) {
+    <div class="modal-backdrop notif-backdrop" (click)="cerrarNotif()">
+      <div class="modal-notif"
+        [class.notif-exito]="tipoNotif === 'exito'"
+        [class.notif-error]="tipoNotif === 'error'"
+        (click)="$event.stopPropagation()">
+        <div class="notif-icono">
+          @if (tipoNotif === 'exito') {
+            <span>✓</span>
+          }
+          @if (tipoNotif === 'error') {
+            <span>✕</span>
+          }
+        </div>
+        <p class="notif-texto">{{ textoNotif }}</p>
+        <button class="btn-notif-ok" (click)="cerrarNotif()">Aceptar</button>
       </div>
-
-      <div class="cargando-hab" *ngIf="cargandoHabitaciones">Cargando...</div>
-
-      <table class="hab-tabla" *ngIf="!cargandoHabitaciones">
-        <thead>
-          <tr>
-            <th>Número habitación</th>
-            <th>Activa</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let hab of habitaciones">
-            <td>{{ hab.numeroHabitacion }}</td>
-            <td>
-              <label class="toggle">
-                <input type="checkbox" [checked]="hab.estado" (change)="toggleEstado(hab)" />
-                <span class="slider"></span>
-              </label>
-            </td>
-            <td>
-              <button class="btn-del-hab" (click)="pedirConfirmarEliminarHab(hab)">✕</button>
-            </td>
-          </tr>
-          <tr *ngIf="habitaciones.length === 0">
-            <td colspan="3" class="sin-hab">Sin habitaciones registradas</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+  }
 
-    <!-- Botones modal -->
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="cerrarModal()" [disabled]="guardando">Cancelar</button>
-      <button class="btn-save" (click)="guardar()" [disabled]="!puedeGuardar()">
-        {{ guardando ? 'Guardando...' : 'Aceptar' }}
-      </button>
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MODAL CONFIRMAR ELIMINAR HABITACIÓN INDIVIDUAL              -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  @if (mostrarConfirmarEliminarHab) {
+    <div class="modal-backdrop">
+      <div class="modal-confirmar">
+        <p class="confirmar-texto">
+          ¿Estás seguro de que deseas eliminar la habitación <strong>{{ habAEliminar?.numeroHabitacion }}</strong>?
+        </p>
+        <p class="confirmar-sub">Esta acción no se puede deshacer.</p>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="cancelarEliminarHab()">Cancelar</button>
+          <button class="btn-eliminar-confirm" (click)="confirmarEliminarHab()">Eliminar</button>
+        </div>
+      </div>
     </div>
+  }
 
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- MODAL NOTIFICACIÓN (éxito / error)                          -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="modal-backdrop notif-backdrop" *ngIf="mostrarNotif" (click)="cerrarNotif()">
-  <div class="modal-notif"
-       [class.notif-exito]="tipoNotif === 'exito'"
-       [class.notif-error]="tipoNotif === 'error'"
-       (click)="$event.stopPropagation()">
-
-    <div class="notif-icono">
-      <span *ngIf="tipoNotif === 'exito'">✓</span>
-      <span *ngIf="tipoNotif === 'error'">✕</span>
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MODAL CONFIRMAR ELIMINAR TIPO                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  @if (mostrarConfirmarEliminar) {
+    <div class="modal-backdrop">
+      <div class="modal-confirmar">
+        <p class="confirmar-texto">
+          ¿Estás seguro de que deseas eliminar el tipo <strong>{{ tipoAEliminar?.nombre }}</strong>?
+        </p>
+        <p class="confirmar-sub">Esta acción no se puede deshacer.</p>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="cancelarEliminar()">Cancelar</button>
+          <button class="btn-eliminar-confirm" (click)="confirmarEliminar()">Eliminar</button>
+        </div>
+      </div>
     </div>
-
-    <p class="notif-texto">{{ textoNotif }}</p>
-
-    <button class="btn-notif-ok" (click)="cerrarNotif()">Aceptar</button>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- MODAL CONFIRMAR ELIMINAR HABITACIÓN INDIVIDUAL              -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="modal-backdrop" *ngIf="mostrarConfirmarEliminarHab">
-  <div class="modal-confirmar">
-    <p class="confirmar-texto">
-      ¿Estás seguro de que deseas eliminar la habitación <strong>{{ habAEliminar?.numeroHabitacion }}</strong>?
-    </p>
-    <p class="confirmar-sub">Esta acción no se puede deshacer.</p>
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="cancelarEliminarHab()">Cancelar</button>
-      <button class="btn-eliminar-confirm" (click)="confirmarEliminarHab()">Eliminar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- MODAL CONFIRMAR ELIMINAR TIPO                               -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="modal-backdrop" *ngIf="mostrarConfirmarEliminar">
-  <div class="modal-confirmar">
-    <p class="confirmar-texto">
-      ¿Estás seguro de que deseas eliminar el tipo <strong>{{ tipoAEliminar?.nombre }}</strong>?
-    </p>
-    <p class="confirmar-sub">Esta acción no se puede deshacer.</p>
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="cancelarEliminar()">Cancelar</button>
-      <button class="btn-eliminar-confirm" (click)="confirmarEliminar()">Eliminar</button>
-    </div>
-  </div>
-</div>
+  }
