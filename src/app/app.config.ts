@@ -28,6 +28,8 @@ import { HotelRemoteRepository } from "./infrastructure/repositories/hotel-remot
 import { FacilidadRemoteRepository } from "./infrastructure/repositories/facilidad-remote.repository";
 import { DashboardRepository } from "./domain/interfaces/dashboard.repository";
 import { DashboardRemoteRepository } from "./infrastructure/repositories/dashboard-http.repository";
+import { AuditLogRepository } from "./domain/interfaces/audit-log.repository";
+import { AuditLogRemoteRepository } from "./infrastructure/repositories/audit-log.remote.repository";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +49,7 @@ export const appConfig: ApplicationConfig = {
     { provide: HabitacionDisponibilidadRepository, useClass: HabitacionRemoteRepository },
     { provide: HabitacionEstadoRepository, useClass: HabitacionRemoteRepository },
     { provide: DashboardRepository, useClass: DashboardRemoteRepository },
+    { provide: AuditLogRepository, useClass: AuditLogRemoteRepository }
     
   ],
 };

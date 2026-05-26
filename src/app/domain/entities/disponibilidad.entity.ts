@@ -1,6 +1,6 @@
 
 export interface Disponibilidad {
-  habitacionId: number;
+  numeroHabitacion: number;
   tipoHabitacion: string;
   costoTotal: number;
   disponible: boolean;

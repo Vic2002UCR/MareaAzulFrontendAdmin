@@ -145,7 +145,7 @@ export class EstadoDelHotelComponent implements OnInit {
 
       this.resultadosDisponibilidad = data;
       this.disponibilidadOriginal = [...data];
-
+      
       this.datosCargados = true; // activar filtro
 
       this.aplicarFiltro();
@@ -175,7 +175,7 @@ export class EstadoDelHotelComponent implements OnInit {
 
       this.resultadosEstado = data;
       this.estadoOriginal = [...data];
-
+      
       this.datosCargados = true; // permitir filtro
 
     } catch (error) {

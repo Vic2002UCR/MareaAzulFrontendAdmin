@@ -12,51 +12,68 @@
       <!-- Usuario -->
       <div class="form-group">
         <label>Usuario</label>
-
-        <select>
+        <select [(ngModel)]="filtroUsuario">
           <option value="">Todos</option>
-          <option value="admin">admin</option>
-          <option value="yoselin">yoselin</option>
-          <option value="silvia">silvia</option>
+
+    <option
+      *ngFor="let usuario of usuarios"
+      [value]="usuario"
+    >
+      {{ usuario }}
+    </option>
+        
         </select>
       </div>
 
       <!-- Fecha inicio -->
       <div class="form-group">
         <label>Fecha inicio</label>
-        <input type="date">
+        <input
+          type="date"
+          [(ngModel)]="fechaInicio"
+          (change)="validarFechas()"
+        >
       </div>
 
       <!-- Fecha fin -->
       <div class="form-group">
         <label>Fecha fin</label>
-        <input type="date">
+        <input
+          type="date"
+          [(ngModel)]="fechaFin"
+          [min]="fechaInicio"
+          (change)="validarFechas()"
+        >
       </div>
 
       <!-- Operación -->
       <div class="form-group">
         <label>Tipo de operación</label>
+        <select [(ngModel)]="filtroOperacion">
 
-        <select>
-          <option value="">Todas</option>
-          <option value="login">Login</option>
-          <option value="insert">Inserción</option>
-          <option value="update">Modificación</option>
-          <option value="delete">Eliminación</option>
-          <option value="query">Consulta</option>
-        </select>
+  <option value="">Todas</option>
+
+  <option value="LOGIN_SUCCESS">Login</option>
+  <option value="INSERT">Inserción</option>
+  <option value="UPDATE">Modificación</option>
+  <option value="DELETE">Eliminación</option>
+  <option value="GET">Consulta</option>
+
+</select>
       </div>
 
     </div>
 
     <div class="buttons">
-      <button class="btn-search">
+
+      <button class="btn-search" (click)="filtrar()">
         Buscar
       </button>
 
-      <button class="btn-clear">
+      <button class="btn-clear" (click)="limpiar()">
         Limpiar filtros
       </button>
+
     </div>
 
   </section>
@@ -79,90 +96,33 @@
 
       <tbody>
 
-        <tr>
-          <td>admin</td>
-          <td>25/05/2026 08:15 AM</td>
-          <td>192.168.1.15</td>
-          <td>PC-ADMIN</td>
+        <tr *ngFor="let b of logsFiltrados">
 
-          <td>
-            <span class="tag login">
-              LOGIN
-            </span>
-          </td>
+  <!-- Usuario real del backend -->
+  <td>{{ b.adminNombre }}</td>
 
-          <td>
-            Inicio de sesión exitoso en el sistema
-          </td>
-        </tr>
+  <!-- Fecha real -->
+  <td>
+    {{ b.fechaHora | date:'dd/MM/yyyy hh:mm a' }}
+  </td>
 
-        <tr>
-          <td>yoselin</td>
-          <td>25/05/2026 08:32 AM</td>
-          <td>192.168.1.18</td>
-          <td>LAPTOP-YOS</td>
+  <!-- IP real -->
+  <td>{{ b.ipAddress }}</td>
 
-          <td>
-            <span class="tag insert">
-              INSERCIÓN
-            </span>
-          </td>
+  <!-- Máquina real -->
+  <td>{{ b.nombreDispositivo }}</td>
 
-          <td>
-            Se insertó un nuevo cliente en la base de datos
-          </td>
-        </tr>
+  <!-- Operación -->
+  <td>
+    <span class="tag {{ b.operacion.toLowerCase() }}">
+      {{ b.operacion | uppercase }}
+    </span>
+  </td>
 
-        <tr>
-          <td>silvia</td>
-          <td>25/05/2026 09:10 AM</td>
-          <td>192.168.1.20</td>
-          <td>DESKTOP-SILVIA</td>
+  <!-- Detalle -->
+  <td>{{ b.detalle }}</td>
 
-          <td>
-            <span class="tag update">
-              MODIFICACIÓN
-            </span>
-          </td>
-
-          <td>
-            Se actualizó la información del producto #105
-          </td>
-        </tr>
-
-        <tr>
-          <td>admin</td>
-          <td>25/05/2026 10:05 AM</td>
-          <td>192.168.1.15</td>
-          <td>PC-ADMIN</td>
-
-          <td>
-            <span class="tag delete">
-              ELIMINACIÓN
-            </span>
-          </td>
-
-          <td>
-            Se eliminó la orden #2058
-          </td>
-        </tr>
-
-        <tr>
-          <td>yoselin</td>
-          <td>25/05/2026 11:20 AM</td>
-          <td>192.168.1.18</td>
-          <td>LAPTOP-YOS</td>
-
-          <td>
-            <span class="tag query">
-              CONSULTA
-            </span>
-          </td>
-
-          <td>
-            Consulta de reporte financiero mensual
-          </td>
-        </tr>
+</tr>
 
       </tbody>
 

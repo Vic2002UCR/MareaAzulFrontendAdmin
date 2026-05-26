@@ -1,70 +1,110 @@
-*{
-  box-sizing: border-box;
-}
-
-.container{
-  padding: 30px;
-  background: #f4f6f9;
+:host{
+  display: block;
+  width: 100%;
   min-height: 100vh;
+  background: #f4f6f9;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* SOLO AFECTA ESTE COMPONENTE */
+.container,
+.container *{
+  box-sizing: border-box;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container{
+  width: 100%;
+  max-width: 100%;
+  padding: clamp(15px, 3vw, 30px);
+  min-height: 100vh;
+}
+
+/* TITULOS */
 h1{
   margin-bottom: 25px;
   color: #1f2937;
-}
-
-.filters{
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: bold;
 }
 
 .filters h2{
   margin-bottom: 20px;
   color: #374151;
+  font-size: clamp(1rem, 2vw, 1.4rem);
 }
 
+/* FILTROS */
+.filters{
+  width: 100%;
+  background: white;
+  padding: clamp(18px, 3vw, 25px);
+  border-radius: 14px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* GRID RESPONSIVO */
 .filter-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+  width: 100%;
 }
 
+/* FORMULARIOS */
 .form-group{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .form-group label{
   margin-bottom: 8px;
   font-weight: bold;
   color: #4b5563;
+  font-size: 14px;
 }
 
 .form-group input,
 .form-group select{
-  padding: 10px;
-  border-radius: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
   border: 1px solid #d1d5db;
   outline: none;
+  font-size: 14px;
+  background: white;
+  transition: all 0.25s ease;
 }
 
+.form-group input:focus,
+.form-group select:focus{
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+}
+
+/* BOTONES */
 .buttons{
   margin-top: 25px;
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
 
 button{
-  padding: 12px 20px;
+  padding: 12px 22px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  font-size: 14px;
+}
+
+button:hover{
+  transform: translateY(-2px);
 }
 
 .btn-search{
@@ -85,44 +125,70 @@ button{
   background: #d1d5db;
 }
 
+/* TABLA */
 .table-container{
+  width: 100%;
   background: white;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow-x: auto;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
+/* TABLA RESPONSIVA */
 table{
   width: 100%;
   border-collapse: collapse;
-  min-width: 1200px;
+  min-width: 1000px;
 }
 
+/* HEADER */
 thead{
   background: #1f2937;
   color: white;
 }
 
-th,
-td{
-  padding: 14px;
+th{
+  padding: 16px;
   text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* CELDAS */
+td{
+  padding: 14px 16px;
   border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #374151;
+  white-space: nowrap;
+}
+
+/* HOVER */
+tbody tr{
+  transition: 0.2s ease;
 }
 
 tbody tr:hover{
   background: #f9fafb;
 }
 
+/* TAGS */
 .tag{
-  padding: 6px 12px;
-  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 999px;
   color: white;
   font-size: 12px;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.login{
+/* COLORES OPERACIONES */
+.login_success{
   background: #7c3aed;
 }
 
@@ -138,6 +204,104 @@ tbody tr:hover{
   background: #dc2626;
 }
 
-.query{
+.query,
+.get{
   background: #2563eb;
+}
+
+.default{
+  background: #6b7280;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 900px){
+
+  .container{
+    padding: 20px;
+  }
+
+  .filter-grid{
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  table{
+    min-width: 850px;
+  }
+
+  th,
+  td{
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  button{
+    flex: 1;
+  }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 600px){
+
+  .container{
+    padding: 15px;
+  }
+
+  h1{
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+
+  .filters{
+    padding: 18px;
+  }
+
+  .filter-grid{
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .buttons{
+    flex-direction: column;
+  }
+
+  button{
+    width: 100%;
+  }
+
+  table{
+    min-width: 700px;
+  }
+
+  th,
+  td{
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .tag{
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+}
+
+/* =========================
+   PANTALLAS GRANDES
+========================= */
+@media (min-width: 1600px){
+
+  .container{
+    max-width: 1700px;
+    margin: auto;
+  }
+
+  table{
+    min-width: 100%;
+  }
+
 }
