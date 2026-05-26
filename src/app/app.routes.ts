@@ -11,6 +11,7 @@ import { PublicidadComponent } from './publicidad/publicidad.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { authGuard } from './guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BitacoraComponent } from './bitacora/bitacora.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'ofertas', component: OfertasComponent, canActivate: [authGuard] },
   { path: 'publicidad', component: PublicidadComponent, canActivate: [authGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+   { path: 'bitacora', component: BitacoraComponent, canActivate: [authGuard] },
 
   // Fallback
   { path: '**', redirectTo: 'inicio' }
