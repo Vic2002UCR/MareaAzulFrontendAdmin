@@ -52,7 +52,23 @@ export class DashboardComponent implements OnInit {
     }
   };
 
+  public reservasChartData?: ChartConfiguration<'doughnut'>['data'];
+  public reservasChartType: 'doughnut' = 'doughnut';
 
+  public reservasChartOptions: ChartConfiguration<'doughnut'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: '#333',
+          font: { size: 14 }
+        }
+      }
+    }
+  };
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -64,13 +80,13 @@ export class DashboardComponent implements OnInit {
         this.metrics = data;
 
         this.lineChartData = {
-          labels: [...data.meses], 
+          labels: [...data.meses],
           datasets: [
             {
-             
+
               data: [...data.ingresosMensuales],
               label: 'Ingresos Mensuales ($)',
-              backgroundColor: 'rgba(223, 169, 116, 0.2)', 
+              backgroundColor: 'rgba(223, 169, 116, 0.2)',
               borderColor: 'rgba(223, 169, 116, 1)',
               pointBackgroundColor: 'rgba(223, 169, 116, 1)',
               fill: 'origin',
@@ -83,7 +99,21 @@ export class DashboardComponent implements OnInit {
           datasets: [
             {
               data: [data.habitacionesOcupadas, data.habitacionesDisponibles],
-              backgroundColor: ['#dfa974', '#111111']
+              backgroundColor: ['#ec5945', '#e9e596c2']
+            }
+          ]
+        };
+
+        this.reservasChartData = {
+          labels: ['Confirmadas', 'Pendientes', 'Canceladas'],
+          datasets: [
+            {
+              data: [
+                data.reservasConfirmadas,
+                data.reservasPendientes,
+                data.reservasCanceladas
+              ],
+              backgroundColor: ['#4caf50', '#e0a76f', '#ec5945']
             }
           ]
         };
