@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HabitacionAdminRepository, HabitacionAdmin } from '../../domain/interfaces/habitacion-admin.repository';
 import { environment } from '../../../environments/environment';
+import { ResumenHabitacion } from '../../domain/entities/resumen-habitacion.entity';
 
 @Injectable()
 export class HabitacionAdminRemoteRepository implements HabitacionAdminRepository {
@@ -29,4 +30,8 @@ export class HabitacionAdminRemoteRepository implements HabitacionAdminRepositor
   toggleEstado(id: number): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/${id}/estado`, {});
   }
+
+  getResumenPorTipo(): Observable<ResumenHabitacion[]> {
+  return this.http.get<ResumenHabitacion[]>(`${this.apiUrl}/resumen-por-tipo`);
+}
 }

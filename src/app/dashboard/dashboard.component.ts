@@ -105,15 +105,14 @@ export class DashboardComponent implements OnInit {
         };
 
         this.reservasChartData = {
-          labels: ['Confirmadas', 'Pendientes', 'Canceladas'],
+          labels: ['Confirmadas', 'Canceladas'],
           datasets: [
             {
               data: [
                 data.reservasConfirmadas,
-                data.reservasPendientes,
                 data.reservasCanceladas
               ],
-              backgroundColor: ['#4caf50', '#e0a76f', '#ec5945']
+              backgroundColor: ['#4caf50', '#ec5945']
             }
           ]
         };

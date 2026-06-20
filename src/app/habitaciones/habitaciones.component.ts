@@ -7,6 +7,7 @@ import { GetTiposHabitacionUseCase } from '../application/get-tipos-habitacion.u
 import { UpdateTipoHabitacionUseCase } from '../application/update-tipo-habitacion.use-case';
 import { TipoHabitacionRepository } from '../domain/interfaces/tipo-habitacion.repository';
 import { UploadService } from '../infrastructure/services/upload.service';
+import { ResumenHabitacion } from '../domain/entities/resumen-habitacion.entity';
 
 @Component({
   selector: 'app-habitaciones',
@@ -28,7 +29,7 @@ export class HabitacionesComponent implements OnInit {
 
   // ── Modal notificación (éxito / error de página) ─────────────────────
   mostrarNotif = false;
-  textoNotif   = '';
+  textoNotif = '';
   tipoNotif: 'exito' | 'error' = 'exito';
   private notifTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -42,7 +43,7 @@ export class HabitacionesComponent implements OnInit {
   readonly visiblesCount = 3;
 
   get tiposVisibles(): TipoHabitacion[] {
-    return this.tiposHabitacion.slice(this.carouselIndex, this.carouselIndex + this.visiblesCount);
+    return this.tiposFiltrados.slice(this.carouselIndex, this.carouselIndex + this.visiblesCount);
   }
   get trackTransform(): string {
     const pct = this.carouselIndex * (100 / this.visiblesCount);
@@ -50,7 +51,7 @@ export class HabitacionesComponent implements OnInit {
   }
 
   puedeAnterior(): boolean { return this.carouselIndex > 0; }
-  puedeSiguiente(): boolean { return this.carouselIndex + this.visiblesCount < this.tiposHabitacion.length; }
+  puedeSiguiente(): boolean { return this.carouselIndex + this.visiblesCount < this.tiposFiltrados.length; }
   anterior(): void { if (this.puedeAnterior()) this.carouselIndex--; }
   siguiente(): void { if (this.puedeSiguiente()) this.carouselIndex++; }
 
@@ -74,8 +75,38 @@ export class HabitacionesComponent implements OnInit {
   mostrarConfirmarEliminarHab = false;
   habAEliminar: HabitacionAdmin | null = null;
 
+  // ── Filtro por tipo ──────────────────────────────────────────────────
+  tipoFiltroId: number | '' = '';
+
+  get tiposFiltrados(): TipoHabitacion[] {
+    if (this.tipoFiltroId === '') return this.tiposHabitacion;
+    return this.tiposHabitacion.filter(t => t.id === this.tipoFiltroId);
+  }
+
+  resumenPorTipo: Map<number, ResumenHabitacion> = new Map();
+
+  cargarResumen(): void {
+    this.habAdminRepo.getResumenPorTipo().subscribe({
+      next: data => {
+        this.resumenPorTipo = new Map(data.map(r => [r.tipoId, r]));
+      },
+      error: () => { } // silencioso, no es crítico para la vista
+    });
+  }
+
+  getEstadoTexto(tipoId: number): string {
+    const r = this.resumenPorTipo.get(tipoId);
+    if (!r) return '';
+    return `${r.disponibles} de ${r.total} disponibles`;
+  }
+
+  onFiltroChange(): void {
+    this.carouselIndex = 0;
+  }
+
   ngOnInit(): void {
     this.cargarTipos();
+    this.cargarResumen();
   }
 
   cargarTipos(): void {
@@ -182,6 +213,7 @@ export class HabitacionesComponent implements OnInit {
         this.cerrarModal();
         this.mostrarExito('Habitación actualizada correctamente');
         this.cargarTipos();
+        this.cargarResumen();
       },
       error: err => {
         this.guardando = false;
@@ -247,7 +279,7 @@ export class HabitacionesComponent implements OnInit {
 
   toggleEstado(hab: HabitacionAdmin): void {
     this.habAdminRepo.toggleEstado(hab.idHabitacion).subscribe({
-      next: () => hab.estado = !hab.estado,
+      next: () => { hab.estado = !hab.estado; this.cargarResumen(); },
       error: () => this.errorModal = 'Error al cambiar el estado'
     });
   }
@@ -260,9 +292,9 @@ export class HabitacionesComponent implements OnInit {
 
   private abrirNotif(tipo: 'exito' | 'error', msg: string): void {
     if (this.notifTimer) clearTimeout(this.notifTimer);
-    this.tipoNotif   = tipo;
-    this.textoNotif  = msg;
+    this.tipoNotif = tipo;
+    this.textoNotif = msg;
     this.mostrarNotif = true;
-    this.notifTimer  = setTimeout(() => this.mostrarNotif = false, 3500);
+    this.notifTimer = setTimeout(() => this.mostrarNotif = false, 3500);
   }
 }

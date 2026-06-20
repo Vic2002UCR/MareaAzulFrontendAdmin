@@ -2,6 +2,18 @@
 
   <div class="hab-header">
     <h1>Habitaciones</h1>
+
+    <div class="hab-filtro">
+      <label for="filtroTipo">Filtrar por tipo:</label>
+      <select id="filtroTipo" [(ngModel)]="tipoFiltroId" (ngModelChange)="onFiltroChange()">
+        <option [ngValue]="''">Todos</option>
+        @for (tipo of tiposHabitacion; track tipo.id) {
+          <option [ngValue]="tipo.id">{{ tipo.nombre }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="hab-header-spacer"></div>
   </div>
 
   <!-- CARRUSEL DE TARJETAS -->
@@ -10,7 +22,7 @@
       <button class="flecha flecha-izq" (click)="anterior()" [disabled]="!puedeAnterior()">&#8249;</button>
       <div class="carousel-viewport">
         <div class="carousel-track" [style.transform]="trackTransform">
-          @for (tipo of tiposHabitacion; track tipo) {
+          @for (tipo of tiposFiltrados; track tipo.id) {
             <div class="room-card">
               <!-- Imagen de fondo -->
               <div class="card-bg" [style.background-image]="'url(' + tipo.imgUrl + ')'">
@@ -18,6 +30,7 @@
                 <div class="card-info-min">
                   <span class="card-nombre">{{ tipo.nombre }}</span>
                   <span class="card-precio">${{ tipo.tarifa }}</span>
+                  <span class="card-estado">{{ getEstadoTexto(tipo.id) }}</span>
                 </div>
                 <!-- Overlay completo al hacer hover -->
                 <div class="card-overlay">
@@ -26,6 +39,7 @@
                     <p class="overlay-precio">${{ tipo.tarifa }}</p>
                     <p class="overlay-detalle">Capacidad: Max {{ tipo.capacidad }}</p>
                     <p class="overlay-detalle">Descripción: {{ tipo.descripcion }}</p>
+                    <p class="overlay-detalle overlay-estado">{{ getEstadoTexto(tipo.id) }}</p>
                   </div>
                   <div class="card-buttons">
                     <button class="btn-editar" (click)="abrirEditar(tipo)">Editar</button>
@@ -42,9 +56,9 @@
   }
 
   <!-- Indicador de posición -->
-  @if (tiposHabitacion.length > visiblesCount) {
+  @if (tiposFiltrados.length > visiblesCount) {
     <div class="carousel-indicador">
-      @for (tipo of tiposHabitacion; track tipo; let i = $index) {
+      @for (tipo of tiposFiltrados; track tipo.id; let i = $index) {
         <span
           class="dot"
           [class.dot-activo]="i >= carouselIndex && i < carouselIndex + visiblesCount">
@@ -53,8 +67,7 @@
     </div>
   }
 
-  <!-- Sin tipos -->
-  @if (tiposHabitacion.length === 0) {
+  @if (tiposFiltrados.length === 0) {
     <div class="sin-datos">
       No hay tipos de habitación registrados.
     </div>

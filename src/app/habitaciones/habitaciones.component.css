@@ -416,3 +416,62 @@
 .notif-exito .btn-notif-ok { background: #d4a373; }
 .notif-error .btn-notif-ok { background: #b87235; }
 .btn-notif-ok:hover { opacity: 0.85; }
+
+.hab-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 16px;
+  padding-bottom: 8px;
+}
+
+.hab-header h1 {
+  justify-self: start;
+}
+
+.hab-filtro {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.hab-header-spacer {
+  justify-self: end;
+}
+
+.hab-filtro label {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  color: #2c3e50;
+}
+
+.hab-filtro select {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #2c3e50;
+  padding: 4px 24px 6px 2px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%232c3e50'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  transition: border-color 0.2s ease;
+}
+
+.hab-filtro select:hover,
+.hab-filtro select:focus {
+  border-bottom-color: #d9a25d;
+  outline: none;
+}
+
+.hab-filtro select option {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #2c3e50;
+}
