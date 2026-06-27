@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 
-// 1. IMPORTA LOS ELEMENTOS REQUERIDOS DE CHART.JS
 import {
   Chart,
   registerables
@@ -11,8 +10,8 @@ import {
 import { GetDashboardMetricsUseCase } from '../application/get-dashboard-metrics.use-case';
 import { DashboardMetrics } from '../domain/entities/dashboard.entity';
 import { ChartConfiguration, ChartType } from 'chart.js';
+import { AlertService } from '../shared/alerts/alert/alert.service';
 
-// 2. REGISTRA LOS ELEMENTOS GLOBALMENTE ANTES DEL COMPONENTE
 Chart.register(...registerables);
 
 @Component({
@@ -27,6 +26,9 @@ export class DashboardComponent implements OnInit {
 
   metrics?: DashboardMetrics;
   cargando = true;
+  errorGraficos = false;
+
+  constructor(private alertService: AlertService) {}
 
   public lineChartData?: ChartConfiguration['data'];
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -54,7 +56,6 @@ export class DashboardComponent implements OnInit {
 
   public reservasChartData?: ChartConfiguration<'doughnut'>['data'];
   public reservasChartType: 'doughnut' = 'doughnut';
-
   public reservasChartOptions: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
     maintainAspectRatio: false,
@@ -79,48 +80,71 @@ export class DashboardComponent implements OnInit {
       next: (data) => {
         this.metrics = data;
 
-        this.lineChartData = {
-          labels: [...data.meses],
-          datasets: [
-            {
+        try {
+          this.lineChartData = {
+            labels: [...data.meses],
+            datasets: [
+              {
+                data: [...data.ingresosMensuales],
+                label: 'Ingresos Mensuales ($)',
+                backgroundColor: 'rgba(223, 169, 116, 0.2)',
+                borderColor: 'rgba(223, 169, 116, 1)',
+                pointBackgroundColor: 'rgba(223, 169, 116, 1)',
+                fill: 'origin',
+              }
+            ]
+          };
 
-              data: [...data.ingresosMensuales],
-              label: 'Ingresos Mensuales ($)',
-              backgroundColor: 'rgba(223, 169, 116, 0.2)',
-              borderColor: 'rgba(223, 169, 116, 1)',
-              pointBackgroundColor: 'rgba(223, 169, 116, 1)',
-              fill: 'origin',
-            }
-          ]
-        };
+          this.doughnutChartData = {
+            labels: ['Ocupadas', 'Disponibles'],
+            datasets: [
+              {
+                data: [
+                  data.habitacionesOcupadas,
+                  data.habitacionesDisponibles
+                ],
+                backgroundColor: ['#ec5945', '#e9e596c2']
+              }
+            ]
+          };
 
-        this.doughnutChartData = {
-          labels: ['Ocupadas', 'Disponibles'],
-          datasets: [
-            {
-              data: [data.habitacionesOcupadas, data.habitacionesDisponibles],
-              backgroundColor: ['#ec5945', '#e9e596c2']
-            }
-          ]
-        };
+          this.reservasChartData = {
+            labels: ['Confirmadas', 'Canceladas'],
+            datasets: [
+              {
+                data: [
+                  data.reservasConfirmadas,
+                  data.reservasCanceladas
+                ],
+                backgroundColor: ['#4caf50', '#ec5945']
+              }
+            ]
+          };
 
-        this.reservasChartData = {
-          labels: ['Confirmadas', 'Canceladas'],
-          datasets: [
-            {
-              data: [
-                data.reservasConfirmadas,
-                data.reservasCanceladas
-              ],
-              backgroundColor: ['#4caf50', '#ec5945']
-            }
-          ]
-        };
+          this.errorGraficos = false;
+
+        } catch (error) {
+          this.errorGraficos = true;
+
+          this.lineChartData = undefined;
+          this.doughnutChartData = undefined;
+          this.reservasChartData = undefined;
+
+          this.alertService.error(
+            'No fue posible cargar los gráficos. Los datos generales del dashboard siguen disponibles.',
+            'Gráficos no cargados'
+          );
+        }
 
         this.cargando = false;
       },
       error: () => {
         this.cargando = false;
+
+        this.alertService.error(
+          'No fue posible cargar los datos del dashboard.',
+          'Error al cargar dashboard'
+        );
       }
     });
   }
