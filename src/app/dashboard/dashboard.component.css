@@ -94,3 +94,12 @@ h1 {
     grid-column: auto;
   }
 }
+
+.chart-error {
+  color: #b00020;
+  background-color: #fdecea;
+  border: 1px solid #f5c2c7;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
