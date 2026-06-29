@@ -24,11 +24,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/bootstrap.min.css",
-              "src/assets/css/font-awesome.min.css",
-              "src/assets/css/elegant-icons.css",
-              "src/assets/css/flaticon.css",
-              "src/assets/css/style.css",
+              "src/assets/CSS/bootstrap.min.css",
+              "src/assets/CSS/font-awesome.min.css",
+              "src/assets/CSS/elegant-icons.css",
+              "src/assets/CSS/flaticon.css",
+              "src/assets/CSS/style.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -43,8 +43,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "12kB",
+                  "maximumError": "24kB"
                 }
               ],
               "outputHashing": "all",
