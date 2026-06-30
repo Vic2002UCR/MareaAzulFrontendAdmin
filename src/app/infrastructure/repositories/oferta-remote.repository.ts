@@ -3,10 +3,11 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { OfertaRepository } from "../../domain/interfaces/oferta.repository";
 import { Oferta } from "../../domain/entities/oferta.entity";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class OfertaRemoteRepository implements OfertaRepository {
-  private apiUrl = "https://localhost:7151/api/oferta";
+  private apiUrl = `${environment.apiUrl}/oferta`;
 
   constructor(private http: HttpClient) {}
 

@@ -3,11 +3,12 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { TemporadaRepository } from "../../domain/interfaces/temporada.repository";
 import { Temporada } from "../../domain/entities/temporada.entity";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class TemporadaRemoteRepository implements TemporadaRepository {
 
-  private apiUrl = "https://localhost:7151/api/Temporada";
+  private apiUrl = `${environment.apiUrl}/Temporada`;
 
   constructor(private http: HttpClient) {}
 
