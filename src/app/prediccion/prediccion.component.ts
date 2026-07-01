@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgIf, NgFor, NgClass, CurrencyPipe, DecimalPipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, DecimalPipe } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, registerables } from 'chart.js';
 import { ChartConfiguration } from 'chart.js';
@@ -12,7 +12,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-prediccion',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, CurrencyPipe, DecimalPipe, BaseChartDirective],
+  imports: [NgIf, NgFor, NgClass, DecimalPipe, BaseChartDirective],
   templateUrl: './prediccion.component.html',
   styleUrl: './prediccion.component.css'
 })

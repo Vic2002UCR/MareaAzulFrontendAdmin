@@ -67,7 +67,7 @@
     <div class="kpi-card">
       <div class="kpi-icono">💰</div>
       <p class="kpi-label">Ingresos estimados</p>
-      <p class="kpi-valor dorado">{{ totalIngresosEstimados | currency:'USD':'symbol':'1.0-0' }}</p>
+      <p class="kpi-valor dorado">₡{{ totalIngresosEstimados | number:'1.0-0' }}</p>
       <p class="kpi-sub">próximos {{ mesesSeleccionados }} meses</p>
     </div>
 
@@ -122,7 +122,7 @@
             <td class="td-periodo">{{ formatearPeriodo(p.periodo) }}</td>
             <td class="td-reservas">{{ p.reservasPredichas | number:'1.0-0' }}</td>
             <td class="td-margen">{{ rangoReservas(p) }}</td>
-            <td class="td-ingresos">{{ p.ingresosPredichos | currency:'USD':'symbol':'1.0-0' }}</td>
+            <td class="td-ingresos">₡{{ p.ingresosPredichos | number:'1.0-0' }}</td>
             <td>
               <span class="badge" [ngClass]="nivelOcupacion(p.reservasPredichas)">
                 {{ nivelOcupacion(p.reservasPredichas) === 'alta' ? 'Alta' :

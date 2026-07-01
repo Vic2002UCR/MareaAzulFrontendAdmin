@@ -66,6 +66,7 @@
           <tr>
             <th>Habitación</th>
             <th>Tipo</th>
+            <th>Costo</th>
             <th>Estado</th>
           </tr>
         </thead>
@@ -74,6 +75,7 @@
             <tr>
               <td>{{ h.numeroHabitacion }}</td>
               <td>{{ h.tipoHabitacion }}</td>
+              <td>₡{{ h.costoTotal }}</td>
               <td>
                 <span [ngClass]="h.disponible ? 'estado disponible' : 'estado ocupada'">
                   {{ h.disponible ? 'Disponible' : 'Ocupada' }}
@@ -102,6 +104,7 @@
           <tr>
             <th>Habitación</th>
             <th>Tipo</th>
+            <th>Costo</th>
             <th>Estado</th>
           </tr>
         </thead>
@@ -110,6 +113,7 @@
             <tr>
               <td>{{ h.habitacionId }}</td>
               <td>{{ h.tipoHabitacion }}</td>
+              <td>₡{{ h.costo }}</td>
               <td>
                 <span [ngClass]="h.estado === 'DISPONIBLE' ? 'estado disponible' : 'estado ocupada'">
                   {{ h.estado }}

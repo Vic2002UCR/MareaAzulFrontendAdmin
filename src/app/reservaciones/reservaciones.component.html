@@ -45,7 +45,7 @@
         <span class="kpi-lbl">En el hotel</span>
       </div>
       <div class="kpi">
-        <span class="kpi-num">{{ ingresosEsperados | currency:'USD':'symbol':'1.0-0' }}</span>
+        <span class="kpi-num">₡{{ ingresosEsperados | number:'1.0-0' }}</span>
         <span class="kpi-lbl">Ingresos esperados</span>
       </div>
     </div>
@@ -141,7 +141,7 @@
     <div class="card-bottom">
       <div class="total">
         <span class="total-lbl">Total</span>
-        <span class="total-val">{{ r.totalPagar | currency:'USD':'symbol':'1.2-2' }}</span>
+        <span class="total-val">₡{{ r.totalPagar | number:'1.2-2' }}</span>
         <span class="badge-estado" [ngClass]="estadoClase(r.estado)">{{ r.estado }}</span>
       </div>
       <button

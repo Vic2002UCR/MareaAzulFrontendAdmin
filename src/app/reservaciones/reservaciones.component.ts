@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgIf, NgFor, NgClass, NgTemplateOutlet, CurrencyPipe, DatePipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, NgTemplateOutlet, DecimalPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ListarReservasUseCase } from '../application/listar-reservas.use-case';
@@ -11,7 +11,7 @@ import { AlertService } from '../shared/alerts/alert/alert.service';
 @Component({
   selector: 'app-reservaciones',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, NgTemplateOutlet, CurrencyPipe, DatePipe, FormsModule],
+  imports: [NgIf, NgFor, NgClass, NgTemplateOutlet, DecimalPipe, DatePipe, FormsModule],
   templateUrl: './reservaciones.component.html',
   styleUrl: './reservaciones.component.css'
 })

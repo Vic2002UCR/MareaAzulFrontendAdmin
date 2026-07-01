@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
             {
 
               data: [...data.ingresosMensuales],
-              label: 'Ingresos Mensuales ($)',
+              label: 'Ingresos Mensuales (₡)',
               backgroundColor: 'rgba(223, 169, 116, 0.2)',
               borderColor: 'rgba(223, 169, 116, 1)',
               pointBackgroundColor: 'rgba(223, 169, 116, 1)',
