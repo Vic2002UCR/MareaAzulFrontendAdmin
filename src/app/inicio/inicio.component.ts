@@ -39,10 +39,10 @@ export class InicioComponent {
 
     this.loginUseCase.execute(request).subscribe({
       next: (response: LoginResponse) => {
-        localStorage.setItem('accessToken', response.tokens.accessToken);
-        localStorage.setItem('refreshToken', response.tokens.refreshToken);
+        sessionStorage.setItem('accessToken', response.tokens.accessToken);
+        sessionStorage.setItem('refreshToken', response.tokens.refreshToken);
 
-        localStorage.setItem('admin', JSON.stringify(response.admin));
+        sessionStorage.setItem('admin', JSON.stringify(response.admin));
 
         this.loading = false;
         this.router.navigate(['/sitio']);
