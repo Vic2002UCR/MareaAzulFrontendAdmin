@@ -66,14 +66,19 @@
       <div class="form-grid">
         <div class="form-left">
           <label>Imagen</label>
-          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-          @if (publicidadForm.imageUrl) {
-            <div class="preview">
+          <div class="preview">
+            @if (publicidadForm.imageUrl) {
               <img [src]="publicidadForm.imageUrl" alt="Vista previa de publicidad" />
-            </div>
-          }
+            } @else {
+              <span class="preview-vacio">Sin imagen</span>
+            }
+          </div>
+          <label class="btn-subir-archivo" for="fileInputPublicidad">Seleccionar imagen</label>
+          <input id="fileInputPublicidad" type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+        </div>
+        <div class="form-right">
           <label>Link</label>
-          <input type="text" [(ngModel)]="publicidadForm.link" />
+          <input type="text" placeholder="https://..." [(ngModel)]="publicidadForm.link" />
           <label>Orden</label>
           <input type="number" [(ngModel)]="publicidadForm.orden" />
           <label>Estado</label>
