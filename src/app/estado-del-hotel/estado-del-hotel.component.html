@@ -1,49 +1,47 @@
 <div class="encabezado-reporte">
-
   <h1>Estado del Hotel</h1>
-
-
-
 </div>
 
 <div class="contenedor">
 
   <!-- FORMULARIO -->
-  <form [formGroup]="form" class="filtros">
+  <form [formGroup]="form" class="filtros-card">
+    <div class="filtros">
 
-    <div class="campo">
-      <label>Fecha Inicio</label>
-      <input type="date" formControlName="fechaInicio">
+      <div class="campo">
+        <label>Fecha Inicio</label>
+        <input type="date" formControlName="fechaInicio">
+      </div>
+
+      <div class="campo">
+        <label>Fecha Fin</label>
+        <input type="date" formControlName="fechaFin">
+      </div>
+
+      <div class="campo">
+        <label>Tipo de habitación</label>
+        <select formControlName="tipoId">
+          <option value="">Todos</option>
+          @for (tipo of tiposHabitacion; track tipo) {
+            <option [value]="tipo.id">
+              {{ tipo.nombre }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="acciones">
+        <button type="button" class="btn" (click)="consultar()">
+          Consultar
+        </button>
+
+        <button type="button" class="btn secundario" (click)="estadoHoy()">
+          Al día de hoy
+        </button>
+
+      </div>
+
     </div>
-
-    <div class="campo">
-      <label>Fecha Fin</label>
-      <input type="date" formControlName="fechaFin">
-    </div>
-
-    <div class="campo">
-      <label>Tipo de habitación</label>
-      <select formControlName="tipoId">
-        <option value="">Todos</option>
-        @for (tipo of tiposHabitacion; track tipo) {
-          <option [value]="tipo.id">
-            {{ tipo.nombre }}
-          </option>
-        }
-      </select>
-    </div>
-
-    <div class="acciones">
-      <button type="button" class="btn" (click)="consultar()">
-        Consultar
-      </button>
-
-      <button type="button" class="btn secundario" (click)="estadoHoy()">
-        Al día de hoy
-      </button>
-
-    </div>
-
   </form>
 
   <!-- LOADING -->
@@ -62,30 +60,30 @@
 
   <!-- TABLA DISPONIBILIDAD -->
   @if (!mostrandoEstadoHoy && resultadosDisponibilidad.length) {
-    <table>
-      <thead>
-        <tr>
-          <th>Habitación</th>
-          <th>Tipo</th>
-          <th>Costo</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (h of resultadosDisponibilidad; track h) {
+    <div class="tabla-wrapper">
+      <table>
+        <thead>
           <tr>
-            <td>{{ h.numeroHabitacion }}</td>
-            <td>{{ h.tipoHabitacion }}</td>
-            <td>{{ h.costoTotal | currency:'$' }}</td>
-            <td>
-              <span [ngClass]="h.disponible ? 'estado disponible' : 'estado ocupada'">
-                {{ h.disponible ? 'Disponible' : 'Ocupada' }}
-              </span>
-            </td>
+            <th>Habitación</th>
+            <th>Tipo</th>
+            <th>Estado</th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (h of resultadosDisponibilidad; track h) {
+            <tr>
+              <td>{{ h.numeroHabitacion }}</td>
+              <td>{{ h.tipoHabitacion }}</td>
+              <td>
+                <span [ngClass]="h.disponible ? 'estado disponible' : 'estado ocupada'">
+                  {{ h.disponible ? 'Disponible' : 'Ocupada' }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 
   <!-- TITULO ESTADO HOY -->
@@ -98,28 +96,30 @@
 
   <!-- TABLA ESTADO HOY -->
   @if (mostrandoEstadoHoy && resultadosEstado.length) {
-    <table>
-      <thead>
-        <tr>
-          <th>Habitación</th>
-          <th>Tipo</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (h of resultadosEstado; track h) {
+    <div class="tabla-wrapper">
+      <table>
+        <thead>
           <tr>
-            <td>{{ h.habitacionId }}</td>
-            <td>{{ h.tipoHabitacion }}</td>
-            <td>
-              <span [ngClass]="h.estado === 'DISPONIBLE' ? 'estado disponible' : 'estado ocupada'">
-                {{ h.estado }}
-              </span>
-            </td>
+            <th>Habitación</th>
+            <th>Tipo</th>
+            <th>Estado</th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (h of resultadosEstado; track h) {
+            <tr>
+              <td>{{ h.habitacionId }}</td>
+              <td>{{ h.tipoHabitacion }}</td>
+              <td>
+                <span [ngClass]="h.estado === 'DISPONIBLE' ? 'estado disponible' : 'estado ocupada'">
+                  {{ h.estado }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 
   <!-- MENSAJE -->

@@ -85,28 +85,60 @@
   @if (mostrarModal) {
     <div class="modal-backdrop">
       <div class="modal-form">
-        <h3 class="modal-titulo">Oferta</h3>
-        <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
-        <textarea
-          [(ngModel)]="nuevaOferta.descripcion"
-          placeholder="Descripción"
-        ></textarea>
-        <!-- <input [(ngModel)]="nuevaOferta.imageUrl" placeholder="Imagen URL" /> -->
-        <input type="file" (change)="onFileSelected($event)" />
-        <input
-          type="number"
-          [(ngModel)]="nuevaOferta.descuento"
-          placeholder="Descuento %"
-          />
-          <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
-          <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
-          <div class="acciones-modal">
-            <button (click)="cancelarEdicion()">Cancelar</button>
-            <button (click)="guardarOferta()">Guardar</button>
+        <h3 class="modal-titulo">{{ nuevaOferta.id ? 'Editar Oferta' : 'Agregar Oferta' }}</h3>
+
+        <div class="form-grid">
+          <div class="form-left">
+            <label>Imagen</label>
+            <div class="preview">
+              @if (nuevaOferta.imageUrl) {
+                <img [src]="nuevaOferta.imageUrl" alt="Vista previa de oferta" />
+              } @else {
+                <span class="preview-vacio">Sin imagen</span>
+              }
+            </div>
+            <label class="btn-subir-archivo" for="fileInputOferta">Seleccionar imagen</label>
+            <input id="fileInputOferta" type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+          </div>
+
+          <div class="form-right">
+            <label>Nombre</label>
+            <input [(ngModel)]="nuevaOferta.nombre" placeholder="Nombre" />
+
+            <label>Descripción</label>
+            <textarea
+              [(ngModel)]="nuevaOferta.descripcion"
+              placeholder="Descripción"
+              rows="3"
+            ></textarea>
+
+            <label>Descuento (%)</label>
+            <input
+              type="number"
+              [(ngModel)]="nuevaOferta.descuento"
+              placeholder="Descuento %"
+            />
+
+            <div class="fechas-grid">
+              <div>
+                <label>Fecha inicio</label>
+                <input type="date" [(ngModel)]="nuevaOferta.fechaInicio" />
+              </div>
+              <div>
+                <label>Fecha fin</label>
+                <input type="date" [(ngModel)]="nuevaOferta.fechaFin" />
+              </div>
+            </div>
           </div>
         </div>
+
+        <div class="acciones-modal">
+          <button (click)="cancelarEdicion()">Cancelar</button>
+          <button (click)="guardarOferta()">{{ nuevaOferta.id ? 'Guardar' : 'Agregar' }}</button>
+        </div>
       </div>
-    }
+    </div>
+  }
 
     <!-- ALERTA -->
     @if (mostrarConfirmacion) {
